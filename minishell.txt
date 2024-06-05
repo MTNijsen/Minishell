@@ -1,0 +1,47 @@
+shell itself
+	parsing
+		redirections < > << >> (check if these are not already covered by pipex bonus) > overwrites >> adds and both also make the file if not present << is heredoc is a part of pipex < passes the output in a temporary file
+		environment variables (setting, creating and reading)
+		' ' and " "
+	prompt
+	pathfinding for builtins (aka go to our funcs)
+	signal handling (only for ctrl-C ctrl-D ctrl-\)(shell and child process handling seperate)
+	$ (gives exit status of most recent)
+	history
+
+builtins no more options then it states 
+(though it should not crash with unexpected flags)
+(it should be able to be piped into and out of without crashing, hanging is allowed if bash does it)
+	echo with -n (-n without automatic newline) (echo -nnnnnnn -nnnnnn hello gives "hello", echo -nnn -nmn -nn hello gives "-nmn -nn hello")
+	cd only relative or absolute (beware with pipe and unset previous) (bash if previous directory is rm -r or moved it doesnt give permission and tells you fu (cd -)) (doesnt care if env variable pwd or old pwd is unset) ("cd" cares if home env variable is set, "cd ~" doesnt)
+	pwd no options  (doesnt care if env variable pwd or old pwd is unset) (doesnt update when path is modified in a different window till you change directory again)
+	export no options (export variable=124 creates variable and assigns it)
+	unset no options
+	env no options (env )
+	exit no options (the most difficult)
+	pipe (steal from pipex)
+
+unset env variable PATH means some builtins dont work anymore as they cant be found anymore
+command delimiters like ; and \ dont need to be done so only thru pipe and redirections should there be multiple commands
+
+common enviroment variables
+    SHELL: This describes the shell that will be interpreting any commands you type in. In most cases, this will be bash by default, but other values can be set if you prefer other options.
+    TERM: This specifies the type of terminal to emulate when running the shell. Different hardware terminals can be emulated for different operating requirements. You usually won’t need to worry about this though.
+    USER: The current logged in user.
+    PWD: The current working directory.
+    OLDPWD: The previous working directory. This is kept by the shell in order to switch back to your previous directory by running cd -.
+    LS_COLORS: This defines color codes that are used to optionally add colored output to the ls command. This is used to distinguish different file types and provide more info to the user at a glance.
+    MAIL: The path to the current user’s mailbox.
+    PATH: A list of directories that the system will check when looking for commands. When a user types in a command, the system will check directories in this order for the executable.
+    LANG: The current language and localization settings, including character encoding.
+    HOME: The current user’s home directory.
+    _: The most recent previously executed command.
+
+	SHLVL: ... 
+
+nothing wrong with saying we dont handle that aslong as it doesnt crash, if it doesnt say it in the subject. Especially with cd interactions around removing directories
+
+#define _XOPEN_SOURCE 700 to get rid of typedef error surrounding struct sigaction (it also removes other warnings for other incomplete structs)
+
+
+$ after failed execution like invalid command is 127
