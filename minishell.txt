@@ -45,3 +45,9 @@ nothing wrong with saying we dont handle that aslong as it doesnt crash, if it d
 
 
 $ after failed execution like invalid command is 127
+
+
+flag tag is flawed as you need to check if its a valid flag for which you need to know the command before this, that seems out of scope for parser
+how do we have env variables aka envp as a char *envp[] or as a linked list
+make stringappend_line that appends frees first variable and adds newline for export and env
+need to not be seperate programs as you only need to be able to fork into them not run them outside of the shell change to function names after testing
