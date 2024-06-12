@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/06/12 12:20:01 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/06/12 12:32:53 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC_DIR			:=	src
 SRC_PARSER		:=	parser
 SRC_EXECUTOR	:=	executor
 SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR)
-SRC_FILES		:=	
+SRC_FILES		:=	main.c
 SRC				:=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ_DIR			:=	obj

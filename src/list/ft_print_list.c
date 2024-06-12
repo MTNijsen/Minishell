@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   ft_print_list.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 12:38:05 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/04/25 18:08:49 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/06/12 12:41:03 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-typedef struct s_output
+void	ft_lstprint(t_output *lst)
 {
-	char			*node;
-	int				type_node;
-	struct s_output	*next;
-}					t_output;
-
-#define COMMAND 1
-#define BUILTIN 2
-#define FLAG 3
-#define FILE 4
-#define STRING 5
-#define PIPE 6
-#define REDIRECT 7
-#define ENV_VARIABLE 8
-#define LAST_EXIT 9
-#define TYPE_NOT_FOUND 0
-
-#endif
+	while (lst != NULL)
+	{
+		ft_printf("%d ", lst->content);
+		lst = lst->next;
+	}
+	ft_printf("\n");
+}

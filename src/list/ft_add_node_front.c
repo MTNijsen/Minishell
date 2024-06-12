@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   ft_add_node_front.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 12:38:05 by lade-kon      ########   odam.nl         */
+/*   Created: 2023/10/17 22:03:05 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/06/12 12:40:06 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+/*Adds the node ’new’ at the beginning of the list.
+lst: The address of a pointer to the first link of a list.
+new: The address of a pointer to the node to be added to the list.*/
 
-typedef struct s_output
+#include "minishell.h"
+
+void	ft_lstadd_front(t_output **lst, t_output *new)
 {
-	char			*node;
-	int				type_node;
-	struct s_output	*next;
-}					t_output;
-
-#define COMMAND 1
-#define BUILTIN 2
-#define FLAG 3
-#define FILE 4
-#define STRING 5
-#define PIPE 6
-#define REDIRECT 7
-#define ENV_VARIABLE 8
-#define LAST_EXIT 9
-#define TYPE_NOT_FOUND 0
-
-#endif
+	if (new != NULL)
+	{
+		new->next = *lst;
+		*lst = new;
+	}
+}

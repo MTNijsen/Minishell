@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   ft_size_list.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 12:38:05 by lade-kon      ########   odam.nl         */
+/*   Created: 2023/10/25 14:00:33 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/06/12 12:41:09 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-typedef struct s_output
+int	ft_lstsize(t_output *lst)
 {
-	char			*node;
-	int				type_node;
-	struct s_output	*next;
-}					t_output;
+	int		i;
+	t_output	*current_node;
 
-#define COMMAND 1
-#define BUILTIN 2
-#define FLAG 3
-#define FILE 4
-#define STRING 5
-#define PIPE 6
-#define REDIRECT 7
-#define ENV_VARIABLE 8
-#define LAST_EXIT 9
-#define TYPE_NOT_FOUND 0
-
-#endif
+	i = 0;
+	current_node = lst;
+	if (current_node == NULL)
+		return (0);
+	while (current_node->next != NULL)
+	{
+		current_node = current_node->next;
+		i++;
+	}
+	if (current_node->next == NULL)
+		i++;
+	return (i);
+}

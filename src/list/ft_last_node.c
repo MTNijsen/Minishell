@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   ft_last_node.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 12:38:05 by lade-kon      ########   odam.nl         */
+/*   Created: 2023/10/25 14:12:28 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/06/12 12:38:31 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-typedef struct s_output
+t_output	*ft_last_node(t_output *lst)
 {
-	char			*node;
-	int				type_node;
-	struct s_output	*next;
-}					t_output;
+	t_output	*current_node;
 
-#define COMMAND 1
-#define BUILTIN 2
-#define FLAG 3
-#define FILE 4
-#define STRING 5
-#define PIPE 6
-#define REDIRECT 7
-#define ENV_VARIABLE 8
-#define LAST_EXIT 9
-#define TYPE_NOT_FOUND 0
-
-#endif
+	current_node = lst;
+	if (current_node == NULL)
+		return (NULL);
+	while (current_node->next != NULL)
+		current_node = current_node->next;
+	return (current_node);
+}

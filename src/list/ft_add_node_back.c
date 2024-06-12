@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   ft_lstadd_back.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 12:38:05 by lade-kon      ########   odam.nl         */
+/*   Created: 2023/10/25 14:16:41 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/06/12 12:37:34 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-typedef struct s_output
+void	ft_add_node_back(t_output **lst, t_output *new)
 {
-	char			*node;
-	int				type_node;
-	struct s_output	*next;
-}					t_output;
+	t_output	*last_node;
 
-#define COMMAND 1
-#define BUILTIN 2
-#define FLAG 3
-#define FILE 4
-#define STRING 5
-#define PIPE 6
-#define REDIRECT 7
-#define ENV_VARIABLE 8
-#define LAST_EXIT 9
-#define TYPE_NOT_FOUND 0
-
-#endif
+	if (*lst == NULL)
+		*lst = new;
+	else
+	{
+		last_node = ft_lstlast(*lst);
+		last_node->next = new;
+	}
+}
