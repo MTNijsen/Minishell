@@ -6,12 +6,14 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 12:38:05 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/06/12 18:34:14 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include "libft.h"
 
 typedef struct s_output
 {

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/25 16:53:55 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 12:40:44 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/06/12 18:35:01 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	ft_lstclear(t_output **lst, void (*del)(void*))
 	while (current_node->next != NULL)
 	{
 		next_node = current_node->next;
-		ft_lstdelone(current_node, del);
+		ft_delone_node(current_node, del);
 		current_node = next_node;
 	}
-	ft_lstdelone(current_node, del);
+	ft_delone_node(current_node, del);
 	*lst = NULL;
 }
