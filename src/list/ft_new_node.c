@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 21:57:39 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 18:35:28 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/06/12 19:14:05 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ the value of the parameter ’content’. The variable
 
 #include "minishell.h"
 
-t_output	*ft_newnode(void *content)
+t_output	*ft_new_node(void *content)
 {
 	t_output	*new_node;
 

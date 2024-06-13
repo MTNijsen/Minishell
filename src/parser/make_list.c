@@ -1,43 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   make_list.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/13 14:16:41 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/06/12 19:04:07 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/06/13 14:09:12 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**get_stdin_input(int fd)
+t_output	make_parse_list(char **input)
 {
-	char	*line;
-	char	**input;
+	t_output	*head;
+	char		*data;
+	int			i;
 
-	line = get_next_line(fd);
-	while (line)
+	head = NULL;
+	i = 0;
+	while (input[i])
 	{
-		input = ft_split(line, ' ');
-		free(line);
-		line = get_next_line(fd);
+		data = input[i];
+		ft_add_node_back(&head, ft_new_node(data));
+		i++;
 	}
-	free(line);
-	return (input);
-}
-
-int	main(int argc, char **argv)
-{
-	char	**input;
-
-	if (argc != 1)
-		ft_puterror_fd("That's too many arguments bro!", STDERR_FILENO);
-	while (1)
-	{
-		input = get_stdin_input(STDIN_FILENO);
-		parse(input);
-	}
-	return (0);
+	return	(head);
 }

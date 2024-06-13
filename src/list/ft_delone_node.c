@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/25 16:14:55 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 18:35:15 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/06/12 19:14:54 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ del: The address of the function used to delete the content.*/
 
 #include "minishell.h"
 
-void	ft_lstdelone(t_output *lst, void (*del)(void*))
+void	ft_delone_node(t_output *lst, void (*del)(void*))
 {
 	(*del)(lst->node);
 	free (lst);
