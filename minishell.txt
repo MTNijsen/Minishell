@@ -1,10 +1,9 @@
 shell itself
 	parsing
-		redirections < > << >> (check if these are not already covered by pipex bonus) > overwrites >> adds and both also make the file if not present << is heredoc is a part of pipex < passes the output in a temporary file
 		environment variables (setting, creating and reading)
 		' ' and " "
-	prompt
-	pathfinding for builtins (aka go to our funcs)
+		prompt
+	redirections < > << >> (check if these are not already covered by pipex bonus) > overwrites >> adds and both also make the file if not present << is heredoc is a part of pipex < passes the output in a temporary file
 	signal handling (only for ctrl-C ctrl-D ctrl-\)(shell and child process handling seperate)
 	$ (gives exit status of most recent)
 	history
@@ -51,3 +50,39 @@ flag tag is flawed as you need to check if its a valid flag for which you need t
 how do we have env variables aka envp as a char *envp[] or as a linked list
 make stringappend_line that appends frees first variable and adds newline for export and env
 need to not be seperate programs as you only need to be able to fork into them not run them outside of the shell change to function names after testing
+
+mnijsen@f1r1s7:~$ echo " '$PWD' " ' "$PWD" ' " " $PWD" " ' ' $PWD ' '
+ '/home/mnijsen'   "$PWD"    /home/mnijsen    /home/mnijsen  
+
+ order of expansion first env variables then quotes seen in $PA"TH"
+ programs who were were writen inside brackets are still executed as in "./a.out"
+
+mnijsen@f1r2s5:~/minishell_real$ export "PWD="=HELP
+mnijsen@f1r2s5:=HELP$ env | grep PWD
+PWD==HELP
+OLDPWD=/home/mnijsen
+mnijsen@f1r2s5:=HELP$ 
+
+mnijsen@f1r6s8:~$ rm help.txt 
+mnijsen@f1r6s8:~$ ls > help.txt | ls < help.txt
+bash: help.txt: No such file or directory
+mnijsen@f1r6s8:~$ ls > help.txt | ls < help.txt
+cpp	   goinfre     minishell       Pictures  sgoinfre   test4
+Desktop    hellothere  minishell_real  pipex	 Templates  test.txt
+Documents  help.txt    MLX42	       Public	 test	    text.txt
+Downloads  ls	       Music	       pwd	 test3	    Videos
+
+rules for enviroment variables
+    a-z, A-Z, _ and 0-9
+    May NOT begin with a number
+
+
+command arg arg arg < infile.txt | command "$env this is env" arg arg > outfile.txt
+($env = hello)
+broken into 
+
+command arg arg arg
+< infile.txt
+|
+command "hello this is env" arg arg
+> outfile.txt
