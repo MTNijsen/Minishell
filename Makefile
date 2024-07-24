@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/07/24 16:57:17 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/07/24 18:02:46 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,8 +69,7 @@ clean:
 	@make -C $(LIBFT_DIR) clean > /dev/null
 
 fclean: clean
-	@rm -f $(SERVER)
-	@rm -f $(CLIENT)
+	@rm -f $(NAME)
 	@make -C $(LIBFT_DIR) fclean > /dev/null
 
 re: fclean all
