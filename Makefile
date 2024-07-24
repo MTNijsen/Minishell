@@ -6,14 +6,17 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/07/24 14:22:32 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/07/24 16:57:17 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			:=	minishell
 
 CC				:=	cc
+#CFLAGS are the compiler flags: show all warnings and include debug info
 CFLAGS			:=	-Wall -Werror -Wextra #-g -fsanitize=address
+#LDFLAGS are linker flags
+LDFLAGS			:=	-lreadline
 
 LIBFT_DIR		:=	lib/libft
 LIBFT_A			:=	$(LIBFT_DIR)/libft.a
@@ -27,12 +30,12 @@ SRC_PARSER		:=	parser
 SRC_EXECUTOR	:=	executor
 SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR)
 SRC_FILES		:=	main.c \
-					token.c \
-					lexer.c \
-					parser.c \
-					$(addprefix $(SRC_PARSER)/, \
-					make_list.c \
-					parse.c)
+					# token.c \
+					# lexer.c \
+					# parser.c \
+					# $(addprefix $(SRC_PARSER)/, \
+					# make_list.c \
+					# parse.c)
 SRC				:=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ_DIR			:=	obj
@@ -47,7 +50,7 @@ $(LIBFT_A):
 	@make -C $(LIBFT_DIR) > /dev/null
 
 $(NAME): $(OBJ) $(LIBFT_A)
-	$(CC) $(CFLAGS) $(OBJ) $(INCLUDES) $(LIBFT_A) -o $(NAME)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(INCLUDES) $(LIBFT_A) -o $(NAME)
 
 $(OBJ_DIR)/$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)

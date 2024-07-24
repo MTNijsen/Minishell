@@ -1,30 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   list.h                                             :+:    :+:            */
+/*   structs.h                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/24 16:30:14 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/07/24 16:30:58 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIST_H
-# define LIST_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
 # include "minishell.h"
-# include "structs.h"
 
-void		ft_add_node_back(t_output **lst, t_output *new);
-void		ft_add_node_front(t_output **lst, t_output *new);
-void		ft_clear_list(t_output **lst, void (*del)(void*));
-void		ft_delone_node(t_output *lst, void (*del)(void*));
-t_output	*ft_last_node(t_output *lst);
-t_output	*ft_new_node(void *content);
-void		ft_print_list(t_output *lst);
-int			ft_size_list(t_output *lst);
+typedef enum e_type
+{
+	T_COMMAND,
+	T_BUILTIN,
+	T_FLAG,
+	T_FILE,
+	T_STRING,
+	T_PIPE,
+	T_REDIRECT,
+	T_ENV_VARIABLE,
+	T_LAST_EXIT,
+	T_TYPE_NOT_FOUND,
+	T_EOF,
+	T_UNKNOWN
+}	t_type;
 
-t_output	make_parse_list(char **input);
+typedef struct s_token
+{
+	char			*value;
+	t_type			type;
+}					t_token;
+
+typedef struct s_output
+{
+	t_token			token;
+	struct s_output	*next;
+}					t_output;
 
 #endif
