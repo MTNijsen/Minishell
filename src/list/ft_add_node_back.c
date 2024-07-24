@@ -6,15 +6,15 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/25 14:16:41 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 18:33:50 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/07/24 19:22:13 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_add_node_back(t_output **lst, t_output *new)
+void	ft_add_node_back(t_token **lst, t_token *new)
 {
-	t_output	*last_node;
+	t_token	*last_node;
 
 	if (*lst == NULL)
 		*lst = new;

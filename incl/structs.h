@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/24 18:00:55 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/07/24 20:10:28 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,16 @@
 # define STRUCTS_H
 
 # include "minishell.h"
-
+/** 
+* @brief The different enum types for the tokens
+*
+* @param TEXT is a string
+* @param PIPE (|)
+* @param IN_REDIRECT (>)
+* @param OUT_REDIRECT (<)
+* @param APP_REDIRECT (>>)
+* @param HEREDOC (<<)
+*/
 typedef enum e_type
 {
 	TEXT,

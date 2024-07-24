@@ -6,16 +6,16 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/25 14:00:33 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/13 14:11:00 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/07/24 19:22:13 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_size_list(t_output *lst)
+int	ft_size_list(t_token *lst)
 {
 	int			i;
-	t_output	*current_node;
+	t_token	*current_node;
 
 	i = 0;
 	current_node = lst;

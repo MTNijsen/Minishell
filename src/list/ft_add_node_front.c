@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 22:03:05 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 19:15:10 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/07/24 19:22:13 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ new: The address of a pointer to the node to be added to the list.*/
 
 #include "minishell.h"
 
-void	ft_add_node_front(t_output **lst, t_output *new)
+void	ft_add_node_front(t_token **lst, t_token *new)
 {
 	if (new != NULL)
 	{

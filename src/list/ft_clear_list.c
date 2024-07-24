@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/25 16:53:55 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/12 19:15:02 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/07/24 19:22:13 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ del: The address of the function used to delete the content of the node.*/
 
 #include "minishell.h"
 
-void	ft_clear_list(t_output **lst, void (*del)(void*))
+void	ft_clear_list(t_token **lst, void (*del)(void*))
 {
-	t_output	*current_node;
-	t_output	*next_node;
+	t_token	*current_node;
+	t_token	*next_node;
 
 	if (lst == NULL || *lst == NULL)
 		return ;

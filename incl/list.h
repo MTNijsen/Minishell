@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/24 18:06:04 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/07/24 19:22:13 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 # include "minishell.h"
 # include "structs.h"
 
-void		ft_add_node_back(t_output **lst, t_output *new);
-void		ft_add_node_front(t_output **lst, t_output *new);
-void		ft_clear_list(t_output **lst, void (*del)(void*));
-void		ft_delone_node(t_output *lst, void (*del)(void*));
-t_output	*ft_last_node(t_output *lst);
-t_output	*ft_new_node(void *content);
-void		ft_print_list(t_output *lst);
-int			ft_size_list(t_output *lst);
+void		ft_add_node_back(t_token **lst, t_token *new);
+void		ft_add_node_front(t_token **lst, t_token *new);
+void		ft_clear_list(t_token **lst, void (*del)(void*));
+void		ft_delone_node(t_token *lst, void (*del)(void*));
+t_token	*ft_last_node(t_token *lst);
+t_token	*ft_new_node(void *content);
+void		ft_print_list(t_token *lst);
+int			ft_size_list(t_token *lst);
 
-t_output	make_parse_list(char **input);
+t_token	make_parse_list(char **input);
 
 #endif

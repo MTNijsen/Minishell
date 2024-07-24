@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   make_list.c                                        :+:    :+:            */
+/*   token.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/06/12 19:04:07 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/06/13 14:09:12 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/07/24 14:18:01 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/07/24 19:42:06 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_output	make_parse_list(char **input)
+t_token	*create_token(t_type type, const char *value)
 {
-	t_output	*head;
-	char		*data;
-	int			i;
+	t_token	*token;
 
-	head = NULL;
-	i = 0;
-	while (input[i])
-	{
-		data = input[i];
-		ft_add_node_back(&head, ft_new_node(data));
-		i++;
-	}
-	return	(head);
+	token = (t_token *)malloc(sizeof(t_token));
+	token->value = ft_strdup(value);
+	token->type = type;
+	token->next = NULL;
+
+	return (token);
+}
+
+void	free_token(t_token *token)
+{
+	if (token->value)
+		free(token->value);
+	free(token);
 }
