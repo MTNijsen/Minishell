@@ -13,7 +13,7 @@ int bi_env(t_env *env_node)
 		if (node->content)
 			printf("%s=%s\n", node->name, node->content);
 		else
-			printf("%s\n");
+			printf("%s\n", node->name);
 		node = node->next_node;
 	}
 	return (0);

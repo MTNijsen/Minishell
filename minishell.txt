@@ -81,8 +81,8 @@ command arg arg arg < infile.txt | command "$env this is env" arg arg > outfile.
 ($env = hello)
 broken into 
 
-command arg arg arg
-< infile.txt
+command - arg - arg - arg
+< - infile.txt
 |
-command "hello this is env" arg arg
-> outfile.txt
+command - hello this is env - arg - arg
+> - outfile.txt

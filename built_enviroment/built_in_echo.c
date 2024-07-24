@@ -3,7 +3,6 @@
 static int	is_flag(char *str)
 {
 	int	i;
-	int output;
 
 	i = 0;
 	if (str[i++] != '-')
@@ -17,13 +16,12 @@ static int	is_flag(char *str)
 
 //change input node to segment
 //works with write instead of printf as there isnt a \n at all times to flush the cache
-int	bi_echo(char **args, t_env *env_node)
+int	bi_echo(char **args)
 {
 	int		flags;
-	char	*output;
 	int		i;
 
-	if (args == NULL || args[0] == NULL)
+	if (args == NULL || args[0] == NULL)//maybe wont happen but is expected to always have args and args[0] = command
 		return (1);
 	flags = 0;
 	i = 1;
@@ -34,16 +32,11 @@ int	bi_echo(char **args, t_env *env_node)
 	}
 	while (args[i] != NULL)
 	{
-		write(1, args[i], strlen(args[i]));
+		write(1, args[i], ft_strlen(args[i]));
 		if (args[++i] != NULL)
 			write(1, " ", 1);
 	}
 	if (!flags)
 		write(1, "\n", 1);
 	return (0);
-}
-
-int main(int argc, char *argv[])
-{
-	bi_echo(argv, NULL);
 }

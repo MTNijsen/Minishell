@@ -1,16 +1,17 @@
 NAME = executor
 
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
+LIBS = libft/libstdmt.a
+CFLAGS = -Wall -Wextra -Werror
 
-SRCS = executor.c main.c 
+SRCS = main.c built_ins/*.c env_funcs_linked_list/*.c 
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $@
 
 clean:
 	@rm -f $(OBJS) $(BONUS_OBJS)

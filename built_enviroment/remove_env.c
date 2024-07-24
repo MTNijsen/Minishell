@@ -8,7 +8,7 @@ int	remove_env(t_env *node, char *name)
 		return (1);
 	while(node != NULL)
 	{
-		if (!ft_strcmp(node->next_node->name, name))
+		if (!ft_strncmp(node->next_node->name, name, -1))
 		{
 			remove_node = node->next_node;
 			node->next_node = remove_node->next_node;

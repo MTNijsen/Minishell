@@ -1,0 +1,8 @@
+executor rewrite
+history
+signal handler
+
+change cd to nodebased
+change echo to nodebased
+change export to nodebased
+change unset to nodebased

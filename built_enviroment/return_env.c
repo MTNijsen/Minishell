@@ -6,7 +6,7 @@ char *return_env(t_env *node, char *name)
 		return (NULL);
 	while(node != NULL)
 	{
-		if (!ft_strcmp(node->name, name))
+		if (!ft_strncmp(node->name, name, -1))
 			return (node->content);
 		node = node->next_node;
 	}
