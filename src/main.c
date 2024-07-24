@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/23 14:40:25 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/07/24 13:23:40 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ char	**get_stdin_input(int fd)
 
 int	main(int argc, char **argv)
 {
-	char	*input;
+	char		*input;
+	char		**arr_pipe;
+	t_output	data;
 
 	(void)argv;
 	if (argc != 1)
@@ -39,6 +41,7 @@ int	main(int argc, char **argv)
 	while (input)
 	{
 		input = get_stdin_input(STDIN_FILENO);
+		arr_pipe = ft_split_on_pipes(data, input, '|');
 		parse(input);
 	}
 	return (0);

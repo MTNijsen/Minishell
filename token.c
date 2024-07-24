@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_split_on_pipes.c                                :+:    :+:            */
+/*   token.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/06/12 19:04:07 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/23 14:21:03 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/07/24 14:18:01 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/07/24 14:18:18 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_split_on_pipes(t_output data, char *input)
+t_token	*create_token(t_type type, const char *value)
 {
-	char	**input;
+	t_token	*token;
 
-	
+	token = (t_token *)malloc(sizeof(t_token));
+	token->value = ft_strdup(value);
+	token->type = type;
+
+	return (token);
+}
+
+void	free_token(t_token *token)
+{
+	if (token->value)
+		free(token->value);
+	free(token);
 }
