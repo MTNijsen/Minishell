@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/07/24 19:39:26 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/07/25 12:07:52 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,22 +28,18 @@ INCLUDES		:=	-I $(INCLS_MINISHELL) -I $(INCLS_LIBFT)
 SRC_DIR			:=	src
 SRC_PARSER		:=	parser
 SRC_EXECUTOR	:=	executor
-SRC_LIST		:=	list
+SRC_TOKENS		:=	tokens
 SRC_LEXER		:=	lexer
 SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR) $(SRC_LIST) $(SRC_LEXER)
 SRC_FILES		:=	$(addprefix $(SRC_DIR)/, \
-					main.c) \
-					# $(addprefix $(SRC_DIR)/list/, \
-					# ft_add_node_back.c \
-					# ft_add_node_front.c \
-					# ft_clear_list.c \
-					# ft_delone_node.c \
-					# ft_last_node.c \
-					# ft_new_node.c \
-					# ft_print_list.c \
-					# ft_size_list.c ) \
-					# token.c \
-					# lexer.c \
+					main.c \
+					lexer.c ) \
+					$(addprefix $(SRC_DIR)/$(SRC_TOKENS)/, \
+					create_token.c \
+					add_token.c \
+					free_tokens.c \
+					print_tokens.c \
+					last_token.c ) \
 					# parser.c \
 
 SRC				:=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -66,7 +62,7 @@ $(OBJ_DIR)/$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_PARSER)
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_EXECUTOR)
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_LIST)
+	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_TOKENS)
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_LEXER)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 

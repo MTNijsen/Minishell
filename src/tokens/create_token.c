@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_add_node_front.c                                :+:    :+:            */
+/*   create_token.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/17 22:03:05 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/24 19:22:13 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/07/24 14:18:01 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/07/25 09:05:41 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Adds the node ’new’ at the beginning of the list.
-lst: The address of a pointer to the first link of a list.
-new: The address of a pointer to the node to be added to the list.*/
-
 #include "minishell.h"
 
-void	ft_add_node_front(t_token **lst, t_token *new)
+t_token	*create_token(t_type type, const char *value)
 {
-	if (new != NULL)
-	{
-		new->next = *lst;
-		*lst = new;
-	}
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	token->value = ft_strdup(value);
+	token->type = type;
+	token->next = NULL;
+
+	return (token);
 }

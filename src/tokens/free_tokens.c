@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   token.c                                            :+:    :+:            */
+/*   free_tokens.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/07/24 14:18:01 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/24 19:42:06 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/07/25 09:05:49 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/07/25 12:10:38 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*create_token(t_type type, const char *value)
+void	free_tokens(t_token **tokens)
 {
-	t_token	*token;
+	t_token	*current;
+	t_token	*next;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	token->value = ft_strdup(value);
-	token->type = type;
-	token->next = NULL;
-
-	return (token);
-}
-
-void	free_token(t_token *token)
-{
-	if (token->value)
-		free(token->value);
-	free(token);
+	current = *tokens;
+	next = current->next;
+	while (current)
+	{
+		if (current->value)
+			free(current->value);
+		free(current);
+		current = next;
+	}
 }
