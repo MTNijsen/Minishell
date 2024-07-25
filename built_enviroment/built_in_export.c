@@ -2,7 +2,7 @@
 
 //needs to display in a sorted way
 //could create a duplicate list to sort with bubble or some wack
-static void export_display(t_env *env_node)
+static int export_display(t_env *env_node)
 {
 	t_env *node;
 	
@@ -15,7 +15,10 @@ static void export_display(t_env *env_node)
 			printf("-x decalre %s\n", node->name);
 		node = node->next_node;
 	}
+	return (0);
 }
+
+//should move to its own file since its reused in list to array;
 int	split_env(char *str, char **output1, char **output2)
 {
 	int	i;
@@ -59,30 +62,32 @@ static int valid_export(char *args)
 	return (1);
 }
 
-static int add_export(char **args, t_env *env_node)
+static int add_export(t_token *current_token, t_env *env_node)
 {
 	char *split[2];
-	int	i;
 
-	i = 0;
-	while (args[++i])
+	while (current_token != NULL)
 	{
 		split[0] = NULL;
 		split[1] = NULL;
-		if (!valid_export(args[i]))
+		if (!valid_export(current_token->value))
 			return (-1);
-		split_env(args[i], &split[0], &split[1]);
+		split_env(current_token->value, &split[0], &split[1]);
 		if (modify_env(env_node, split[0], split[1], 1))
 			return (free_env(env_node), -1);
+		current_token = current_token->next;
 	}
 	return (0);
 }
-//need to take segments instead of array
-int bi_export(char **args, t_env *env_node)
+
+int bi_export(const t_token *token, t_env *env_node)
 {
-	if (args == NULL || args[0] == NULL || env_node == NULL)
+	t_token	*current_token;
+
+	if (token == NULL || env_node == NULL)
 		return (1);
-	if (args[1] == NULL)
-		export_display(env_node);
-	return (add_export(args, env_node));
+	current_token = token->next;
+	if (current_token->value == NULL)
+		return (export_display(env_node)); //what exit code?
+	return (add_export(current_token, env_node)); //what exit code?
 }

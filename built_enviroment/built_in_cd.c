@@ -5,7 +5,7 @@
 //cd gets ".." not "." or "-"
 //needs to handle them / per /
 
-char	*cd_add_dirs(char *str, char *output, int i)
+static char	*cd_add_dirs(char *str, char *output, int i)
 {
 	char *temp;
 	char **array;
@@ -30,7 +30,7 @@ char	*cd_add_dirs(char *str, char *output, int i)
 	return(free_array(array), output);
 }
 
-char	*cd_parse(char *str, t_env *env_node)
+static char	*cd_parse(char *str, t_env *env_node)
 {
 	char *output;
 	int	i;
@@ -45,35 +45,37 @@ char	*cd_parse(char *str, t_env *env_node)
 	return (cd_add_dirs(str, output, i));
 }
 //change to take nodes not array
-int bi_cd(char **args, t_env *env_node)
+int bi_cd(const t_token *token, t_env *env_node)
 {
 	char	*local_dir;
 	char	*temp;
+	t_token	*current_token;
 
-	if (args == NULL || args[0] == NULL || env_node == NULL)
-		return (1);
-	if (args[1] == NULL || !ft_strncmp(args[1], "--", 3))
+	if (token == NULL || env_node == NULL)
+		return (1); //what exit code?
+	current_token = token->next;
+	if (current_token->value == NULL || !ft_strncmp(current_token->value, "--", 3))
 	{
 		temp = return_env(env_node, "HOME");
 		if (!temp)
 		{
 			printf("$HOME has been unset, naughty naughty.");
-			return (1);
+			return (1); //what exit code?
 		}	
 		local_dir = ft_strdup(temp);
 	}
-	else if (!ft_strncmp(args[1], "-", 2))
+	else if (!ft_strncmp(current_token->value, "-", 2))
 	{
 		temp = return_env(env_node, "OLDPWD");
 		if (!temp)
 		{
 			printf("$OLDPWD has been unset, naughty naughty.");
-			return (1);
+			return (1); //what exit code?
 		}	
 		local_dir = ft_strdup(temp);
 	}
 	else
-		local_dir = cd_parse(args[1], env_node);
+		local_dir = cd_parse(current_token->value, env_node);
 	if (local_dir == NULL)
 		return (MALLOC_FAILURE);
 	temp = return_pwd(env_node);
@@ -85,7 +87,7 @@ int bi_cd(char **args, t_env *env_node)
 	if (chdir(local_dir))
 	{
 		printf("%s, does not exist or you do not have access\n", local_dir);
-		return (free(local_dir), free(temp), 1);
+		return (free(local_dir), free(temp), 1); //what exit code?
 	}
 	if (modify_env(env_node, "OLDPWD", temp, 0))
 		return (free(local_dir), free(temp), MALLOC_FAILURE);

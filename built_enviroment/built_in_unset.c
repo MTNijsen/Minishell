@@ -27,14 +27,14 @@ static void unset(char *name , t_env **env_node)
 }
 
 //work with nodes
-int	bi_unset(char **name, t_env *env_node)
+int	bi_unset(const t_token *token, t_env *env_node)
 {
-	int	i;
-	
-	if (!name || !env_node)
+	t_token *current_token;
+
+	if (!token || !env_node)
 		return (1);
-	i = -1;
-	while (name[++i])
-		unset(name[i], &env_node);
+	current_token = token->next;
+	while (current_token != NULL)
+		unset(current_token->value, &env_node);
 	return (0);
 }
