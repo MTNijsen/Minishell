@@ -6,14 +6,14 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/24 13:47:50 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/31 13:29:36 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/07/31 18:06:47 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*	To be able to increment the index in other functions 
-	I'm sending a pointer to i in the functions: (*i)++;
+	I'm sending a pointer to i in the functions: i++;
 */
 
 bool	ft_isspecial(char input, const char *check)
@@ -30,104 +30,123 @@ bool	ft_isspecial(char input, const char *check)
 	return (false);
 }
 
-char	*handle_quotes(char *input, int *i)
+int	handle_quotes(char *input, int i)
 {
-	unsigned int	start;
-	char			*value;
-	int				end_quote;
-	char			quote;
+	int		end_quote;
+	char	quote;
 
-	start = (unsigned int)(*i);
-	quote = input[*i];
+	quote = input[i];
 	end_quote = false;
-	while (end_quote == false)
+	
+	while (input[i] && end_quote == false)
 	{
-		(*i)++;
-		if (input[*i] == quote)
+		if (input[i] == quote)
 			end_quote = true;
+		i++;
 	}
-	value = ft_substr(input, start, (((size_t)(*i)) - start));
-	return (value);
+	if (end_quote == false)
+		return (-1);
+	return (i);
 }
 
-void	create_word_token(t_token **head, char *input, int *i)
+int	create_word_token(t_token **head, char *input, int i)
 {
-
 	t_token	*token;
 	char	*value;
 	int		start;
+	int		x;
 
-	start = (unsigned int)(*i);
-	if (input[*i] == '\"' || input[*i] == '\'')
-		value = handle_quotes(input, i);
-	else
+	printf("Creating word token from index [%d]\n", i);
+	start = i;
+	while (input[i])
 	{
-		while (!ft_isspecial(input[*i], "|<>\"\'"))
-			(*i)++;
-		value = ft_substr(input, (unsigned int)(*i), (((size_t)(*i)) - start));
+		if (input[i] == '\"' || input[i] == '\'')
+		{
+			x = handle_quotes(input, i);
+			value = ft_substr(input, (start + 1), (x - start - 1));
+			i = x;
+		}
+		else
+		{
+			while (input[i] && !ft_isspecial(input[i], " |<>\"\'"))
+				i++;
+			value = ft_substr(input, start, (i - start));
+			i++;
+			break;
+		}
 	}
 	token = create_token(TEXT, value);
+	if (token == NULL || value == NULL)
+		return (-1);
 	add_token(head, token);
-	// free (value); //moet dit? of pas aan het einde van het programma?
-	// free (token); //moet dit? of pas aan het einde van het programma?
+	return (i);
 }
 
-void	create_redir_token(t_token **head, char *input, int *i)
+int	create_redir_token(t_token **head, char *input, int i)
 {
 	t_token	*token;
 
+	printf("Creating redirect token from index [%d]\n", i);
 	token = NULL;
-	if (input[*i] == '<')
+	if (input[i] == '<' && input[++i])
 	{
-		(*i)++;
-		if (input[*i] == '<')
+		if (input[i] == '<')
 		{
 			token = create_token(HEREDOC, "<<\0");
-			(*i)++;
+			i++;
 		}
-		token = create_token(IN_REDIRECT, "<\0");
+		else
+			token = create_token(IN_REDIRECT, "<\0");
 	}
-	if (input[*i] == '>')
+	if (input[i] == '>' && input[++i])
 	{
-		(*i)++;
-		if (input[*i] == '>')
+		if (input[i] == '>')
 		{
 			token = create_token(APP_REDIRECT, ">>\0");
-			(*i)++;
+			i++;
 		}
-		token = create_token(OUT_REDIRECT, ">\0");
+		else
+			token = create_token(OUT_REDIRECT, ">\0");
 	}
+	if (token == NULL)
+		return (-1);
 	add_token(head, token);
+	return (i);
 }
 
-void	create_pipe_token(t_token **head, int *i)
+int	create_pipe_token(t_token **head, int i)
 {
 	t_token	*token;
 
+	printf("Creating pipe token from index [%d]\n", i);
 	token = create_token(PIPE, "|\0");
+	if (token == NULL)
+		return (-1);
 	add_token(head, token);
-	(*i)++;
+	i++;
+	return (i);
 }
 
 bool	ft_lexer(t_token **head, char *input)
 {
 	int	i;
+	int	x;
 
 	i = 0;
 	while (input[i])
 	{
 		if (input[i] == ' ')
 			i++;
-		else if (ft_isspecial(input[i], "|<>"))
-		{
-			if (input[i] == '|')
-				create_pipe_token(head, &i);
-			else
-				create_redir_token(head, input, &i);
-		}
+		else if (input[i] == '|')
+			x = create_pipe_token(head, i);
+		else if (input[i] == '<' || input[i] == '<')
+			x = create_redir_token(head, input, i);
 		else
-			create_word_token(head, input, &i);
+			x = create_word_token(head, input, i);
+		printf("x = [%d]\n", x);
+		if (x < 0)
+			return (false);
+		i = x;
 	}
-
 	return (true);
 }

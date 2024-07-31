@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/25 12:10:44 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/07/31 17:51:57 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 	head = NULL;
 	if (argc != 1)
 		ft_puterror_fd("That's too many arguments bro!", STDERR_FILENO);
-	input = readline("Mila-shell$ ");
+	input = readline("Crab-shell$ ");
 	while (input)
 	{
 		if (!input)
@@ -31,11 +31,11 @@ int	main(int argc, char **argv)
 		if (ft_lexer(&head, input))
 		{
 			print_tokens(head);
-			free_tokens(&head);
+			// free_tokens(&head);
 		}
 			printf("Lexing completed\n");
 		free(input);
-		input = readline("Mila-shell$ ");
+		input = readline("Crab-shell$ ");
 	}
 	return (0);
 }
