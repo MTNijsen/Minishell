@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/24 13:47:50 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/31 18:06:47 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/07/31 19:48:52 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int	handle_quotes(char *input, int i)
 	
 	while (input[i] && end_quote == false)
 	{
+		i++;
 		if (input[i] == quote)
 			end_quote = true;
-		i++;
 	}
 	if (end_quote == false)
 		return (-1);
@@ -58,20 +58,22 @@ int	create_word_token(t_token **head, char *input, int i)
 
 	printf("Creating word token from index [%d]\n", i);
 	start = i;
+	value = NULL;
 	while (input[i])
 	{
 		if (input[i] == '\"' || input[i] == '\'')
 		{
 			x = handle_quotes(input, i);
-			value = ft_substr(input, (start + 1), (x - start - 1));
+			printf("start [%d]\nx [%d]\nchar [%c]\nlen [%d]\n", start, x, input[x], (x - start + 1));
+			value = ft_substr(input, (start), (x - start + 1));
 			i = x;
+			break;
 		}
 		else
 		{
 			while (input[i] && !ft_isspecial(input[i], " |<>\"\'"))
 				i++;
 			value = ft_substr(input, start, (i - start));
-			i++;
 			break;
 		}
 	}
@@ -79,7 +81,7 @@ int	create_word_token(t_token **head, char *input, int i)
 	if (token == NULL || value == NULL)
 		return (-1);
 	add_token(head, token);
-	return (i);
+	return (i + 1);
 }
 
 int	create_redir_token(t_token **head, char *input, int i)
