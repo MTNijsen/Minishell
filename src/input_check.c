@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   create_token.c                                     :+:    :+:            */
+/*   input_check.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/07/24 14:18:01 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/01 19:03:28 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/08/01 14:59:26 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/08/01 22:06:54 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*create_token(t_type type, const char *value)
+bool	input_check(t_token **token_lst)
 {
-	t_token	*token;
+	t_token	*current;
+	t_token	*next;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->value = ft_strdup(value);
-	token->type = type;
-	token->next = NULL;
-
-	return (token);
+	current = *token_lst;
+	next = NULL;
+	while (current)
+	{
+		next = current->next;
+		if (current->type != PIPE && current->type != TEXT)
+		{
+			if (next == NULL || next->type != TEXT)
+				return (false);
+		}
+		current = next;
+	}
+	return (true);
 }

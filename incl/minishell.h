@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/31 16:22:17 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/01 21:38:58 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,15 @@
 # include <readline/history.h>
 
 bool	ft_lexer(t_token **head, char *input);
+bool	input_check(t_token **token_lst);
+int		create_word_token(t_token **head, char *input, int i);
+int		create_quotes_token(t_token **head, char *input, int i);
+int		create_text_token(t_token **head, char *input, int i);
+int		create_pipe_token(t_token **head, int i);
+int		create_redir_token(t_token **head, char *input, int i);
+int		create_right_redir(t_token **head, char *input, int i);
+int		create_left_redir(t_token **head, char *input, int i);
+bool	ft_isspecial(char input, const char *check);
+int		handle_quotes(char *input, int i);
 
 #endif

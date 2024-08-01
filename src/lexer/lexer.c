@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   create_token.c                                     :+:    :+:            */
+/*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/07/24 14:18:01 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/01 19:03:28 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/07/24 13:47:50 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/08/01 21:35:07 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*create_token(t_type type, const char *value)
+
+
+bool	ft_lexer(t_token **head, char *input)
 {
-	t_token	*token;
+	int	i;
+	int	x;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->value = ft_strdup(value);
-	token->type = type;
-	token->next = NULL;
-
-	return (token);
+	i = 0;
+	x = 0;
+	while (input[i])
+	{
+		if (input[i] == ' ')
+			x = i + 1;
+		else if (input[i] == '|')
+			x = create_pipe_token(head, i);
+		else if (input[i] == '<' || input[i] == '>')
+			x = create_redir_token(head, input, i);
+		else
+			x = create_text_token(head, input, i);
+		if (x < 0)
+			return (false);
+		i = x;
+	}
+	return (true);
 }
