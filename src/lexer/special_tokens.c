@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:21:54 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/01 21:41:01 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/05 16:29:01 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	create_left_redir(t_token **head, char *input, int i)
 	}
 	else
 		token = create_token(IN_REDIRECT, "<\0");
-			if (token == NULL)
-	return (-1);
+	if (token == NULL)
+		return (-1);
 	add_token(head, token);
 	return (i);
 }
@@ -42,8 +42,8 @@ int	create_right_redir(t_token **head, char *input, int i)
 	}
 	else
 		token = create_token(OUT_REDIRECT, ">\0");
-			if (token == NULL)
-	return (-1);
+	if (token == NULL)
+		return (-1);
 	add_token(head, token);
 	return (i);
 }

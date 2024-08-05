@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/08/01 21:34:19 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/08/05 16:43:54 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,9 @@ SRC_FILES		:=	$(addprefix $(SRC_DIR)/, \
 					lexer.c \
 					special_tokens.c \
 					text_tokens.c \
+					command_tokens.c \
+					file_tokens.c \
+					string_tokens.c \
 					utils.c ) \
 					$(addprefix $(SRC_DIR)/$(SRC_TOKENS)/, \
 					create_token.c \

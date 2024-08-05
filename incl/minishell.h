@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/01 21:38:58 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/05 17:00:07 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int		create_right_redir(t_token **head, char *input, int i);
 int		create_left_redir(t_token **head, char *input, int i);
 bool	ft_isspecial(char input, const char *check);
 int		handle_quotes(char *input, int i);
+void	reclassify_text_token(t_token **head);
 
 #endif

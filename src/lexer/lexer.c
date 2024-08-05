@@ -6,13 +6,11 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/24 13:47:50 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/01 21:35:07 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/05 16:59:24 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 bool	ft_lexer(t_token **head, char *input)
 {
@@ -33,6 +31,7 @@ bool	ft_lexer(t_token **head, char *input)
 			x = create_text_token(head, input, i);
 		if (x < 0)
 			return (false);
+		reclassify_text_token(head);
 		i = x;
 	}
 	return (true);

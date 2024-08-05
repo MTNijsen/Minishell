@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/01 19:19:54 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/05 16:32:59 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,15 @@ int	main(int argc, char **argv)
 	head = NULL;
 	if (argc != 1)
 		ft_puterror_fd("That's too many arguments bro!", STDERR_FILENO);
-	// input = readline("Crab-shell$ ");
 	while (1)
 	{
 		input = readline("Crab-shell$ ");
 		if (!input)
 			break;
-		if (*input)
+		if (*input && input[0] != '\0')
 			add_history(input);
 		if (ft_lexer(&head, input))
 		{
-			printf("Lexing completed\n");
 			print_tokens(head);
 			if (!input_check(&head))
 			{
@@ -43,7 +41,7 @@ int	main(int argc, char **argv)
 		}
 		else
 		{
-			printf("Something went wrong\n");
+			printf("Something went wrong! There was a malloc error.\n");
 			return (-1);
 		}
 		free(input);
