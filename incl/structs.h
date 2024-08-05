@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/05 16:49:08 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/05 20:09:12 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef enum e_type
 	COMMAND,
 	IN_FILE,
 	OUT_FILE,
+	APP_FILE,
+	DELIMITER,
 	STRING
 }			t_type;
 
