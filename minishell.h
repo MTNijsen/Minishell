@@ -45,6 +45,9 @@ void	save_std_fd(void);
 void	reset_std_fd(void);
 t_token *heredoc(t_token *token, t_heredoc *h_node, unsigned int index, int *exit_code);
 int executor(t_token *token, t_env *env_node);
+int command(t_token *node, t_env *env_node, bool pipe_present , int *pid);
+int builtin(t_token *node, t_env *env_node, bool is_child);
+int isbuiltin(char *str);
 
 
 /*define common return codes mostly so malloc failure shuts the program down and isnt treated like other error codes like syntax error*/
