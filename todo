@@ -1,8 +1,6 @@
-executor rewrite
-history
-signal handler
+signal handler main, signal reset in children done
+heredoc
 
-change cd to nodebased
-change echo to nodebased
-change export to nodebased
-change unset to nodebased
+refractor bi_cd
+refractor exec
+refractor redirect
