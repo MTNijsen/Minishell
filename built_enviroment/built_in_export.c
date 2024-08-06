@@ -1,8 +1,8 @@
 #include "../minishell.h"
 
-//needs to display in a sorted way
-//could create a duplicate list to sort with bubble or some wack
-static int export_display(t_env *env_node)
+//bash displays in a sorted list but not needed
+//all our variables in t_env are export variables thus its the same as env outside of format
+static void export_display(t_env *env_node)
 {
 	t_env *node;
 	
@@ -15,7 +15,6 @@ static int export_display(t_env *env_node)
 			printf("-x decalre %s\n", node->name);
 		node = node->next_node;
 	}
-	return (0);
 }
 
 //should move to its own file since its reused in list to array;
@@ -71,10 +70,10 @@ static int add_export(t_token *current_token, t_env *env_node)
 		split[0] = NULL;
 		split[1] = NULL;
 		if (!valid_export(current_token->value))
-			return (-1);
+			return (1);
 		split_env(current_token->value, &split[0], &split[1]);
 		if (modify_env(env_node, split[0], split[1], 1))
-			return (free_env(env_node), -1);
+			return (free_env(env_node), MALLOC_FAILURE);
 		current_token = current_token->next;
 	}
 	return (0);
@@ -84,10 +83,11 @@ int bi_export(const t_token *token, t_env *env_node)
 {
 	t_token	*current_token;
 
-	if (token == NULL || env_node == NULL)
-		return (1);
 	current_token = token->next;
 	if (current_token->value == NULL)
-		return (export_display(env_node)); //what exit code?
-	return (add_export(current_token, env_node)); //what exit code?
+	{
+		export_display(env_node);
+		return (0);
+	}
+	return (add_export(current_token, env_node));
 }

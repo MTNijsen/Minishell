@@ -13,7 +13,6 @@ void	free_env(t_env	*node)
 		node = next_node;
 	}
 }
-//needs protection
 void	free_array(char	**array)
 {
 	int	i;
@@ -22,4 +21,23 @@ void	free_array(char	**array)
 	while (array[++i])
 		free(array[i]);
 	free(array);
+}
+
+void	free_token(t_token *token)
+{
+	free(token->value);
+	free(token);
+}
+
+void	free_tokens(t_token *token)
+{
+	t_token *temp_token;
+
+	while (token != NULL)
+	{
+		temp_token = token->next;
+		free(token->value);
+		free(token);
+		token = temp_token;
+	}
 }

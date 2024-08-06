@@ -21,13 +21,13 @@ int add_env(t_env *node, char *name, char *content, bool heap)
 	return (0);
 }
 
-//it is assumed name and content dont exist on a local scope
+//make it so it can handle no startnode present by just making a new enviroment
 int	modify_env(t_env *start_node, char *name, char *content, bool heap)
 {
 	t_env	*c_node;
 
 	c_node = start_node;
-	if (!name)
+	if (!name || !c_node)
 		return (1);
 	while(c_node->next_node != NULL)
 	{
@@ -59,4 +59,39 @@ t_env *creat_env(char *name, char *content)
 	node->next_node = NULL;
 	node->content = content;
 	return (node);
+}
+
+int	remove_env(t_env *node, char *name)
+{
+	t_env	*remove_node;
+
+	if (!node || !name)
+		return (1);
+	while(node != NULL)
+	{
+		if (!ft_strncmp(node->next_node->name, name, -1))
+		{
+			remove_node = node->next_node;
+			node->next_node = remove_node->next_node;
+			free(remove_node->content);
+			free(remove_node->name);
+			free(remove_node);
+			return (0);
+		}
+		node = node->next_node;
+	}
+	return (0);
+}
+
+char *return_env(t_env *node, char *name)
+{
+	if (!node || !name)
+		return (NULL);
+	while(node != NULL)
+	{
+		if (!ft_strncmp(node->name, name, -1))
+			return (node->content);
+		node = node->next_node;
+	}
+	return (NULL);
 }

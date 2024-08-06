@@ -9,20 +9,17 @@ static int	is_flag(char *str)
 		return (0);
 	while (str[i] == 'n')
 		i++;
-	if (!str[i])
+	if (str[i] == '/0')
 		return (1);
 	return (0);
 }
 
-//change input node to segment
 //works with write instead of printf as there isnt a \n at all times to flush the cache
 int	bi_echo(const t_token *token)
 {
 	int		flags;
 	t_token	*current_token;
 
-	if (token == NULL || token->value == NULL)//maybe wont happen but is expected to always have args and args[0] = command
-		return (1); //what exit code?
 	current_token = token->next;
 	flags = 0;
 	while (current_token != NULL && is_flag(current_token->value))

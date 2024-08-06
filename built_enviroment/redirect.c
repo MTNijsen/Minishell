@@ -1,107 +1,115 @@
-#include "minishell.h"
+#include "../minishell.h"
 
-int	redirect_in(t_output *node)
+t_token *redirect_in(t_token *token, int *exit_code)
 {
 	int	fd;
-
-	fd = open(node->next_node->node, O_RDONLY);
+	fd = open(token->next->value, O_RDONLY);
 	if (!fd)
 	{
-		write(2, errno, ft_strlen(errno));
-		return (1);
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		*exit_code = errno;
+		return (NULL);
 	}
 	dup2(fd, 0);
 	close(fd);
-	return (0);
+	return (token->next->next);
 }
 
-int	redirect_out(t_output *node)
+t_token *redirect_out(t_token *token, int *exit_code)
 {
 	int	fd;
-
-	fd = open(node->next_node->node, O_WRONLY | O_CREAT | O_TRUNC);
+	fd = open(token->next->value, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (!fd)
 	{
-		write(2, errno, ft_strlen(errno));
-		return (1);
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		*exit_code = errno;
+		return (NULL);
 	}
 	dup2(fd, 1);
 	close(fd);
-	return (0);
+	return (token->next->next);
 }
 
-int	redirect_out_append(t_output *node)
+t_token *redirect_out_append(t_token *token, int *exit_code)
 {
 	int	fd;
 
-	fd = open(node->next_node->node, O_WRONLY | O_CREAT | O_APPEND);
+	fd = open(token->next->value, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (!fd)
 	{
-		write(2, errno, ft_strlen(errno));
-		return (1);
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		*exit_code = errno;
+		return (NULL);
 	}
 	dup2(fd, 1);
 	close(fd);
+	return (token->next->next);
+}
+
+int	redirect_later(t_token *first_token, t_heredoc *h_doc, int h_index, int *exit_code)
+{
+	t_token *token;
+	t_token *temp_token;
+
+	token = first_token->next;
+	temp_token = first_token;
+	while (token != NULL)
+	{
+		if (token->type >= IN_REDIRECT)
+		{
+			if (token->type == IN_REDIRECT)
+				token = redirect_in(token, exit_code);
+			else if (token->type == OUT_REDIRECT)
+				token = redirect_out(token, exit_code);
+			else if (token->type == APP_REDIRECT)
+				token = redirect_out_append(token, exit_code);
+			else if (token->type == HEREDOC)
+				token = heredoc(token, h_doc, h_index, exit_code);
+			if (*exit_code != 0)
+			{
+				free_tokens(temp_token);
+				return (*exit_code);
+			}
+			temp_token->next = token;
+		}
+		else
+		{
+			temp_token = token;
+			token = token->next;
+		}
+	}
 	return (0);
 }
 
-int heredoc_read(t_output *node, t_heredoc *last_node)
+//steps through t_token list till next PIPE and handles any redirections found
+t_token	*redirect(t_token *first_token, t_heredoc *h_doc, int h_index, int *exit_code)
 {
-	t_heredoc	*h_node;
-	char		*buf;
-	int			pid;
-	static	int	index = 0;
-	
-	h_node = (t_heredoc *)malloc(sizeof(t_heredoc));
-	if (!h_node)
-		return (-1);
-	h_node->next_node = NULL;
-	h_node->index = index++;
-	if (last_node)
-		last_node->next_node = h_node;
-	last_node = h_node;
-	if (pipe(h_node->pipe_ids) == -1)
-		return (-1);
-	pid = fork();
-	if (pid == -1)
-		return (-1);
-	if (pid)
+	t_token *temp_token;
+
+	while (first_token != NULL && first_token->type >= IN_REDIRECT)
 	{
-		close(h_node->pipe_ids[1]);
-		return (pid);
+		temp_token = first_token;
+		if (first_token->type == IN_REDIRECT)
+			first_token = redirect_in(first_token, exit_code);
+		else if (first_token->type == OUT_REDIRECT)
+			first_token = redirect_out(first_token, exit_code);
+		else if (first_token->type == APP_REDIRECT)
+			first_token = redirect_out_append(first_token, exit_code);
+		else if (first_token->type == HEREDOC)
+			first_token = heredoc(first_token, h_doc, h_index, exit_code);
+		if (*exit_code != 0)
+		{
+			free_tokens(temp_token);
+			return (NULL);
+		}
+		free_token(temp_token->next);
+		free_token(temp_token);
 	}
-	while (get_next_line(buf))//make a simplified get_next_line that reads a static size per time
+	redirect_later(first_token, h_doc, h_index, exit_code);
+	if (*exit_code != 0)
 	{
-		if (ft_strncmp(buf, node->next_node->node, ft_strlen(node->next_node->node)) == 0)
-			exit(EXIT_SUCCESS);
-		write(h_node->pipe_ids[1], buf, ft_strlen(buf));
-		free(buf);
+		free_tokens(first_token);
+		return (NULL);
 	}
-	exit(EXIT_FAILURE);
-}
-
-int	heredoc(t_heredoc *h_node, unsigned int index)
-{
-	while (h_node != NULL && h_node->index != index)
-		h_node = h_node->next_node;
-	if (h_node == NULL)
-		return (-1);
-	dup2(h_node->pipe_ids[0], 0);
-	close(h_node->pipe_ids[0]);
-	return (0);
-}
-
-int	redirect(t_output *node, int h_index)
-{
-	int	fd;
-
-	if (!ft_strcmp(node->node, "<"))
-		return (redirect_in(node));
-	if (!ft_strcmp(node->node, ">"))
-		return (redirect_out(node));
-	if (ft_strcmp(node->node, ">>"))
-		return (redirect_out_append(node));
-	if (ft_strcmp(node->node, "<<"))
-		return (heredoc(node, h_index));//somehow needs to track which heredoc node we need to grab,
-	return (1);
+	return (first_token);
 }

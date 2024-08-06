@@ -26,13 +26,11 @@ static void unset(char *name , t_env **env_node)
 	}
 }
 
-//work with nodes
+//unsets all token.values found except first which is the command
 int	bi_unset(const t_token *token, t_env *env_node)
 {
 	t_token *current_token;
 
-	if (!token || !env_node)
-		return (1);
 	current_token = token->next;
 	while (current_token != NULL)
 		unset(current_token->value, &env_node);

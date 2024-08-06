@@ -4,8 +4,6 @@ int bi_env(t_env *env_node)
 {
 	t_env *node;
 
-	if (env_node == NULL)
-		return (1); //what exit code?
 	node = env_node;
 	while(node != NULL)
 	{
