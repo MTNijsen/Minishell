@@ -1,8 +1,5 @@
 #include "../minishell.h"
 
-
-
-
 int main(int argc, char **argv, char **env)
 {
 	t_env *env_node = array_to_list(env);

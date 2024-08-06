@@ -9,7 +9,7 @@ static int	is_flag(char *str)
 		return (0);
 	while (str[i] == 'n')
 		i++;
-	if (str[i] == '/0')
+	if (str[i] == '\0')
 		return (1);
 	return (0);
 }

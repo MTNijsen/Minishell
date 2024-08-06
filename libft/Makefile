@@ -2,7 +2,7 @@
 NAME = libstdmt.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 SRCS = char_func/ft_isalnum.c char_func/ft_isalpha.c char_func/ft_isascii.c char_func/ft_isdigit.c char_func/ft_isprint.c char_func/ft_tolower.c char_func/ft_toupper.c \
 		mem_func/ft_bzero.c mem_func/ft_calloc.c mem_func/ft_memchr.c mem_func/ft_memcmp.c mem_func/ft_memmove.c mem_func/ft_memset.c \

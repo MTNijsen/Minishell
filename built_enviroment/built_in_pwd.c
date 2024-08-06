@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int bi_pwd(const t_env *env_node)
+int bi_pwd(t_env *env_node)
 {
 	char	*buf;
 	char	buf_m[PATH_MAX];
@@ -22,7 +22,7 @@ int bi_pwd(const t_env *env_node)
 }
 
 //to get the current process working directory for use inside another function
-char *return_pwd(const t_env *env_node)
+char *return_pwd(t_env *env_node)
 {
 	char	*buf;
 	char	buf_m[PATH_MAX];
