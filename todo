@@ -4,3 +4,5 @@ heredoc
 refractor bi_cd
 refractor exec
 refractor redirect
+
+change functions to return the error code instead of a move to the list node

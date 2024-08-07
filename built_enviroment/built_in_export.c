@@ -13,7 +13,7 @@ static void export_display(t_env *env_node)
 			printf("-x declare %s=\"%s\"\n", node->name, node->content);
 		else
 			printf("-x decalre %s\n", node->name);
-		node = node->next_node;
+		node = node->next;
 	}
 }
 

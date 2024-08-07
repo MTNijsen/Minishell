@@ -9,34 +9,24 @@ static int execute_section(t_token *first_token, t_env *env_node, t_exec info, i
 	token = first_token;
 	while (token->next != NULL && token->next->type != PIPE)
 		token = token->next;
-	token->next = NULL;
-	token = redirect(first_token, NULL, info.index, &exit_code);
+	token->next = NULL; //is this needed or not already done in exec pipes
+	token = redirect(first_token, info.h_doc, info.index, &exit_code);
 	if (exit_code)
-		return (exit_code);
+		return (free(first_token), exit_code);
 	if (isbuiltin(token->value))
-		return (builtin(token, env_node, info.pipe_present));
+		exit_code = builtin(token, env_node, info.pipe_present);
 	else
-		return (command(token, env_node, info.pipe_present, pid));
+		exit_code = command(token, env_node, info.pipe_present, pid);
+	return (exit_code);
 }
 
 static int exec_exit(int pid, int exit_code)
 {
-	int	buf;
-	
-	buf = 0;
-	if (waitpid(pid, &buf, 0) != -1)
-	{
-		if  (WIFEXITED(buf))
-			buf = WEXITSTATUS(buf);
-		else
-			buf = WTERMSIG(buf);
-	}
-	else
-		buf = exit_code;
+	wait_exit(pid, &exit_code);
 	while (waitpid (-1, NULL, 0) != -1)
 		;
-	reset_std_fd();
-	return (buf);
+	dup2(STDIN_CLONE, STDIN_FILENO);
+	return (exit_code);
 }
 
 static t_token *exec_pipes( t_token *token, t_env *env_node, t_exec *info)
@@ -60,8 +50,8 @@ static t_token *exec_pipes( t_token *token, t_env *env_node, t_exec *info)
 			if (pid == 0)
 			{
 				exit_code = execute_section(start_sec, env_node, *info, &pid);
-				free_env(env_node);
 				free_tokens(start_sec);
+				free_env(env_node);
 				free_tokens(token);
 				exit (exit_code);
 			}
@@ -74,7 +64,6 @@ static t_token *exec_pipes( t_token *token, t_env *env_node, t_exec *info)
 	}
 	return (start_sec);
 }
-//needs to be shortened
 
 int executor(t_token *token, t_env *env_node)
 {
@@ -82,19 +71,21 @@ int executor(t_token *token, t_env *env_node)
 	int 		exit_code;
 	int			pid;
 
+	exit_code = 0;
+	pid = -1;
 	info.index = 0;
 	info.pipe_present = false;
-	exit_code = 0;
-	pid = 0;
+	info.h_doc = heredoc_read(token, &exit_code);
 	token = exec_pipes(token, env_node, &info);
 	if (info.pipe_present == true)
 	{
 		pid = fork();
+		if (pid == -1)
+			return (errno);
 		if (pid == 0)
 		{
 			exit_code = execute_section(token, env_node, info, &pid);
 			free_env(env_node);
-			free_tokens(token);
 			exit (exit_code);
 		}
 	}

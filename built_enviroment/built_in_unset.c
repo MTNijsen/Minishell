@@ -3,26 +3,26 @@
 static void unset(char *name , t_env **env_node)
 {
 	t_env *node;
-	t_env *next_node;
+	t_env *next;
 
 	node = *env_node;
 	if (!ft_strncmp(node->name, name, ENV_VARIABLE_LENGTH))
 	{
-		*env_node = node->next_node;
+		*env_node = node->next;
 		free(node->content);
 		free(node->name);
 		free(node);
 		return ;
 	}
-	while (node->next_node != NULL && ft_strncmp(node->next_node->name, name, ENV_VARIABLE_LENGTH))
-		node = node->next_node;
-	if (node->next_node && !ft_strncmp(node->next_node->name, name, ENV_VARIABLE_LENGTH))
+	while (node->next != NULL && ft_strncmp(node->next->name, name, ENV_VARIABLE_LENGTH))
+		node = node->next;
+	if (node->next && !ft_strncmp(node->next->name, name, ENV_VARIABLE_LENGTH))
 	{
-		next_node = node->next_node->next_node;
-		free(node->next_node->content);
-		free(node->next_node->name);
-		free(node->next_node);
-		node->next_node = next_node;
+		next = node->next->next;
+		free(node->next->content);
+		free(node->next->name);
+		free(node->next);
+		node->next = next;
 	}
 }
 

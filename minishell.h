@@ -15,7 +15,8 @@
 #include <linux/limits.h>
 #include <string.h>
 #include <signal.h>
-
+#include <readline/readline.h>
+#include <readline/history.h>
 
 
 t_env *array_to_list(char **envp);
@@ -41,13 +42,14 @@ int pipeline(void);
 t_token *redirect(t_token *first_token, t_heredoc *h_doc, int h_index, int *exit_code);
 void	free_token(t_token *token);
 void	free_tokens(t_token *token);
-void	save_std_fd(void);
-void	reset_std_fd(void);
-t_token *heredoc(t_token *token, t_heredoc *h_node, unsigned int index, int *exit_code);
 int executor(t_token *token, t_env *env_node);
 int command(t_token *node, t_env *env_node, bool pipe_present , int *pid);
 int builtin(t_token *node, t_env *env_node, bool is_child);
 int isbuiltin(char *str);
+void	free_heredoc(t_heredoc *node);
+void wait_exit(int pid, int *exit_code);
+t_token *heredoc_receive(t_token *token, t_heredoc *h_doc, unsigned int index, int *exit_code);
+t_heredoc *heredoc_read(t_token *token, int *exit_code);
 
 
 /*define common return codes mostly so malloc failure shuts the program down and isnt treated like other error codes like syntax error*/

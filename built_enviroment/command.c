@@ -46,7 +46,7 @@ int command(t_token *node, t_env *env_node, bool pipe_present , int *pid)
 	{
 		*pid = fork();
 		if (*pid)
-			return (free_array(envp), *pid);
+			return (*pid);
 	}
 	execve(args[0], args, envp);
 	return (0);

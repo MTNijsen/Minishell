@@ -12,7 +12,7 @@ char **list_to_env(t_env *node)
 		return (NULL);
 	i = 0;
 	while(node != NULL && ++i)
-		node = node->next_node;
+		node = node->next;
 	envp = (char **)ft_calloc(i +1, sizeof(char *));
 	if (!envp)
 		return (NULL);
@@ -24,7 +24,7 @@ char **list_to_env(t_env *node)
 		if (!output)
 			return (free_array(envp), NULL);
 		envp[++i] = output;
-		node = node->next_node;
+		node = node->next;
 	}
 	return (envp);
 }

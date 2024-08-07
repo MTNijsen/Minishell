@@ -33,20 +33,21 @@ typedef struct s_env
 {
 	char			*name;
 	char			*content;
-	struct s_env	*next_node;
+	struct s_env	*next;
 }	t_env;
 
 typedef struct s_heredoc
 {
 	int					pipe_ids[2];
 	unsigned int		index;//based on section
-	struct s_heredoc	*next_node;
+	struct s_heredoc	*next;
 }	t_heredoc;
 
 typedef struct s_exec
 {
-	int		index;
-	bool	pipe_present;
+	t_heredoc	*h_doc;
+	int			index;
+	bool		pipe_present;
 }	t_exec;
 
 #endif
