@@ -18,16 +18,16 @@ static void export_display(t_env *env_node)
 }
 
 //should move to its own file since its reused in list to array;
-int	split_env(char *str, char **output1, char **output2)
+int	split_env(char *arg, char **output1, char **output2)
 {
 	int	i;
 	int len1;
 
 	i = -1;
 	len1 = -1;
-	while (str[++i])
+	while (arg[++i])
 	{
-		if (str[i] == '=' && len1 == -1)
+		if (arg[i] == '=' && len1 == -1)
 			len1 = i +1;
 	}
 	if (len1 == -1)
@@ -35,59 +35,59 @@ int	split_env(char *str, char **output1, char **output2)
 	*output1 = (char *)malloc(sizeof(char) * len1);
 	if (!output1)
 		return (MALLOC_FAILURE);
-	ft_strlcpy(*output1, str, len1);
+	ft_strlcpy(*output1, arg, len1);
 	if (len1 != i +1)
 	{
 		*output2 = (char *)malloc(sizeof(char) * (i - len1 +1));
 		if (!output2)
 			return (free(output1), MALLOC_FAILURE);
-		ft_strlcpy(*output2, &str[len1], i - len1 +1);
+		ft_strlcpy(*output2, &arg[len1], i - len1 +1);
 	}
 	return (0);
 }
 
-static int valid_export(char *args)
+static int valid_export(char *arg)
 {
 	int	i;
 
 	i = 0;
-	if (ft_isdigit(args[0]))
+	if (ft_isdigit(arg[0]))
 		return (0);
-	while (args[++i] && args[i] != '=')
+	while (arg[++i] && arg[i] != '=')
 	{
-		if (!ft_isalnum(args[i]))
+		if (!ft_isalnum(arg[i]))
 			return (0);
 	}
 	return (1);
 }
 
-static int add_export(t_token *current_token, t_env *env_node)
+static int add_export(char **argv, t_env *env_node)
 {
-	char *split[2];
+	char	*split[2];
+	int		i;
 
-	while (current_token != NULL)
+	i = 1;
+	while (argv[i] != NULL)
 	{
 		split[0] = NULL;
 		split[1] = NULL;
-		if (!valid_export(current_token->value))
+		if (!valid_export(argv[i]))
 			return (1);
-		split_env(current_token->value, &split[0], &split[1]);
+		split_env(argv[i], &split[0], &split[1]);
 		if (modify_env(env_node, split[0], split[1], 1))
 			return (free_env(env_node), MALLOC_FAILURE);
-		current_token = current_token->next;
+		i++;
 	}
 	return (0);
 }
 
-int bi_export(const t_token *token, t_env *env_node)
+int bi_export(const char **argv, t_env *env_node)
 {
-	t_token	*current_token;
-
-	current_token = token->next;
-	if (current_token->value == NULL)
+	if (argv[1] == NULL)
 	{
 		export_display(env_node);
 		return (0);
 	}
-	return (add_export(current_token, env_node));
+	else
+		return (add_export(argv, env_node));
 }

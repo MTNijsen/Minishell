@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-static int execute_section(t_token *first_token, t_env *env_node, t_exec info, int *pid)
+static int execute_section(t_proc *proc, t_env *env_node, t_exec info, int *pid)
 {
 	t_token *token;
 	int		exit_code;
@@ -65,31 +65,31 @@ static t_token *exec_pipes( t_token *token, t_env *env_node, t_exec *info)
 	return (start_sec);
 }
 
-int executor(t_token *token, t_env *env_node)
+int executor(t_proc *proc, char ***envp)
 {
-	t_exec		info;
 	int 		exit_code;
 	int			pid;
+	int			index;
 
-	exit_code = 0;
 	pid = -1;
-	info.index = 0;
-	info.pipe_present = false;
-	info.h_doc = heredoc_read(token, &exit_code);
-	token = exec_pipes(token, env_node, &info);
-	if (info.pipe_present == true)
+	exit_code = heredoc_read(proc);
+	if (exit_code != 0)
+		return (exit_code);
+	index = exec_pipes(proc, envp);
+	if (index != 0)
 	{
 		pid = fork();
 		if (pid == -1)
 			return (errno);
 		if (pid == 0)
 		{
-			exit_code = execute_section(token, env_node, info, &pid);
-			free_env(env_node);
+			exit_code = execute_section(proc, envp, &pid);
+			free_processes(proc);
+			free_array(envp);
 			exit (exit_code);
 		}
 	}
 	else
-		exit_code = execute_section(token, env_node, info, &pid); //if section is a command pid is a non-zero value
-	return (free_tokens(token), exec_exit(pid, exit_code));
+		exit_code = execute_section(proc[0], envp, &pid); //if section is a command pid is a non-zero value
+	return (exec_exit(pid, exit_code));
 }

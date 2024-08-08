@@ -15,23 +15,23 @@ static int	is_flag(char *str)
 }
 
 //works with write instead of printf as there isnt a \n at all times to flush the cache
-int	bi_echo(const t_token *token)
+int	bi_echo(const char **argv)
 {
 	int		flags;
-	t_token	*current_token;
+	int		i;
 
-	current_token = token->next;
+	i = 1;
 	flags = 0;
-	while (current_token != NULL && is_flag(current_token->value))
+	while (argv[i] != NULL && is_flag(argv[i]))
 	{
-		current_token = current_token->next;
 		flags = 1;
+		i++;
 	}
-	while (current_token != NULL)
+	while (argv[i] != NULL)
 	{
-		write(1, current_token->value, ft_strlen(current_token->value));
-		current_token = current_token->next;
-		if (current_token->value != NULL)
+		write(1, argv[i], ft_strlen(argv[i]));
+		i++;
+		if (argv[i] != NULL)
 			write(1, " ", 1);
 	}
 	if (!flags)
