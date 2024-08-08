@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/25 14:16:41 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 16:18:44 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 18:56:39 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	add_proc(t_proc **head, t_proc *new)
 		*head = new;
 	else
 	{
-		last_node = last_token(*head);
+		last_node = last_proc(*head);
 		last_node->next = new;
 	}
 }

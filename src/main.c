@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 16:14:45 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 19:08:32 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ int	main(int argc, char **argv, char **env)
 			add_history(input);
 		if (!ft_lexer(&head_tokens, input))
 			ft_puterror_fd("Error: there was a malloc error.", STDERR_FILENO);
+		print_tokens(head_tokens);
+		int tokens = count_tokens(&head_tokens);
+		printf("tokens: %i\n", tokens);
+		free_tokens(&head_tokens);
 		free(input);
-		if (!parse_input(&head_procs, &head_tokens));
-			ft_puterror_fd("Something went wrong in parsing.", STDERR_FILENO);
+		// if (!parse_input(&head_procs, &head_tokens));
+		// 	ft_puterror_fd("Something went wrong in parsing.", STDERR_FILENO);
 	}
 	return (0);
 }

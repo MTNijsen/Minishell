@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 15:48:19 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 18:51:10 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ typedef enum e_type
 	APP_REDIRECT,
 	HEREDOC,
 	COMMAND,
-	IN_FILE,
-	OUT_FILE,
-	APP_FILE,
-	DELIMITER,
+	FILES,
 	STRING
 }			t_type;
 
@@ -48,6 +45,13 @@ typedef struct s_token
 	t_type			type;
 	struct s_token	*next;
 }					t_token;
+
+typedef struct s_redir
+{
+	t_type			type; // < << > >>
+	char			*file; // test.txt, EOF
+	struct s_redir	*next;
+}					t_redir;
 
 /**
  * @brief	This struct will be a node in a list of processes. It's an organized
@@ -69,12 +73,14 @@ typedef struct s_token
 typedef struct s_proc
 {
 	char			*cmd;
-	char			**args;
-	char			**hd;
-	char			**redir;
+	char			**argv;
+	t_redir			*redir;
+	int				hd_pipe[2];
 	int				token_count;
+	int				proc_count;
 	int				index;
 	struct s_proc	*next;
 }					t_proc;
+
 
 #endif

@@ -6,29 +6,27 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/05 20:15:56 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 19:27:31 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	reclassify_text_token(t_token **head, int flag)
+int	reclassify_text_token(t_token **head, int flag)
 {
 	t_token	*current;
+	t_token	*next;
 
 	current = *head;
-	while (current && current->next)
+	while (current)
 	{
+		next = current->next;
 		if (current->type == PIPE)
 			flag = 1;
-		if (current->type == IN_REDIRECT && current->next->type == TEXT)
-			current->next->type = OUT_FILE;
-		else if (current->type == OUT_REDIRECT && current->next->type == TEXT)
-			current->next->type = IN_FILE;
-		else if (current->type == HEREDOC && current->next->type == TEXT)	
-			current->next->type = DELIMITER;
-		else if (current->type == APP_REDIRECT && current->next->type == TEXT)
-			current->next->type = APP_FILE;
+		if (next && current->type > 1 && current->type < 6 && next->type == TEXT)
+			next->type = FILES;
+		else if (!next  && current->type > 1 && current->type < 6)
+			return (-1); //should return syntax error instead
 		else if (current->type == TEXT && flag == 1)
 		{
 			current->type = COMMAND;
@@ -36,9 +34,9 @@ void	reclassify_text_token(t_token **head, int flag)
 		}
 		else if (current->type == TEXT)
 			current->type = STRING;
-		current = current->next;
+		current = next;
 	}
-	return ;
+	return (0);
 }
 
 int	create_text_token(t_token **head, char *input, int i)
@@ -85,7 +83,6 @@ int	text_tokens(t_token **head, char *input, int i)
 	int	x;
 
 	x = 0;
-
 	if (input[i] == '\"' || input[i] == '\'')
 		x = create_quotes_token(head, input, i);
 	else

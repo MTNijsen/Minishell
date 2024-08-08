@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   print_tokens.c                                     :+:    :+:            */
+/*   print_procs.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/25 18:08:49 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/25 11:58:08 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 19:01:13 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_tokens(t_token *lst)
+void	print_procs(t_proc *lst)
 {
+	int	x;
+
+	x = 0;
 	while (lst != NULL)
 	{
-		printf("VALUE: [%s]\n", lst->value);
-		printf("TYPE: [%d]\n", lst->type);
+		printf("CMD: [%s]\n", lst->cmd);
+		while (lst->argv[x])
+		{
+			printf("ARGV[%i]: [%s]\n", x, lst->argv[x]);
+			x++;
+		}
+		
 		lst = lst->next;
 	}
 }

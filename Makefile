@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/08/08 16:32:38 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/08/08 19:02:50 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,22 +40,21 @@ SRC_FILES		:=	$(addprefix $(SRC_DIR)/, \
 					special_tokens.c \
 					text_tokens.c \
 					command_tokens.c \
-					file_tokens.c \
-					string_tokens.c \
 					utils.c ) \
 					$(addprefix $(SRC_DIR)/$(SRC_TOKENS)/, \
 					create_token.c \
 					add_token.c \
 					free_tokens.c \
 					print_tokens.c \
-					last_token.c ) \
+					last_token.c \
+					count_tokens.c ) \
 					$(addprefix $(SRC_DIR)/$(SRC_PROCS)/, \
-					get_procs.c \
 					init_proc.c \
 					add_proc.c \
-					free_procs.c \
 					print_procs.c \
 					last_proc.c ) \
+					# free_procs.c \
+					# get_procs.c \
 					# parser.c \
 
 SRC				:=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -80,6 +79,7 @@ $(OBJ_DIR)/$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_EXECUTOR)
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_TOKENS)
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_LEXER)
+	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_PROCS)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 norminette:

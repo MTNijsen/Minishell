@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/08 16:25:31 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 16:31:00 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 18:55:19 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ t_proc	*init_proc(void)
 	if (!proc)
 		return (NULL);
 	proc->cmd = NULL;
-	proc->args = NULL;
-	proc->hd = NULL;
+	proc->argv = NULL;
 	proc->redir = NULL;
 	proc->token_count = 0;
+	proc->proc_count = 0;
 	proc->index = 0;
 	proc->next = NULL;
+
 	return (proc);
 }

@@ -9,3 +9,4 @@
 	expand into extra tokens. So not adding them to the end, but inserting
 	them at the spot where they are supposed to be. 
 4.	And also environment variables need to be taken in account.
+5.	CMD should be the first argv in the proc struct.

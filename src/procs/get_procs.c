@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 17:38:59 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 18:44:34 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 int	get_redir(t_proc *procs, t_token **tokens)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = *tokens;
-	
 }
 
 bool	get_procs(t_proc **procs, t_token **tokens)

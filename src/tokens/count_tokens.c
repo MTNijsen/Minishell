@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_delone_node.c                                   :+:    :+:            */
+/*   count_tokens.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/25 16:14:55 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/24 19:38:22 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/08/08 18:02:49 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/08/08 18:44:51 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Takes as a parameter a node and frees the memory of
-the node’s content using the function ’del’ given
-as a parameter and free the node. The memory of
-’next’ must not be freed.
-
-lst: The node to free.
-del: The address of the function used to delete the content.*/
-
 #include "minishell.h"
 
-void	ft_delone_node(t_token *lst, void (*del)(void*))
+int	count_tokens(t_token **tokens)
 {
-	(*del)(lst->type);
-	free (lst);
+	t_token	*current;
+	int		count;
+
+	count = 0;
+	current = *tokens;
+	while (current)
+	{
+		count++;
+		current = current->next;
+	}
+	return (count);
 }

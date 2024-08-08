@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/24 14:18:01 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/01 19:03:28 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 18:42:11 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ t_token	*create_token(t_type type, const char *value)
 	token->value = ft_strdup(value);
 	token->type = type;
 	token->next = NULL;
-
 	return (token);
 }

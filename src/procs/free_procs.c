@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/25 09:05:49 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 16:42:07 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 19:02:15 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ void	free_procs(t_proc **procs)
 		next = current->next;
 		if (current->cmd)
 			free(current->cmd);
-		if (current->args)
-			current->args = ft_free_arr(current->args);
-		if (current->hd)
-			current->hd = ft_free_arr(current->hd);
+		if (current->argv)
+			current->argv = ft_free_arr(current->argv);
 		if (current->redir)
 			current->redir = ft_free_arr(current->redir);
 		free(current);

@@ -6,13 +6,13 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/08 16:17:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 16:18:51 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 18:57:24 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_proc	*last_token(t_proc *lst)
+t_proc	*last_proc(t_proc *lst)
 {
 	t_proc	*current_node;
 
