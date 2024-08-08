@@ -6,19 +6,22 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/05 19:30:18 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 16:14:45 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **env)
 {
 	char		*input;
-	t_token		*head;
+	t_token		*head_tokens;
+	t_proc		*head_procs;
 
 	(void)argv;
-	head = NULL;
+	(void)env;
+	head_tokens = NULL;
+	head_procs = NULL;
 	if (argc != 1)
 		ft_puterror_fd("That's too many arguments bro!", STDERR_FILENO);
 	while (1)
@@ -28,23 +31,11 @@ int	main(int argc, char **argv)
 			break;
 		if (*input && input[0] != '\0')
 			add_history(input);
-		if (ft_lexer(&head, input))
-		{
-			print_tokens(head);
-			// if (!input_check(&head))
-			// {
-			// 	printf("Syntax error!!!\n");
-			// 	return (-1);
-			// }
-			free_tokens(&head);
-			head = NULL;
-		}
-		else
-		{
-			printf("Something went wrong! There was a malloc error.\n");
-			return (-1);
-		}
+		if (!ft_lexer(&head_tokens, input))
+			ft_puterror_fd("Error: there was a malloc error.", STDERR_FILENO);
 		free(input);
+		if (!parse_input(&head_procs, &head_tokens));
+			ft_puterror_fd("Something went wrong in parsing.", STDERR_FILENO);
 	}
 	return (0);
 }

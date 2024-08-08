@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
+/*   add_proc.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/07/24 19:22:13 by lade-kon      ########   odam.nl         */
+/*   Created: 2023/10/25 14:16:41 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/08/08 16:18:44 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse(char **input)
+void	add_proc(t_proc **head, t_proc *new)
 {
-	t_token	*parse_lst;
+	t_proc	*last_node;
 
-	parse_lst = make_parse_list(input);
+	if (*head == NULL)
+		*head = new;
+	else
+	{
+		last_node = last_token(*head);
+		last_node->next = new;
+	}
 }

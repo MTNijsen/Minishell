@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/08/05 16:43:54 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/08/08 16:32:38 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC_DIR			:=	src
 SRC_PARSER		:=	parser
 SRC_EXECUTOR	:=	executor
 SRC_TOKENS		:=	tokens
+SRC_PROCS		:=	procs
 SRC_LEXER		:=	lexer
 SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR) $(SRC_LIST) $(SRC_LEXER)
 SRC_FILES		:=	$(addprefix $(SRC_DIR)/, \
@@ -48,6 +49,13 @@ SRC_FILES		:=	$(addprefix $(SRC_DIR)/, \
 					free_tokens.c \
 					print_tokens.c \
 					last_token.c ) \
+					$(addprefix $(SRC_DIR)/$(SRC_PROCS)/, \
+					get_procs.c \
+					init_proc.c \
+					add_proc.c \
+					free_procs.c \
+					print_procs.c \
+					last_proc.c ) \
 					# parser.c \
 
 SRC				:=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))

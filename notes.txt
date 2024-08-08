@@ -1,0 +1,11 @@
+----------
+| TO DO: |
+----------
+
+1.	First lexing cycle is for special tokens and text.
+2.	Then there will be a second lexing cycle and this will divide
+	the text in commands, in_files, out_files and just strings.
+3.	There also needs to be expanding: when $"" is used, it has to
+	expand into extra tokens. So not adding them to the end, but inserting
+	them at the spot where they are supposed to be. 
+4.	And also environment variables need to be taken in account.
