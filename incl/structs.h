@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 18:51:10 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/08 19:51:41 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,17 @@ typedef struct s_proc
 	int				index;
 	struct s_proc	*next;
 }					t_proc;
-
+/**
+ * @brief	This is the giant struct with all of the data from the current prompt
+ * 
+ * 
+ */
+typedef struct s_data
+{
+	t_proc	*procs;
+	t_token	*tokens;
+	char	**envp;
+	char	*input;
+}			t_data;
 
 #endif
