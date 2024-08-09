@@ -1,9 +1,9 @@
 #include "../minishell.h"
 
 //CLEAN UPPPPP!!!!
-int bi_exit(bool is_child)
+void bi_exit(char **argv, t_data *data, bool pipe_present)
 {
-	if (!is_child)
+	if (!pipe_present)
 		printf("exit\n");
-	exit (0);
+	clean_exit(data, ft_atoi(argv[1]));
 }

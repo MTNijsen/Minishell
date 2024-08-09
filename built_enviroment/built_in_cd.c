@@ -26,7 +26,7 @@ static char	*cd_add_dirs(char *str, char *output, int i)
 	return(free_array(array), output);
 }
 
-static char	*cd_parse(char *str, char **envp)
+static char	*parse_cd(char *str, t_data *data)
 {
 	char *output;
 	int	i;
@@ -35,56 +35,39 @@ static char	*cd_parse(char *str, char **envp)
 	if (str[0] == '/')
 		output = ft_strdup("");
 	else
-		output = ft_strdup(return_pwd(envp));
+		output = ft_strdup(return_pwd(data));
 	if (!output)
 		return(NULL);
 	return (cd_add_dirs(str, output, i));
 }
 
-//does it actually work with this split off
-static char *cd_(char *value, char **envp)
-{
-	char	*temp;
-
-	if (value == NULL || !ft_strncmp(value, "--", 3))
-	{
-		temp = return_env(envp, "HOME");
-		if (!temp)
-			return (temp);
-		temp = ft_strdup(temp);
-	}
-	else if (!ft_strncmp(value, "-", 2))
-	{
-		temp = return_env(envp, "OLDPWD");
-		if (!temp)
-			return (temp);
-		temp = ft_strdup(temp);
-	}
-	else
-		temp = cd_parse(value, envp);
-	return (temp);
-}
-
 //still needs alot of work cleaning up and exit coding
-int bi_cd(char **argv, char ***envp)
+int bi_cd(char **argv, t_data *data)
 {
-	char	*local_dir = NULL;
+	char	*pwd;
+	char	*oldpwd;
 	char	*temp;
 
-	local_dir = cd_(argv[0], envp);
-	if (local_dir == NULL)
-		return (MALLOC_FAILURE);
-	temp = return_pwd(envp);
-	if (temp == NULL)
-		return (free(local_dir), MALLOC_FAILURE);
-	temp = ft_strdup(temp); //ensures its on the heap for when we change the OLDPWD
-	if (temp == NULL)
-		return (free(local_dir), MALLOC_FAILURE);
-	if (chdir(local_dir))
-		return (free(local_dir), free(temp), errno);
-	if (modify_env(envp, "OLDPWD", temp, 0))
-		return (free(local_dir), free(temp), MALLOC_FAILURE);
-	if (modify_env(envp, "PWD", local_dir, 0))
-		return (free(local_dir), MALLOC_FAILURE);
+	temp = NULL;
+	if (argv[1] == NULL || !ft_strncmp(argv[1], "--", 3))
+		pwd = return_env_val(data->envp, "HOME");
+	else if (!ft_strncmp(argv[1], "-", 2))
+		pwd = return_env_val(data->envp, "OLDPWD");
+	else
+	{
+		pwd = parse_cd(argv[0], data);
+		temp = pwd;
+	}
+	oldpwd = return_pwd(data);
+	if (!oldpwd)
+		return (errno);
+	if (chdir(pwd))
+		return (errno);
+	if (modify_env_var(data, ft_strappend("PWDPWD", pwd)) || \
+		modify_env_var(data, ft_strappend("OLDPWD", oldpwd)))
+	{
+		free(temp);
+		clean_exit(data, MALLOC_FAILURE);
+	}
 	return (0);
 }

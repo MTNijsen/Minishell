@@ -2,7 +2,6 @@
 
 void wait_exit(int pid, int *exit_code)
 {
-	fprintf(stderr, "wait_exit entered\n");
 	if (pid != -1 && waitpid(pid, exit_code, 0) != -1)
 	{
 		if  (WIFEXITED(*exit_code))
@@ -10,5 +9,10 @@ void wait_exit(int pid, int *exit_code)
 		else
 			*exit_code = WTERMSIG(*exit_code);
 	}
-	fprintf(stderr, "wait_exit left\n");
+}
+
+void clean_exit(t_data *data, int exit_status)
+{
+	(void)data;
+	exit(exit_status);
 }

@@ -14,8 +14,7 @@ static int	is_flag(char *str)
 	return (0);
 }
 
-//works with write instead of printf as there isnt a \n at all times to flush the cache
-int	bi_echo(const char **argv)
+void	bi_echo(char **argv)
 {
 	int		flags;
 	int		i;
@@ -36,5 +35,4 @@ int	bi_echo(const char **argv)
 	}
 	if (!flags)
 		write(1, "\n", 1);
-	return (0);
 }

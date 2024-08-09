@@ -1,97 +1,111 @@
 #include "../minishell.h"
 
-int add_env(t_env *node, char *name, char *content, bool heap)
+bool	is_valid_env(char *env_var)
 {
-	while(node->next != NULL)
-		node = node->next;
-	node->next = (t_env *)malloc(sizeof(t_env));
-	if (!node->next)
-		return (MALLOC_FAILURE);
-	node = node->next;
-	node->next = NULL;
-	if (heap == 1)
-		node->name = name;
-	else
+	int	i;
+
+	i = 0;
+	if (env_var == NULL)
+		return (0);
+	if (ft_isdigit(env_var[i]))
+		return (false);
+	while (env_var[i] != '0' && env_var[i] != '=')
 	{
-		node->name = ft_strdup(name);
-		if (!node->name)
-			return (MALLOC_FAILURE);
+		if (!ft_isalnum(env_var[i]) && env_var[i] != '_')
+			return (false);
+		i++;
 	}
-	node->content = content;
-	return (0);
+	return (true);
 }
 
-//make it so it can handle no startnode present by just making a new enviroment
-int	modify_env(t_env *start_node, char *name, char *content, bool heap)
+//increases the allocated space for strings in envp and copies over all enviroment variables
+//only use to increase the size of the envp, use remove env_var for a single variable being removed
+//and free_array for freeing the whole array
+char **realloc_envp(char **envp, size_t size, size_t *old_size)
 {
-	t_env	*c_node;
+	size_t	i;
+	char **output;
 
-	c_node = start_node;
-	if (!name || !c_node)
+	i = 0;
+	output = (char **)malloc(sizeof(char *) * size);
+	if (output == NULL)
+		return (NULL);
+	while (i < size && i < *old_size)
+	{
+		output[i] = ft_strdup(envp[i]);
+		if (output == NULL)
+			return (free_array(output), NULL);
+		i++;
+	}
+	while (i < size)
+	{
+		output[i] = NULL;
+		i++;
+	}
+	*old_size = size;
+	free_array(envp);
+	return (output);
+}
+
+int		modify_env_var(t_data *data, char *env_var)
+{
+	size_t i;
+	const size_t var_len = strchr(env_var, '=') - env_var;
+
+	i = 0;
+	if (!is_valid_env(env_var))
 		return (1);
-	while(c_node->next != NULL)
+	while (data->envp[i] != NULL && ft_strncmp(data->envp[i], env_var, var_len +1))//loop thru till you see NAME=VALUE
+		i++;
+	if (data->envp[i] != NULL)
 	{
-		if (!ft_strncmp(c_node->next->name, name, ft_strlen(name) +1))
-		{
-			c_node = c_node->next;
-			free(c_node->content);
-			c_node->content = NULL;
-			break ;
-		}
-		c_node = c_node->next;
+		free(data->envp[i]);
+		data->envp[i] = env_var;
+		return (0);
 	}
-	if (c_node->next == NULL)
-		return (add_env(c_node, name, content, heap));
-	c_node->content = content;
+	if (i == data->env_count)
+		data->envp = realloc_envp(data->envp, i +2, &data->env_count);
+	if (data->envp == NULL)
+		clean_exit(data, MALLOC_FAILURE);
+	data->envp[i] = env_var;
 	return (0);
 }
 
-t_env *creat_env(char *name, char *content)
+//frees and removes one enviroment variable which matches name before the '='
+//and moves enviroment variable that came afterwards forwards by one spot
+void	remove_env_var(t_data *data, char *name)
 {
-	t_env *node;
+	size_t	i;
+	const size_t name_len = ft_strlen(name);
 
-	if (!name)
-		return (NULL);
-	node = (t_env *)malloc(sizeof(t_env));
-	if (!node)
-		return (NULL);
-	node->name = name;
-	node->next = NULL;
-	node->content = content;
-	return (node);
-}
-
-int	remove_env(t_env *node, char *name)
-{
-	t_env	*remove_node;
-
-	if (!node || !name)
-		return (1);
-	while(node != NULL)
+	i = 0;
+	while (data->envp[i] != NULL && ft_strncmp(data->envp[i], name, name_len +1) != '=')//loop thru till you see NAME=VALUE
+		i++;
+	if (data->envp[i] != NULL)
 	{
-		if (!ft_strncmp(node->next->name, name, -1))
+		free(data->envp[i]);
+		while (data->envp[i +1] != NULL)
 		{
-			remove_node = node->next;
-			node->next = remove_node->next;
-			free(remove_node->content);
-			free(remove_node->name);
-			free(remove_node);
-			return (0);
+			data->envp[i] = data->envp[i +1];
+			i++;
 		}
-		node = node->next;
+		data->envp[i] = data->envp[i +1];
 	}
-	return (0);
 }
 
-char *return_env(t_env *node, char *name)
+//returns a pointer to the character after the '=' 
+//found inside of the enviroment variable list
+char	*return_env_val(char **envp, char *name)
 {
-	if (!node || !name)
+	size_t	i;
+	const size_t name_len = ft_strlen(name);
+
+	if (!is_valid_env(name))
 		return (NULL);
-	while(node != NULL)
-	{
-		if (!ft_strncmp(node->name, name, -1))
-			return (node->content);
-		node = node->next;
-	}
+	i = 0;
+	while (envp[i] != NULL && ft_strncmp(envp[i], name, name_len +1) != '=' )
+		i++;
+	if (envp[i] != NULL)
+		return (&envp[i][name_len +1]);
 	return (NULL);
 }

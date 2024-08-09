@@ -1,17 +1,10 @@
 #include "../minishell.h"
 
-int bi_env(t_env *env_node)
+void bi_env(t_data *data)
 {
-	t_env *node;
+	int	i;
 
-	node = env_node;
-	while(node != NULL)
-	{
-		if (node->content)
-			printf("%s=%s\n", node->name, node->content);
-		else
-			printf("%s\n", node->name);
-		node = node->next;
-	}
-	return (0);
+	i = 0;
+	while(data->envp[i] != NULL)
+		printf("%s\n", data->envp[i++]);
 }

@@ -1,22 +1,41 @@
 #include "../minishell.h"
 
-static int execute_section(t_proc *proc, t_env *env_node, t_exec info, int *pid)
+static int command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 {
-	t_token *token;
+	if (!ft_strncmp(proc->cmd, "cd", 3))
+		return (bi_cd(proc->argv, data));
+	else if (!ft_strncmp(proc->cmd, "echo", 5))
+		return (bi_echo(proc->argv), 0);
+	else if (!ft_strncmp(proc->cmd, "env", 4))
+		return (bi_env(data), 0);
+	else if (!ft_strncmp(proc->cmd, "exit", 5))
+		return (bi_exit(proc->argv, data, pipe_present), 0);
+	else if (!ft_strncmp(proc->cmd, "export", 7))
+		return (bi_export(proc->argv, data), 0);
+	else if (!ft_strncmp(proc->cmd, "pwd", 4))
+		return (bi_pwd(data));
+	else if (!ft_strncmp(proc->cmd, "unset", 6))
+		return (bi_unset(proc->argv, data), 0);
+	if (access(proc->cmd, X_OK))
+		return (errno);
+	if (!pipe_present)
+	{
+		*pid = fork();
+		if (*pid)
+			return (0);
+	}
+	execve(proc->cmd, proc->argv, data->envp);
+	return (0);
+}
+
+static int execute_section(t_proc *proc, t_data *data, int *pid, bool pipe_present)
+{
 	int		exit_code;
 
-	exit_code = 0;
-	token = first_token;
-	while (token->next != NULL && token->next->type != PIPE)
-		token = token->next;
-	token->next = NULL; //is this needed or not already done in exec pipes
-	token = redirect(first_token, info.h_doc, info.index, &exit_code);
+	exit_code = redirect(proc);
 	if (exit_code)
-		return (free(first_token), exit_code);
-	if (isbuiltin(token->value))
-		exit_code = builtin(token, env_node, info.pipe_present);
-	else
-		exit_code = command(token, env_node, info.pipe_present, pid);
+		return (exit_code);
+	exit_code = command(proc, data, pipe_present, pid);
 	return (exit_code);
 }
 
@@ -29,67 +48,49 @@ static int exec_exit(int pid, int exit_code)
 	return (exit_code);
 }
 
-static t_token *exec_pipes( t_token *token, t_env *env_node, t_exec *info)
+static t_proc *exec_pipes(t_data *data)
 {
-	t_token 	*start_sec;
-	t_token 	*temp_token;
-	int			pid;
-	int			exit_code;
+	t_proc	*proc;
+	int		pid;
+	int		exit_code;
 
-	start_sec = token;
-	while (token != NULL && token->next != NULL)
+	proc = data->procs;
+	while (proc->next)
 	{
-		if (token->next->type == PIPE)
+		pid = pipeline();
+		if (pid == 0)
 		{
-			info->pipe_present = true;
-			temp_token = token;
-			token = token->next->next;
-			free_token(temp_token->next);
-			temp_token->next = NULL;
-			pid = pipeline();
-			if (pid == 0)
-			{
-				exit_code = execute_section(start_sec, env_node, *info, &pid);
-				free_tokens(start_sec);
-				free_env(env_node);
-				free_tokens(token);
-				exit (exit_code);
-			}
-			info->index++;
-			free_tokens(start_sec);
-			start_sec = token;
+			exit_code = execute_section(proc, data, &pid, true);
+			clean_exit(data, exit_code);
 		}
-		else
-			token = token->next;
+		proc = proc->next;
 	}
-	return (start_sec);
+	return (proc);
 }
 
-int executor(t_proc *proc, char ***envp)
+int executor(t_data *data)
 {
 	int 		exit_code;
 	int			pid;
-	int			index;
+	t_proc		*last_proc;
 
 	pid = -1;
-	exit_code = heredoc_read(proc);
+	exit_code = heredoc(data);
 	if (exit_code != 0)
 		return (exit_code);
-	index = exec_pipes(proc, envp);
-	if (index != 0)
+	last_proc = exec_pipes(data);
+	if (&last_proc == &data->procs)
 	{
 		pid = fork();
 		if (pid == -1)
 			return (errno);
 		if (pid == 0)
 		{
-			exit_code = execute_section(proc, envp, &pid);
-			free_processes(proc);
-			free_array(envp);
-			exit (exit_code);
+			exit_code = execute_section(last_proc, data, &pid, true);
+			clean_exit(data, exit_code);
 		}
 	}
 	else
-		exit_code = execute_section(proc[0], envp, &pid); //if section is a command pid is a non-zero value
+		exit_code = execute_section(last_proc, data, &pid, false);
 	return (exec_exit(pid, exit_code));
 }
