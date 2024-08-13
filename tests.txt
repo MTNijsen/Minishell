@@ -1,5 +1,13 @@
+-----------------
+| INPUT  TESTS: |
+-----------------
+* Correct input *
+-----------------
 "hoi"hoi"hoi" hallo | dit < is << een >> redirect > 
 "hoi" "hoi
 'hoi' 'hoi
 'hoi'
 "hoi"
+----------------
+* Syntax error *
+----------------
