@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+// In this function I check from text after a redirect. If there is no node
+// after the redirect the functions returns false. 
 bool	input_check(t_token **token_lst)
 {
 	t_token	*current;

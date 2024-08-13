@@ -84,7 +84,10 @@ typedef struct s_proc
 /**
  * @brief	This is the giant struct with all of the data from the current prompt
  * 
- * 
+ * @param	procs: linked list of all processes containing information.
+ * @param	tokens: linked list of all tokens after tokenization in the lexer.
+ * @param	envp: environment pointer.
+ * @param	input: string of input from the user.
  */
 typedef struct s_data
 {
