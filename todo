@@ -7,8 +7,10 @@ refractor redirect
 
 change functions to return the error code instead of a move to the list node
 
-rewrite env to handle 2d array
-rewrite export to handle 2d array
+redo builtins to handle 2d array for envp
 write function to add to 2d array
+	write realloc
 write function to remove from 2d array
 write function to retrieve from 2d array
+	write split
+
