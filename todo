@@ -14,3 +14,4 @@ write function to remove from 2d array
 write function to retrieve from 2d array
 	write split
 
+	//at the start of the proccess we should put the whole envp on the heap so it can all be freed at the end of the process for when we add or remove from it

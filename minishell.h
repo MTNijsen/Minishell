@@ -33,6 +33,7 @@ char	**realloc_envp(char **envp, size_t size, size_t *old_size);
 int		modify_env_var(t_data *data, char *env_var);
 void	remove_env_var(t_data *data, char *name);
 char	*return_env_val(char **envp, char *name);
+int	copy_array(char ***new_array, char **old_array);
 
 
 
