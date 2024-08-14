@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   free_struct.c                                      :+:    :+:            */
+/*   count_tokens_proc.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/14 14:40:01 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 18:05:50 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/08/08 18:02:49 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/08/14 21:06:38 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_struct(t_data *data)
+int	count_tokens_proc(t_token *token)
 {
-	if (data)
+	t_token	*current;
+	int		count;
+
+	count = 0;
+	current = token;
+	while (current && current->type != PIPE)
 	{
-		// if (data->tokens)
-		// 	free_tokens(&data->tokens);
-		// if (data->procs)
-		// 	free_procs(&data->procs);
-		// if (data ->envp)
-		// 	ft_free_arr(data->envp);
-		if (data->input)
-			free(data->input);
+		count++;
+		current = current->next;
 	}
+	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 16:24:02 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/14 21:06:49 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ int		text_tokens(t_token **head, char *input, int i);
 
 // PROCS //
 t_proc	*init_proc(void);
-t_proc	*create_proc(t_data *data);
+t_proc	*create_proc(t_data *data, t_token *token);
 void	add_proc(t_data *data, t_proc *new);
 void	free_procs(t_proc **procs);
 void	print_procs(t_proc *lst);
 t_proc	*last_proc(t_proc *lst);
 t_proc	*init_proc(void);
+int	count_tokens_proc(t_token *token);
 
 // REDIRS //
 void	free_redirs(t_redir **redirs);

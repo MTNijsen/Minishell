@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/08/14 16:31:29 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/08/14 20:10:06 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,33 +31,35 @@ SRC_EXECUTOR	:=	executor
 SRC_TOKENS		:=	tokens
 SRC_PROCS		:=	procs
 SRC_LEXER		:=	lexer
+SRC_REDIRS		:=	redirs
 SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR) $(SRC_LIST) $(SRC_LEXER)
-SRC_FILES		:=	$(addprefix $(SRC_DIR)/, \
-					main.c \
+SRC_FILES		:=	main.c \
 					input_check.c \
 					init_struct.c \
 					free_struct.c \
-					error.c ) \
-					$(addprefix $(SRC_DIR)/$(SRC_LEXER)/, \
+					error.c \
+					$(addprefix $(SRC_LEXER)/, \
 					lexer.c \
 					special_tokens.c \
 					text_tokens.c \
 					command_tokens.c \
 					utils.c ) \
-					$(addprefix $(SRC_DIR)/$(SRC_TOKENS)/, \
+					$(addprefix $(SRC_TOKENS)/, \
 					create_token.c \
 					add_token.c \
 					free_tokens.c \
 					print_tokens.c \
 					last_token.c \
 					count_tokens.c ) \
-					$(addprefix $(SRC_DIR)/$(SRC_PROCS)/, \
+					$(addprefix $(SRC_PROCS)/, \
 					init_proc.c \
 					create_proc.c \
 					add_proc.c \
 					print_procs.c \
 					free_procs.c \
 					last_proc.c ) \
+					$(addprefix $(SRC_REDIRS)/, \
+					free_redirs.c ) \
 					# get_procs.c \
 					# parser.c \
 
@@ -74,16 +76,20 @@ $(LIBFT_A):
 	@git submodule update --init --recursive --remote
 	@make -C $(LIBFT_DIR) > /dev/null
 
-$(NAME): $(OBJ) $(LIBFT_A)
+$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT_A)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(INCLUDES) $(LIBFT_A) -o $(NAME)
 
-$(OBJ_DIR)/$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_PARSER)
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_EXECUTOR)
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_TOKENS)
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_LEXER)
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(SRC_PROCS)
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/$(SRC_PARSER)
+	mkdir -p $(OBJ_DIR)/$(SRC_EXECUTOR)
+	mkdir -p $(OBJ_DIR)/$(SRC_TOKENS)
+	mkdir -p $(OBJ_DIR)/$(SRC_LEXER)
+	mkdir -p $(OBJ_DIR)/$(SRC_PROCS)
+	mkdir -p $(OBJ_DIR)/$(SRC_REDIRS)
+
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 norminette:

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 16:20:37 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/14 21:08:33 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct s_proc
 	t_redir			*redirs;
 	int				hd_pipe[2];
 	int				token_count;
-	int				proc_count;
 	int				index;
 	struct s_proc	*next;
 }					t_proc;
@@ -93,7 +92,9 @@ typedef struct s_proc
 typedef struct s_data
 {
 	t_proc	*procs;
+	int		proc_count;
 	t_token	*tokens;
+	int		token_count;
 	char	**envp;
 	char	*input;
 }			t_data;

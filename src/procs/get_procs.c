@@ -20,6 +20,8 @@ int	get_procs(t_data *data)
 	new_proc = init_proc();
 	if (!new_proc)
 		return (-1);
+	data->token_count = count_tokens(&data->tokens);
+	data->proc_count = count_procs(&data->tokens);
 	current_token = data->tokens;
 	while (current_token)
 	{
