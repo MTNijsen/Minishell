@@ -1,36 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_procs.c                                        :+:    :+:            */
+/*   create_proc.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/14 16:45:19 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 16:55:05 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/08/14 16:53:38 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_procs(t_data *data)
+int	get_redir(t_proc *procs, t_token **tokens)
+{
+	t_token	*current;
+
+	current = *tokens;
+}
+
+char	*get_command(t_data *data)
+{
+
+}
+
+t_proc	*create_proc(t_token *token)
 {
 	t_token	*current_token;
-	t_proc	*new_proc;
+	t_proc	*proc;
 
-	new_proc = init_proc();
-	if (!new_proc)
-		return (-1);
-	current_token = data->tokens;
+	proc = init_proc();
+	current_token = token;
 	while (current_token)
 	{
-		new_proc = create_proc(current_token);
 		while (current_token->type != PIPE)
-			current_token = current_token->next;
-		if (current_token->type == PIPE)
 		{
-			add_proc(data, new_proc);
-			current_token = current_token->next; 
+			
 		}
+		if (current_token->type == PIPE)
+			add_proc(procs, proc);
+		current_token = current_token->next;
 	}
-	return (0);
+	return (true);
 }

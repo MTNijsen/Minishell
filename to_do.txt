@@ -1,0 +1,11 @@
+----------------
+| TO DO TODAY: |
+----------------
+
+1.	Change all t_token * and t_proc * passed to functions
+2.	Finish input_check
+3.	Clean up main
+4.	Finish lexer
+5.	Organize functions
+6.	Finish process list making
+

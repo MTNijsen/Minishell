@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 19:31:01 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/14 14:39:53 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-bool	ft_lexer(t_token **head, char *input);
-bool	input_check(t_token **token_lst);
-bool	ft_isspecial(char input, const char *check);
+int		ft_lexer(t_data *data, char *input);
+int		input_check(t_token **token_lst);
+bool	is_special(char input, const char *check);
 int		handle_quotes(char *input, int i);
-int		reclassify_text_token(t_token **head, int flag);
+void	reclassify_text_token(t_token **head, int flag);
+void	ft_error(t_data *data, int flag);
+t_data	*init_struct(void);
+bool	is_redirect(t_token *token);
+void	free_struct(t_data *data);
 
 #endif

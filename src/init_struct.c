@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_procs.c                                        :+:    :+:            */
+/*   init_struct.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/14 16:45:19 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 16:55:05 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/08/14 13:05:05 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/08/14 13:58:28 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_procs(t_data *data)
+t_data	*init_struct(void)
 {
-	t_token	*current_token;
-	t_proc	*new_proc;
+	t_data	*data;
 
-	new_proc = init_proc();
-	if (!new_proc)
-		return (-1);
-	current_token = data->tokens;
-	while (current_token)
-	{
-		new_proc = create_proc(current_token);
-		while (current_token->type != PIPE)
-			current_token = current_token->next;
-		if (current_token->type == PIPE)
-		{
-			add_proc(data, new_proc);
-			current_token = current_token->next; 
-		}
-	}
-	return (0);
+	data = (t_data *)malloc(sizeof(t_data));
+	if (!data)
+		return (NULL);
+	data->procs = NULL;
+	data->tokens = NULL;
+	data->envp = NULL;
+	data->input = NULL;
+	return (data);
 }

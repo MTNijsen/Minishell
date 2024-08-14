@@ -18,3 +18,5 @@
 10.	Do some extra documentation.
 11.	Laura: organize all of the folders and files.
 12.	Fix Makefile so when compiling it doesnt make to many object folders. 
+13. If the command line is as follows: echo hoi || echo doei --> it should only
+	execute the first part. Everything that comes behind the || does nothing.

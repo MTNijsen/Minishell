@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 19:08:32 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/14 14:37:44 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	char		*input;
-	t_token		*head_tokens;
-	t_proc		*head_procs;
+	char	*input;
+	t_data	*data;
+	int		x;
 
 	(void)argv;
 	(void)env;
-	head_tokens = NULL;
-	head_procs = NULL;
 	if (argc != 1)
 		ft_puterror_fd("That's too many arguments bro!", STDERR_FILENO);
+	data = init_struct();
+	if (data == NULL)
+		ft_error(NULL, -1);
 	while (1)
 	{
 		input = readline("Crab-shell$ ");
@@ -31,15 +32,12 @@ int	main(int argc, char **argv, char **env)
 			break;
 		if (*input && input[0] != '\0')
 			add_history(input);
-		if (!ft_lexer(&head_tokens, input))
-			ft_puterror_fd("Error: there was a malloc error.", STDERR_FILENO);
-		print_tokens(head_tokens);
-		int tokens = count_tokens(&head_tokens);
-		printf("tokens: %i\n", tokens);
-		free_tokens(&head_tokens);
+		x = ft_lexer(data, input);
+		ft_error(data, x);
+		
+		// print_tokens(data->tokens);
+		free_tokens(&data->tokens);
 		free(input);
-		// if (!parse_input(&head_procs, &head_tokens));
-		// 	ft_puterror_fd("Something went wrong in parsing.", STDERR_FILENO);
 	}
 	return (0);
 }

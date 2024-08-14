@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 19:02:24 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/14 16:24:02 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_tokens(t_token **tokens);
 void	print_tokens(t_token *lst);
 t_token	*last_token(t_token *lst);
 int		count_tokens(t_token **tokens);
+
 int		create_pipe_token(t_token **head, int i);
 int		create_redir_token(t_token **head, char *input, int i);
 int		create_right_redir(t_token **head, char *input, int i);
@@ -33,10 +34,15 @@ int		text_tokens(t_token **head, char *input, int i);
 
 // PROCS //
 t_proc	*init_proc(void);
-void	add_proc(t_proc **head, t_proc *new);
+t_proc	*create_proc(t_data *data);
+void	add_proc(t_data *data, t_proc *new);
 void	free_procs(t_proc **procs);
 void	print_procs(t_proc *lst);
 t_proc	*last_proc(t_proc *lst);
+t_proc	*init_proc(void);
+
+// REDIRS //
+void	free_redirs(t_redir **redirs);
 
 
 #endif

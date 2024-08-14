@@ -6,13 +6,13 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:18:48 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/01 21:35:56 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/14 12:48:11 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ft_isspecial(char input, const char *check)
+bool	is_special(char input, const char *check)
 {
 	int	i;
 

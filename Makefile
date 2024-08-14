@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/08/08 19:02:50 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/08/14 16:31:29 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,10 @@ SRC_LEXER		:=	lexer
 SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR) $(SRC_LIST) $(SRC_LEXER)
 SRC_FILES		:=	$(addprefix $(SRC_DIR)/, \
 					main.c \
-					input_check.c ) \
+					input_check.c \
+					init_struct.c \
+					free_struct.c \
+					error.c ) \
 					$(addprefix $(SRC_DIR)/$(SRC_LEXER)/, \
 					lexer.c \
 					special_tokens.c \
@@ -50,10 +53,11 @@ SRC_FILES		:=	$(addprefix $(SRC_DIR)/, \
 					count_tokens.c ) \
 					$(addprefix $(SRC_DIR)/$(SRC_PROCS)/, \
 					init_proc.c \
+					create_proc.c \
 					add_proc.c \
 					print_procs.c \
+					free_procs.c \
 					last_proc.c ) \
-					# free_procs.c \
 					# get_procs.c \
 					# parser.c \
 

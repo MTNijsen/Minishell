@@ -6,13 +6,13 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 19:27:31 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/14 14:33:48 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	reclassify_text_token(t_token **head, int flag)
+void	reclassify_text_token(t_token **head, int flag)
 {
 	t_token	*current;
 	t_token	*next;
@@ -25,8 +25,6 @@ int	reclassify_text_token(t_token **head, int flag)
 			flag = 1;
 		if (next && current->type > 1 && current->type < 6 && next->type == TEXT)
 			next->type = FILES;
-		else if (!next  && current->type > 1 && current->type < 6)
-			return (-1); //should return syntax error instead
 		else if (current->type == TEXT && flag == 1)
 		{
 			current->type = COMMAND;
@@ -36,7 +34,6 @@ int	reclassify_text_token(t_token **head, int flag)
 			current->type = STRING;
 		current = next;
 	}
-	return (0);
 }
 
 int	create_text_token(t_token **head, char *input, int i)
@@ -47,7 +44,7 @@ int	create_text_token(t_token **head, char *input, int i)
 
 	start = i;
 	value = NULL;
-	while (input[i] && !ft_isspecial(input[i], " |<>\"\'"))
+	while (input[i] && !is_special(input[i], " |<>\"\'"))
 		i++;
 	value = ft_substr(input, start, (i - start));
 	token = create_token(TEXT, value);

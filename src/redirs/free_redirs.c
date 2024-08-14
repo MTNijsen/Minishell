@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_procs.c                                        :+:    :+:            */
+/*   free_redirs.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/14 16:45:19 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 16:55:05 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/08/14 16:19:28 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/08/14 16:24:31 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_procs(t_data *data)
+void	free_redirs(t_redir **redirs)
 {
-	t_token	*current_token;
-	t_proc	*new_proc;
+	t_redir	*current;
+	t_redir	*next;
 
-	new_proc = init_proc();
-	if (!new_proc)
-		return (-1);
-	current_token = data->tokens;
-	while (current_token)
+	current = *redirs;
+	while (current)
 	{
-		new_proc = create_proc(current_token);
-		while (current_token->type != PIPE)
-			current_token = current_token->next;
-		if (current_token->type == PIPE)
-		{
-			add_proc(data, new_proc);
-			current_token = current_token->next; 
-		}
+		next = current->next;
+		if (current->file)
+			free(current->file);
+		free(current);
+		current = next;
 	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 19:51:41 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/14 16:20:37 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@
 /** 
 * @brief The different enum types for the tokens
 *
-* @param CMD is a command
-* @param PIPE (|)
-* @param IN_REDIRECT (>)
-* @param OUT_REDIRECT (<)
-* @param APP_REDIRECT (>>)
-* @param HEREDOC (<<)
-* @param FILE is the in or out file
-* @param STRING is a string
+* @param TEXT: is everything that is text before reclassifying
+* @param PIPE: (|)
+* @param IN_REDIRECT: (>)
+* @param OUT_REDIRECT: (<)
+* @param APP_REDIRECT: (>>)
+* @param HEREDOC: (<<)
+* @param COMMAND: is a command
+* @param FILES: is the in or out file
+* @param STRING: is a string
 */
 typedef enum e_type
 {
@@ -74,7 +75,7 @@ typedef struct s_proc
 {
 	char			*cmd;
 	char			**argv;
-	t_redir			*redir;
+	t_redir			*redirs;
 	int				hd_pipe[2];
 	int				token_count;
 	int				proc_count;

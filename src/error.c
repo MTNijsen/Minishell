@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   add_proc.c                                         :+:    :+:            */
+/*   error.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/25 14:16:41 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 16:15:41 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/08/14 12:58:19 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/08/14 14:43:21 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_proc(t_data *data, t_proc *new)
+// This function could use some cleaning up and maybe exit codes etc.
+// Also needs cleaning up stuff.
+void	ft_error(t_data *data, int flag)
 {
-	t_proc	*last_node;
-	t_proc	**head;
-
-	head = &data->procs;
-	if (*head == NULL)
-		*head = new;
-	else
-	{
-		last_node = last_proc(*head);
-		last_node->next = new;
-	}
+	free_struct(data);
+	if (flag == -1)
+		ft_puterror_fd("Malloc error", STDERR_FILENO);
+	else if (flag == -2)
+		ft_puterror_fd("Syntax error", STDERR_FILENO);
 }

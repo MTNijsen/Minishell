@@ -6,15 +6,29 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 14:59:26 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/05 16:33:31 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/14 14:25:11 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// In this function I check from text after a redirect. If there is no node
-// after the redirect the functions returns false. 
-bool	input_check(t_token **token_lst)
+bool	is_redirect(t_token *token)
+{
+	if (token->type == IN_REDIRECT)
+		return (true);
+	else if (token->type == OUT_REDIRECT)
+		return (true);
+	else if (token->type == APP_REDIRECT)
+		return (true);
+	else if (token->type == HEREDOC)
+		return (true);
+	return (false);
+}
+
+// In this function I check if there comes a file after a redirect. If there is no node
+// after the redirect the functions returns false. The function also returns false if
+// if there is another redirect following. 
+int	input_check(t_token **token_lst)
 {
 	t_token	*current;
 	t_token	*next;
@@ -24,12 +38,14 @@ bool	input_check(t_token **token_lst)
 	while (current)
 	{
 		next = current->next;
-		if (current->type != PIPE && current->type != STRING)
+		if (is_redirect(current) == true)
 		{
-			if (next == NULL || next->type != STRING)
-				return (false);
+			if (next == NULL || next->type != FILES)
+				return (-2);
+			else if (is_redirect(next) == true)
+				return (-2);
 		}
 		current = next;
 	}
-	return (true);
+	return (0);
 }

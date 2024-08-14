@@ -6,17 +6,19 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/24 13:47:50 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 19:26:40 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/14 14:31:42 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ft_lexer(t_token **head, char *input)
+int	ft_lexer(t_data *data, char *input)
 {
 	int	i;
 	int	x;
+	t_token	**head;
 
+	head = &data->tokens;
 	i = 0;
 	x = 0;
 	while (input[i])
@@ -30,10 +32,9 @@ bool	ft_lexer(t_token **head, char *input)
 		else
 			x = text_tokens(head, input, i);
 		if (x < 0)
-			return (false);
+			return (-1);
 		i = x;
 	}
-	if (reclassify_text_token(head, 1) == -1)
-		return (false);
-	return (true);
+	reclassify_text_token(head, 1);
+	return (input_check(head));
 }
