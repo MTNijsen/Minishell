@@ -6,10 +6,10 @@ bool	is_valid_env(char *env_var)
 
 	i = 0;
 	if (env_var == NULL)
-		return (0);
+		return (false);
 	if (ft_isdigit(env_var[i]))
 		return (false);
-	while (env_var[i] != '0' && env_var[i] != '=')
+	while (env_var[i] != '\0' && env_var[i] != '=')
 	{
 		if (!ft_isalnum(env_var[i]) && env_var[i] != '_')
 			return (false);
@@ -108,4 +108,25 @@ char	*return_env_val(char **envp, char *name)
 	if (envp[i] != NULL)
 		return (&envp[i][name_len +1]);
 	return (NULL);
+}
+
+int	copy_array(char ***new_array, char **old_array)
+{
+	int	i;
+
+	i = 0;
+	while(old_array[i] != NULL)
+		i++;
+	(*new_array) = (char **)ft_calloc(i + 2, sizeof(char *));
+	if (!*new_array)
+			return (1);
+	i = 0;
+	while(old_array[i] != NULL)
+	{
+		(*new_array)[i] = ft_strdup(old_array[i]);
+		if (!(*new_array)[i])
+			return (free_array(*new_array), 1);
+		i++;
+	}
+	return (0);
 }

@@ -1,14 +1,16 @@
 //PROTECT ALWAYS EXPECT NULL
 #include "../minishell.h"
 
-static char	*cd_add_dirs(char *str, char *output, int i)
+static char	*cd_add_dirs(char *str, char *output)
 {
 	char *temp;
 	char **array;
+	int	i;
 
 	array = ft_split(str, '/');
 	if (!array)
 		return (NULL);
+	i = 0;
 	while (array[i] != NULL)
 	{
 		if (!ft_strncmp(array[i], ".", 2))
@@ -23,22 +25,25 @@ static char	*cd_add_dirs(char *str, char *output, int i)
 		output = temp;
 		i++;
 	}
+	if (output[0] == '\0')
+	{
+		free(output);
+		output = ft_strdup("/");
+	}
 	return(free_array(array), output);
 }
 
 static char	*parse_cd(char *str, t_data *data)
 {
 	char *output;
-	int	i;
 
-	i = 0;
 	if (str[0] == '/')
 		output = ft_strdup("");
 	else
 		output = ft_strdup(return_pwd(data));
 	if (!output)
 		return(NULL);
-	return (cd_add_dirs(str, output, i));
+	return (cd_add_dirs(str, output));
 }
 
 //still needs alot of work cleaning up and exit coding
@@ -55,19 +60,19 @@ int bi_cd(char **argv, t_data *data)
 		pwd = return_env_val(data->envp, "OLDPWD");
 	else
 	{
-		pwd = parse_cd(argv[0], data);
+		pwd = parse_cd(argv[1], data);
 		temp = pwd;
 	}
 	oldpwd = return_pwd(data);
 	if (!oldpwd)
 		return (errno);
 	if (chdir(pwd))
-		return (errno);
-	if (modify_env_var(data, ft_strappend("PWDPWD", pwd)) || \
-		modify_env_var(data, ft_strappend("OLDPWD", oldpwd)))
-	{
-		free(temp);
+		return (free(pwd), errno);
+	pwd = ft_strappend("PWD=", pwd);
+	oldpwd = ft_strappend("OLDPWD=", oldpwd);
+	free(temp);
+	if (modify_env_var(data, pwd) || \
+		modify_env_var(data, oldpwd))
 		clean_exit(data, MALLOC_FAILURE);
-	}
 	return (0);
 }

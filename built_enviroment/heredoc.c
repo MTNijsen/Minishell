@@ -25,6 +25,9 @@ int heredoc(t_data *data)
 	t_proc	*proc;
 
 	proc = data->procs;
+	exit_code = 0;
+	if (proc->redir == NULL)
+		return (0);
 	while (proc != NULL)
 	{
 		redir = proc->redir;

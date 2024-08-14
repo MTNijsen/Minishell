@@ -11,11 +11,12 @@ static void export_display(char **envp)
 	while(envp[i] != NULL)
 	{
 		eq_index = strchr(envp[i], '=') -  envp[i];
+		write(1, "-x declare ", 12);
 		write(1, envp[i], eq_index);
 		if (envp[i][eq_index +1] != '\0')
 		{
 			write(1, "=\"", 2);
-			write(1, &envp[i][eq_index +1], 1);
+			write(1, &envp[i][eq_index +1], ft_strlen(&envp[i][eq_index +1]));
 			write(1, "\"", 1);
 		}
 		write(1, "\n", 1);
@@ -26,12 +27,14 @@ static void export_display(char **envp)
 static void add_export(char **argv, t_data *data)
 {
 	int		i;
+	char	*temp;
 
 	i = 1;
 	while (argv[i] != NULL)
 	{
-		if (modify_env_var(data, argv[i]))
-			clean_exit(data, MALLOC_FAILURE);
+		temp = ft_strdup(argv[i]);
+		if (modify_env_var(data, temp))
+			free(temp);
 		i++;
 	}
 }

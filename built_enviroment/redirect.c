@@ -5,7 +5,7 @@ static int	redirect_in(t_redir *redir)
 	int	fd;
 
 	fd = open(redir->file, O_RDONLY);
-	if (!fd)
+	if (fd == -1)
 		return (errno);
 	dup2(fd, 0);
 	close(fd);
@@ -17,7 +17,7 @@ static int	redirect_out(t_redir *redir)
 	int	fd;
 
 	fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (!fd)
+	if (fd == -1)
 		return (errno);
 	dup2(fd, 1);
 	close(fd);
@@ -29,7 +29,7 @@ static int	redirect_out_append(t_redir *redir)
 	int	fd;
 
 	fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0777);
-	if (!fd)
+	if (fd == -1)
 		return (errno);
 	dup2(fd, 1);
 	close(fd);
@@ -49,6 +49,7 @@ int	redirect(t_proc *proc)
 {
 	int exit_code;
 
+	exit_code = 0;
 	while (proc->redir != NULL)
 	{
 		if (proc->redir->type == IN_REDIRECT)

@@ -5,5 +5,7 @@ void bi_exit(char **argv, t_data *data, bool pipe_present)
 {
 	if (!pipe_present)
 		printf("exit\n");
-	clean_exit(data, ft_atoi(argv[1]));
+	if (argv[1] != NULL)
+		clean_exit(data, ft_atoi(argv[1]));
+	clean_exit(data, 0);
 }
