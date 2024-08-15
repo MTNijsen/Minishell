@@ -6,37 +6,37 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 14:33:48 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/15 14:06:58 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	reclassify_text_token(t_token **head, int flag)
+void	reclassify_text_token(t_data *data, int flag)
 {
-	t_token	*current;
+	t_token	*token;
 	t_token	*next;
 
-	current = *head;
-	while (current)
+	token = data->tokens;
+	while (token)
 	{
-		next = current->next;
-		if (current->type == PIPE)
+		next = token->next;
+		if (token->type == PIPE)
 			flag = 1;
-		if (next && current->type > 1 && current->type < 6 && next->type == TEXT)
+		if (next && token->type > 1 && token->type < 6 && next->type == TEXT)
 			next->type = FILES;
-		else if (current->type == TEXT && flag == 1)
+		else if (token->type == TEXT && flag == 1)
 		{
-			current->type = COMMAND;
+			token->type = COMMAND;
 			flag = 0;
 		}
-		else if (current->type == TEXT)
-			current->type = STRING;
-		current = next;
+		else if (token->type == TEXT)
+			token->type = STRING;
+		token = next;
 	}
 }
 
-int	create_text_token(t_token **head, char *input, int i)
+int	create_text_token(t_data *data, char *input, int i)
 {
 	t_token	*token;
 	int		start;
@@ -50,12 +50,12 @@ int	create_text_token(t_token **head, char *input, int i)
 	token = create_token(TEXT, value);
 	if (token == NULL || value == NULL)
 		return (-1);
-	add_token(head, token);
+	add_token(data, token);
 	free (value);
 	return (i);
 }
 
-int	create_quotes_token(t_token **head, char *input, int i)
+int	create_quotes_token(t_data *data, char *input, int i)
 {
 	t_token	*token;
 	int		x;
@@ -70,19 +70,19 @@ int	create_quotes_token(t_token **head, char *input, int i)
 	token = create_token(STRING, value);
 	if (token == NULL || value == NULL)
 		return (-1);
-	add_token(head, token);
+	add_token(data, token);
 	free (value);
 	return (i);
 }
 
-int	text_tokens(t_token **head, char *input, int i)
+int	text_tokens(t_data *data, char *input, int i)
 {
 	int	x;
 
 	x = 0;
 	if (input[i] == '\"' || input[i] == '\'')
-		x = create_quotes_token(head, input, i);
+		x = create_quotes_token(data, input, i);
 	else
-		x = create_text_token(head, input, i);
+		x = create_text_token(data, input, i);
 	return (x);
 }

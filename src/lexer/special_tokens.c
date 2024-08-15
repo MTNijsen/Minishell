@@ -6,13 +6,13 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:21:54 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/05 16:29:01 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/15 14:06:20 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	create_left_redir(t_token **head, char *input, int i)
+int	create_left_redir(t_data *data, char *input, int i)
 {
 	t_token	*token;
 
@@ -26,11 +26,11 @@ int	create_left_redir(t_token **head, char *input, int i)
 		token = create_token(IN_REDIRECT, "<\0");
 	if (token == NULL)
 		return (-1);
-	add_token(head, token);
+	add_token(data, token);
 	return (i);
 }
 
-int	create_right_redir(t_token **head, char *input, int i)
+int	create_right_redir(t_data *data, char *input, int i)
 {
 	t_token	*token;
 
@@ -44,27 +44,27 @@ int	create_right_redir(t_token **head, char *input, int i)
 		token = create_token(OUT_REDIRECT, ">\0");
 	if (token == NULL)
 		return (-1);
-	add_token(head, token);
+	add_token(data, token);
 	return (i);
 }
 
-int	create_redir_token(t_token **head, char *input, int i)
+int	create_redir_token(t_data *data, char *input, int i)
 {
 	if (input[i] == '<')
-		i = create_left_redir(head, input, i);
+		i = create_left_redir(data, input, i);
 	if (input[i] == '>')
-		i = create_right_redir(head, input, i);
+		i = create_right_redir(data, input, i);
 	return (i);
 }
 
-int	create_pipe_token(t_token **head, int i)
+int	create_pipe_token(t_data *data, int i)
 {
 	t_token	*token;
 
 	token = create_token(PIPE, "|\0");
 	if (token == NULL)
 		return (-1);
-	add_token(head, token);
+	add_token(data, token);
 	i++;
 	return (i);
 }

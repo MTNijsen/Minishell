@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 14:59:26 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 14:25:11 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/15 13:51:32 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ bool	is_redirect(t_token *token)
 // In this function I check if there comes a file after a redirect. If there is no node
 // after the redirect the functions returns false. The function also returns false if
 // if there is another redirect following. 
-int	input_check(t_token **token_lst)
+int		input_check(t_data *data)
 {
 	t_token	*current;
 	t_token	*next;
 
-	current = *token_lst;
+	current = data->tokens;
 	next = NULL;
 	while (current)
 	{
@@ -41,9 +41,9 @@ int	input_check(t_token **token_lst)
 		if (is_redirect(current) == true)
 		{
 			if (next == NULL || next->type != FILES)
-				return (-2);
+				return (-2);//should be Syntax Error
 			else if (is_redirect(next) == true)
-				return (-2);
+				return (-2);//should be Syntax Error
 		}
 		current = next;
 	}

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/24 13:47:50 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 14:31:42 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/15 14:05:14 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 int	ft_lexer(t_data *data, char *input)
 {
-	int	i;
-	int	x;
-	t_token	**head;
+	int		i;
+	int		x;
 
-	head = &data->tokens;
 	i = 0;
 	x = 0;
 	while (input[i])
@@ -26,15 +24,15 @@ int	ft_lexer(t_data *data, char *input)
 		if (input[i] == ' ')
 			x = i + 1;
 		else if (input[i] == '|')
-			x = create_pipe_token(head, i);
+			x = create_pipe_token(data, i);
 		else if (input[i] == '<' || input[i] == '>')
-			x = create_redir_token(head, input, i);
+			x = create_redir_token(data, input, i);
 		else
-			x = text_tokens(head, input, i);
+			x = text_tokens(data, input, i);
 		if (x < 0)
 			return (-1);
 		i = x;
 	}
-	reclassify_text_token(head, 1);
-	return (input_check(head));
+	reclassify_text_token(data, 1);
+	return (input_check(data));
 }

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 16:45:19 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 16:55:05 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/15 13:56:39 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	get_procs(t_data *data)
 		if (current_token->type == PIPE)
 		{
 			add_proc(data, new_proc);
-			current_token = current_token->next; 
+			current_token = current_token->next;
 		}
 	}
 	return (0);
