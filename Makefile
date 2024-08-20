@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/08/14 20:10:06 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/08/15 15:59:15 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRC_FILES		:=	main.c \
 					special_tokens.c \
 					text_tokens.c \
 					command_tokens.c \
-					utils.c ) \
+					utils_tokens.c ) \
 					$(addprefix $(SRC_TOKENS)/, \
 					create_token.c \
 					add_token.c \
@@ -55,10 +55,13 @@ SRC_FILES		:=	main.c \
 					init_proc.c \
 					create_proc.c \
 					add_proc.c \
+					utils_procs.c \
 					print_procs.c \
 					free_procs.c \
 					last_proc.c ) \
 					$(addprefix $(SRC_REDIRS)/, \
+					create_redir.c \
+					add_redir.c \
 					free_redirs.c ) \
 					# get_procs.c \
 					# parser.c \
