@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 16:45:19 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/15 18:40:32 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/21 11:51:20 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ int	get_procs(t_data *data)
 	int		proc;
 
 	proc = 0;
-	new_proc = init_proc();
-	if (!new_proc)
-		return (-1);
 	current_token = data->tokens;
 	while (current_token)
 	{

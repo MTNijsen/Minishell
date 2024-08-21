@@ -6,17 +6,19 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/24 13:47:50 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/15 14:05:14 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/21 21:51:25 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_lexer(t_data *data, char *input)
+int	ft_lexer(t_data *data)
 {
 	int		i;
 	int		x;
+	char	*input;
 
+	input = data->input;
 	i = 0;
 	x = 0;
 	while (input[i])

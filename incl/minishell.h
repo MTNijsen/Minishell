@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/15 13:54:00 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/21 21:52:48 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-int		ft_lexer(t_data *data, char *input);
+int		ft_lexer(t_data *data);
 int		input_check(t_data *data);
 bool	is_special(char input, const char *check);
 int		handle_quotes(char *input, int i);
