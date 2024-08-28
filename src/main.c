@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/21 22:03:34 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/28 10:37:39 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(input);
 		data->input = ft_substr(input, 0, ft_strlen(input));
 		free(input);
-		x = ft_lexer(data);
+		x = ft_lexer(data, input);
 		ft_error(data, x);
 		x = get_procs(data);
 		print_tokens(data->tokens);

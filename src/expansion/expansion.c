@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   expansion.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/28 10:36:58 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/28 10:43:57 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "libft.h"
-# include "list.h"
-# include "structs.h"
-# include <readline/readline.h>
-# include <readline/history.h>
+void	expand(t_data *data, t_token *token)
+{
+	char	*to_expand;
+	t_token	*current;
+	int		i;
+	int		len;
 
-int		ft_lexer(t_data *data, char *input);
-int		input_check(t_data *data);
-bool	is_special(char input, const char *check);
-int		handle_quotes(char *input, int i);
-void	reclassify_text_token(t_data *data, int flag);
-void	ft_error(t_data *data, int flag);
-t_data	*init_struct(void);
-bool	is_redirect(t_token *token);
-void	free_struct(t_data *data);
-
-#endif
+	i = 0;
+	current = token;
+	if (ft_strcmp(current->value, "$") == 0)
+	{
+		to_expand = current->next->value;
+		len = ft_strlen(current->next->value)
+		if (current->next->value[0] == '\"')
+		{
+			to_expand = ft_substr(current->next->value, 0, len);
+			// delete $ en text token en add expanded tokens.
+		}
+	}
+}
