@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/29 17:12:15 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/29 17:42:17 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,19 @@ typedef enum e_type
 
 typedef struct s_token
 {
-	char			*value;
 	t_type			type;
+	char			*value;
 	struct s_token	*next;
 }					t_token;
 
-typedef struct s_redir
-{
-	t_type			type; // < << > >>
-	char			*file; // test.txt, EOF
-	struct s_redir	*next;
-}					t_redir;
+
+// //NISK HOEFT  T_REDIR IS ZELFDE ALS T_TOKEN
+// typedef struct s_redir
+// {
+// 	t_type			type; // < << > >>
+// 	char			*file; // test.txt, EOF
+// 	struct s_redir	*next;
+// }					t_redir;
 
 /**
  * @brief	This struct will be a node in a list of processes. It's an organized
@@ -73,9 +75,9 @@ typedef struct s_redir
  */
 typedef struct s_proc
 {
-	char			*cmd;
+	char			*cmd; //is niet nodig. moet in argv[0] komen te staan. 
 	char			**argv;
-	char			**redirs;
+	t_token			*redirs;
 	int				hd_pipe[2];
 	int				token_count;
 	int				index;

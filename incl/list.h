@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/29 17:17:37 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/29 17:44:04 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		create_quotes_token(t_data *data, char *input, int i);
 int		text_tokens(t_data *data, char *input, int i);
 
 // PROCS //
-t_proc	*init_proc(void);
+t_proc	*init_proc(t_token *current);
 t_proc	*create_proc(t_data *data, t_token *token, int proc);
 void	add_proc(t_data *data, t_proc *new);
 void	free_procs(t_proc **procs);
@@ -44,12 +44,6 @@ int		count_tokens_proc(t_token *token);
 int		count_redirs_proc(t_token *token);
 
 
-
-// REDIRS //
-t_redir	*create_redir(t_type type, char *file);
-void	add_redir(t_data *data, t_redir *new);
-void	free_redirs(t_redir **redirs);
-t_redir	*last_redir(t_redir *lst);
 
 
 #endif

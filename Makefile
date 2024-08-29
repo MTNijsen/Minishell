@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/08/29 17:18:10 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/08/29 17:43:02 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ SRC_EXECUTOR	:=	executor
 SRC_TOKENS		:=	tokens
 SRC_PROCS		:=	procs
 SRC_LEXER		:=	lexer
-SRC_REDIRS		:=	redirs
 SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR) $(SRC_LIST) $(SRC_LEXER)
 SRC_FILES		:=	main.c \
 					input_check.c \
@@ -61,11 +60,6 @@ SRC_FILES		:=	main.c \
 					count_tokens_proc.c \
 					count_redirs_proc.c \
 					get_procs.c ) \
-					$(addprefix $(SRC_REDIRS)/, \
-					create_redir.c \
-					add_redir.c \
-					last_redir.c \
-					free_redirs.c ) \
 					# utils_procs.c \
 					# parser.c \
 
