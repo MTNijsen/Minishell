@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/15 14:06:58 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/29 17:11:01 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	reclassify_text_token(t_data *data, int flag)
 		next = token->next;
 		if (token->type == PIPE)
 			flag = 1;
-		if (next && token->type > 1 && token->type < 6 && next->type == TEXT)
+		if (next && is_redirect(token) && next->type == TEXT)
 			next->type = FILES;
 		else if (token->type == TEXT && flag == 1)
 		{

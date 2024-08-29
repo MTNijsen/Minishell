@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 21:08:33 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/29 17:12:15 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,15 @@ typedef struct s_proc
 {
 	char			*cmd;
 	char			**argv;
-	t_redir			*redirs;
+	char			**redirs;
 	int				hd_pipe[2];
 	int				token_count;
 	int				index;
+	int				argc;
+	int				redirc;
+	int				here_i;
+	int				redir_i;
+	int				argv_i;
 	struct s_proc	*next;
 }					t_proc;
 /**

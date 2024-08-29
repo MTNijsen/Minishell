@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/21 22:11:37 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/08/29 17:17:37 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ void	add_proc(t_data *data, t_proc *new);
 void	free_procs(t_proc **procs);
 void	print_procs(t_proc *lst);
 t_proc	*last_proc(t_proc *lst);
-t_proc	*init_proc(void);
-// static void	count_tokens_proc(t_data *data, t_token *token);
 int		get_procs(t_data *data);
+int		count_tokens_proc(t_token *token);
+int		count_redirs_proc(t_token *token);
+
+
 
 // REDIRS //
 t_redir	*create_redir(t_type type, char *file);

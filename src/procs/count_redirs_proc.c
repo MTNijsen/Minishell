@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init_proc.c                                        :+:    :+:            */
+/*   count_redirs_proc.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/08 16:25:31 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/29 16:32:31 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/08/29 17:15:06 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/08/29 17:16:00 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_proc	*init_proc(t_token *current)
+int	count_redirs_proc(t_token *token)
 {
-	t_proc	*proc;
+	t_redir	*current;
+	int		count;
 
-	proc = (t_proc *)malloc(sizeof(t_proc));
-	if (!proc)
-		return (NULL);
-	ft_bzero(proc, sizeof(t_proc));
-	proc->token_count = count_tokens_proc(current); //possibly not needed, maybe remove at end
-	proc->next = NULL;
-	// proc->cmd = NULL;
-	// proc->argv = NULL;
-	// proc->redirs = NULL;
-	// proc->token_count = 0;
-	// proc->index = 0;
-	return (proc);
+	count = 0;
+	current = token;
+	while (current && current->type != PIPE)
+	{
+		count++;
+		current = current->next;
+	}
+	return (count);
 }
