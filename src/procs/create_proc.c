@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/29 18:03:20 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/01 16:45:29 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static char	**get_arguments(t_data *data, t_token *token)
 *			a pointer to the current token so it knows which process
 *			its working on. 
 */
+
 t_proc	*create_proc(t_data *data, t_token *token, int proc_number)
 {
 	t_token	*current;

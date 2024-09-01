@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/08/29 17:43:02 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/09/01 16:41:46 by mnijsen       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,9 @@ SRC_PARSER		:=	parser
 SRC_EXECUTOR	:=	executor
 SRC_TOKENS		:=	tokens
 SRC_PROCS		:=	procs
+SRC_ENVIROMENT	:=	enviroment
+SRC_UTILS		:=	utils
+SRC_BUILT_IN	:=	built_in
 SRC_LEXER		:=	lexer
 SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR) $(SRC_LIST) $(SRC_LEXER)
 SRC_FILES		:=	main.c \
@@ -60,8 +63,25 @@ SRC_FILES		:=	main.c \
 					count_tokens_proc.c \
 					count_redirs_proc.c \
 					get_procs.c ) \
-					# utils_procs.c \
-					# parser.c \
+					$(addprefix $(SRC_EXECUTOR)/, \
+					exec.c \
+					heredoc.c \
+					pipeline.c \
+					redirect.c ) \
+					$(addprefix $(SRC_ENVIROMENT)/, \
+					funcs_env.c ) \
+					$(addprefix $(SRC_UTILS)/, \
+					exit.c \
+					ft_strappend.c \
+					ft_strchr_null.c ) \
+					$(addprefix $(built_in)/, \
+					built_in_cd.c \
+					built_in_echo.c \
+					built_in_env.c \
+					built_in_exit.c \
+					built_in_export.c \
+					built_in_pwd.c \
+					built_in_unset.c)
 
 SRC				:=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
@@ -87,6 +107,9 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)/$(SRC_LEXER)
 	mkdir -p $(OBJ_DIR)/$(SRC_PROCS)
 	mkdir -p $(OBJ_DIR)/$(SRC_REDIRS)
+	mkdir -p $(OBJ_DIR)/$(SRC_ENVIROMENT)
+	mkdir -p $(OBJ_DIR)/$(SRC_UTILS)
+	mkdir -p $(OBJ_DIR)/$(SRC_BUILT_IN)
 
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

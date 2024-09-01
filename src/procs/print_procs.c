@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/25 18:08:49 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/15 18:39:39 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/01 16:40:19 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	print_procs(t_proc *lst)
 		}
 		while (lst->redirs != NULL)
 		{
-			printf("TYPE: [%d]	VALUE: [%s]\n", lst->redirs->type, lst->redirs->file);
+			printf("TYPE: [%d]	VALUE: [%s]\n", lst->redirs->type, lst->redirs->value);
 			lst->redirs = lst->redirs->next;
 		}
 		lst = lst->next;

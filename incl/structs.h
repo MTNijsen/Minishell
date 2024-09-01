@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/29 17:42:17 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/01 16:26:38 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_data
 	t_token	*tokens;
 	int		token_count;
 	char	**envp;
+	int		env_count;
 	char	*input;
 }			t_data;
 

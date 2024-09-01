@@ -6,11 +6,13 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/08 15:55:25 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/08 16:00:18 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/01 16:33:59 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ERRORS_H
+# define ERRORS_H
+# include "minishell.h"
 
 /*	This is a list of possible errors that can occur.
 	1. Syntax error:
@@ -27,3 +29,10 @@
 		-	Incorrect File Paths in Commands
 
 */
+
+#define	MALLOC_ERROR -1
+#define SYNTAX_ERROR 1
+#define COMMAND_ERROR 2
+#define FILE_ERROR 3 
+
+#endif
