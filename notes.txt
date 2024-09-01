@@ -1,0 +1,22 @@
+----------
+| TO DO: |
+----------
+
+1.	First lexing cycle is for special tokens and text.
+2.	Then there will be a second lexing cycle and this will divide
+	the text in commands, in_files, out_files and just strings.
+3.	There also needs to be expanding: when $"" is used, it has to
+	expand into extra tokens. So not adding them to the end, but inserting
+	them at the spot where they are supposed to be. 
+4.	And also environment variables need to be taken in account.
+5.	CMD should be the first argv in the proc struct.
+6.	There will be a massive struct that will be passed to all of the functions. 
+	Then there is no need to pass extra stuff to it. 
+7.	Does that massive struct need to be initiated? Maybe in the main?
+8.	We have to choose which libft we are gonna use.
+9.	Figure out how to merge everything.
+10.	Do some extra documentation.
+11.	Laura: organize all of the folders and files.
+12.	Fix Makefile so when compiling it doesnt make to many object folders. 
+13. If the command line is as follows: echo hoi || echo doei --> it should only
+	execute the first part. Everything that comes behind the || does nothing.

@@ -1,0 +1,5 @@
+To Do
+
+When minishell starts it should open the STDIN. Because it should display a prompt when waiting for a new command.
+
+Make linked list. Arguments will be seperated by spaces.
