@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   built_in_exit.c                                    :+:    :+:            */
+/*   funcs_env.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/09/01 16:51:28 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:33:30 by mnijsen       ########   odam.nl         */
+/*   Created: 2024/09/01 16:51:14 by mnijsen       #+#    #+#                 */
+/*   Updated: 2024/09/04 19:38:17 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	bi_exit(char **argv, t_data *data, bool pipe_present)
+char	*return_env_val(char **envp, char *name)
 {
-	if (!pipe_present)
-		write(1, "exit\n", 5);
-	if (argv[1] != NULL)
-		clean_exit(data, ft_atoi(argv[1]));
-	clean_exit(data, 0);
+	size_t			i;
+	const size_t	name_len = ft_strlen(name);
+
+	if (!is_valid_env(name))
+		return (NULL);
+	i = 0;
+	while (envp[i] != NULL && ft_strncmp(envp[i], name, name_len +1) != '=' )
+		i++;
+	if (envp[i] != NULL)
+		return (&envp[i][name_len +1]);
+	return (NULL);
 }

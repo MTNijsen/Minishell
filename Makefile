@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/09/04 19:14:52 by mnijsen       ########   odam.nl          #
+#    Updated: 2024/09/04 19:39:22 by mnijsen       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,8 +68,13 @@ SRC_FILES		:=	main.c \
 					pipeline.c \
 					redirect.c ) \
 					$(addprefix $(SRC_ENVIROMENT)/, \
-					funcs_env.c ) \
+					is_valid_env.c \
+					modify_env_var.c \
+					realloc_env.c \
+					remove_env_var.c \
+					return_env_var.c ) \
 					$(addprefix $(SRC_UTILS)/, \
+					copy_array.c\
 					exit.c \
 					ft_strappend.c \
 					ft_strchr_null.c ) \

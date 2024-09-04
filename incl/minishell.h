@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 19:16:09 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 20:02:16 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ char	*ft_triappend(char const *s1, char const *s2, char const *s3);
 char	*ft_strchr_null(const char *str, int c);
 
 // filedescriptors for recovering stdin and stdout if overwritten
-#define STDIN_CLONE 3
-#define STDOUT_CLONE 4
+# define STDIN_CLONE 3
+# define STDOUT_CLONE 4
 
 //
-#define ENV_VARIABLE_LENGTH 96
+# define ENV_VARIABLE_LENGTH 96
 
 #endif

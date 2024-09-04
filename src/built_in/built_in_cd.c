@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:35 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:15:53 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 19:59:32 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 static char	*cd_add_dirs(char *str, char *output)
 {
-	char *temp;
-	char **array;
-	int	i;
+	char	*temp;
+	char	**array;
+	int		i;
 
 	array = ft_split(str, '/');
 	if (!array)
@@ -28,11 +28,11 @@ static char	*cd_add_dirs(char *str, char *output)
 		if (!ft_strncmp(array[i], ".", 2))
 			temp = ft_strdup(output);
 		else if (!ft_strncmp(array[i], "..", 2))
-			temp = ft_substr(output, 0, ft_strrchr(output, '/') - output); 
+			temp = ft_substr(output, 0, ft_strrchr(output, '/') - output);
 		else
 			temp = ft_triappend(output, "/", array[i]);
 		free(output);
-		if(!temp)
+		if (!temp)
 			return (ft_free_arr(array), NULL);
 		output = temp;
 		i++;
@@ -42,24 +42,23 @@ static char	*cd_add_dirs(char *str, char *output)
 		free(output);
 		output = ft_strdup("/");
 	}
-	return(ft_free_arr(array), output);
+	return (ft_free_arr(array), output);
 }
 
 static char	*parse_cd(char *str, t_data *data)
 {
-	char *output;
+	char	*output;
 
 	if (str[0] == '/')
 		output = ft_strdup("");
 	else
 		output = ft_strdup(return_pwd(data));
 	if (!output)
-		return(NULL);
+		return (NULL);
 	return (cd_add_dirs(str, output));
 }
 
-//still needs alot of work cleaning up and exit coding
-int bi_cd(char **argv, t_data *data)
+int	bi_cd(char **argv, t_data *data)
 {
 	char	*pwd;
 	char	*oldpwd;
@@ -83,8 +82,7 @@ int bi_cd(char **argv, t_data *data)
 	pwd = ft_strappend("PWD=", pwd);
 	oldpwd = ft_strappend("OLDPWD=", oldpwd);
 	free(temp);
-	if (modify_env_var(data, pwd) || \
-		modify_env_var(data, oldpwd))
+	if (modify_env_var(data, pwd) || modify_env_var(data, oldpwd))
 		clean_exit(data, MALLOC_ERROR);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:01 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/01 16:51:03 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 19:57:57 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,9 @@ static int	redirect_heredoc(t_proc *proc)
 	return (0);
 }
 
-//steps through t_token list till next PIPE and handles any redirections found
-//exit code should be checked and first_token needs to be freed if it breaks
 int	redirect(t_proc *proc)
 {
-	int exit_code;
+	int	exit_code;
 
 	exit_code = 0;
 	while (proc->redirs != NULL)

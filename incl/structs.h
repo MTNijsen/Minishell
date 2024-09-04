@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 16:56:16 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/04 20:02:45 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_token
 	char			*value;
 	struct s_token	*next;
 }					t_token;
-
 
 // //NISK HOEFT  T_REDIR IS ZELFDE ALS T_TOKEN
 // typedef struct s_redir

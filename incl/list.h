@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 17:40:05 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/04 20:02:25 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ void	remove_env_var(t_data *data, char *name);
 char	*return_env_val(char **envp, char *name);
 int		copy_array(char ***new_array, char **old_array);
 char	*return_pwd(t_data *data);
-
 
 #endif

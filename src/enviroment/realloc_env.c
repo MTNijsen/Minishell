@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   built_in_unset.c                                   :+:    :+:            */
+/*   realloc_env.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/09/01 16:51:18 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:28:02 by mnijsen       ########   odam.nl         */
+/*   Created: 2024/09/04 19:35:25 by mnijsen       #+#    #+#                 */
+/*   Updated: 2024/09/04 19:35:39 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	bi_unset(char **argv, t_data *data)
+char	**realloc_envp(char **envp, size_t size, size_t *old_size)
 {
-	int	i;
+	size_t	i;
+	char	**output;
 
-	i = 1;
-	while (argv[i])
+	i = 0;
+	output = (char **)malloc(sizeof(char *) * size);
+	if (output == NULL)
+		return (NULL);
+	while (i < size && i < *old_size)
 	{
-		remove_env_var(data, argv[i]);
+		output[i] = ft_strdup(envp[i]);
+		if (output == NULL)
+			return (ft_free_arr(output), NULL);
 		i++;
 	}
+	while (i < size)
+	{
+		output[i] = NULL;
+		i++;
+	}
+	*old_size = size;
+	ft_free_arr(envp);
+	return (output);
 }
