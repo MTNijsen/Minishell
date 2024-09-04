@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/01 16:26:38 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 16:56:16 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,27 @@ typedef struct s_token
  */
 typedef struct s_proc
 {
-	char			*cmd; //is niet nodig. moet in argv[0] komen te staan. 
+	char			*cmd;
 	char			**argv;
 	t_token			*redirs;
 	int				hd_pipe[2];
-	int				token_count;
-	int				index;
-	int				argc;
-	int				redirc;
-	int				here_i;
-	int				redir_i;
-	int				argv_i;
 	struct s_proc	*next;
 }					t_proc;
+/**
+ * @brief	This is a struct to keep track of all the indexes and counts. 
+ */
+typedef struct s_count
+{
+	int	index;
+	int	token_c;
+	int	argv_c;
+	int	redir_c;
+	int	proc_c;
+	int	here_i;
+	int	redir_i;
+	int	argv_i;
+	int	proc_i;
+}		t_count;
 /**
  * @brief	This is the giant struct with all of the data from the current prompt
  * 

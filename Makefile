@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/09/01 16:41:46 by mnijsen       ########   odam.nl          #
+#    Updated: 2024/09/04 16:51:00 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRC_FILES		:=	main.c \
 					init_proc.c \
 					create_proc.c \
 					add_proc.c \
+					add_redir.c \
 					print_procs.c \
 					free_procs.c \
 					last_proc.c \

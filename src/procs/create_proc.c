@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/01 16:45:29 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 17:14:07 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,20 @@ static char	**get_arguments(t_data *data, t_token *token)
 *			its working on. 
 */
 
-t_proc	*create_proc(t_data *data, t_token *token, int proc_number)
+t_proc	*create_proc(t_data *data, t_token *token, t_count *counter)
 {
 	t_token	*current;
+	t_token	*new_redir;
 	t_proc	*proc;
 	int		i;
 
-	proc = init_proc(token);
+	proc = init_proc(token, counter);
 	if (!proc)
 		return (NULL);
 	current = token;
-	proc->argc = count_arguments(current);
-	if (proc->argc != 0)
-		proc->argv = (char **)malloc((proc->argc + 1) * sizeof(char *));
+	counter->argv_c = count_arguments(current);
+	if (counter->argv_c != 0)
+		proc->argv = (char **)malloc((counter->argv_c + 1) * sizeof(char *));
 	if (!proc->argv)
 		return (NULL); //have to check if this is correct
 	i = 0;
@@ -89,18 +90,18 @@ t_proc	*create_proc(t_data *data, t_token *token, int proc_number)
 	{
 		if (current->type == COMMAND)
 			proc->cmd = ft_strdup(current->value);
-		if (current->type == STRING)
+		else if (current->type == STRING)
 		{
 			proc->argv[i] = ft_strdup(current->value);
 			i++;
 		}
-		if (is_redirect(current) == true)
+		else if (is_redirect(current) == true)
 		{
-
+			new_redir = create_token(current->type, current->next->value);
+			add_redir(&proc->redirs, new_redir);
+			current = current->next;
 		}
 		current = current->next;
 	}
-	get_redirects(data, current);
-	proc->index = proc_number;
 	return (proc);
 }
