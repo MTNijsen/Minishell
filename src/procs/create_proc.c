@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 17:14:07 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/04 17:32:57 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,48 +28,13 @@ static int	count_arguments(t_token *token)
 	return (count);
 }
 
-static char	**get_arguments(t_data *data, t_token *token)
-{
-	t_token	*current;
-	char	**argv;
-	int		argc;
-	int		i;
-	int		len;
-	
-	if (token)
-	{
-		current = token;
-		argc = count_arguments(current);
-		printf("argc: %i\n", argc);
-		argv = (char **)malloc((count_arguments(current) + 1) * sizeof(char *));
-		if (!argv)
-		{
-			data->token_count = 0;
-			return (NULL); //should be exiting program and cleaning everything.
-		}
-		i = 0;
-		while (current && current->type != PIPE && i < argc)
-		{
-			if (current->type == STRING)
-			{
-				len = ft_strlen(current->value);
-				argv[i] = ft_substr(current->value, 0, (len + 1));
-				i++;
-			}
-			current = current->next;
-		}
-		return (argv);
-	}
-	return (NULL);
-}
-
 /**
 * @brief	this function needs the complete data struct and also
 *			a pointer to the current token so it knows which process
 *			its working on. 
 */
 
-t_proc	*create_proc(t_data *data, t_token *token, t_count *counter)
+t_proc	*create_proc(t_token *token, t_count *counter)
 {
 	t_token	*current;
 	t_token	*new_redir;

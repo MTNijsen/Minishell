@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   exec.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
+/*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/01 16:51:13 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 17:52:17 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static int command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 			return (0);
 	}
 	execve(proc->cmd, proc->argv, data->envp);
+	return (0);
 }
 
 static int execute_section(t_proc *proc, t_data *data, int *pid, bool pipe_present)
@@ -56,8 +57,7 @@ static int execute_section(t_proc *proc, t_data *data, int *pid, bool pipe_prese
 static int exec_exit(int pid, int exit_code)
 {
 	wait_exit(pid, &exit_code);
-	while (waitpid (-1, NULL, 0) != -1)
-		;
+	while (waitpid (-1, NULL, 0) != -1);
 	dup2(STDIN_CLONE, STDIN_FILENO);
 	dup2(STDOUT_CLONE, STDOUT_FILENO);
 	return (exit_code);
