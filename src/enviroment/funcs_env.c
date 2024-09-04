@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:14 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/01 16:51:15 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 19:13:28 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	is_valid_env(char *env_var)
 
 //increases the allocated space for strings in envp and copies over all enviroment variables
 //only use to increase the size of the envp, use remove env_var for a single variable being removed
-//and free_array for freeing the whole array
+//and free_arr for freeing the whole array
 char **realloc_envp(char **envp, size_t size, size_t *old_size)
 {
 	size_t	i;
@@ -46,7 +46,7 @@ char **realloc_envp(char **envp, size_t size, size_t *old_size)
 	{
 		output[i] = ft_strdup(envp[i]);
 		if (output == NULL)
-			return (free_array(output), NULL);
+			return (ft_free_arr(output), NULL);
 		i++;
 	}
 	while (i < size)
@@ -55,13 +55,13 @@ char **realloc_envp(char **envp, size_t size, size_t *old_size)
 		i++;
 	}
 	*old_size = size;
-	free_array(envp);
+	ft_free_arr(envp);
 	return (output);
 }
 
 int		modify_env_var(t_data *data, char *env_var)
 {
-	size_t i;
+	int i;
 	const size_t var_len = strchr(env_var, '=') - env_var;
 
 	i = 0;
@@ -76,7 +76,7 @@ int		modify_env_var(t_data *data, char *env_var)
 		return (0);
 	}
 	if (i == data->env_count)
-		data->envp = realloc_envp(data->envp, i +2, &data->env_count);
+		data->envp = realloc_envp(data->envp, i +2, (size_t *)&data->env_count);
 	if (data->envp == NULL)
 		clean_exit(data, MALLOC_ERROR);
 	data->envp[i] = env_var;
@@ -137,7 +137,7 @@ int	copy_array(char ***new_array, char **old_array)
 	{
 		(*new_array)[i] = ft_strdup(old_array[i]);
 		if (!(*new_array)[i])
-			return (free_array(*new_array), 1);
+			return (ft_free_arr(*new_array), 1);
 		i++;
 	}
 	return (0);

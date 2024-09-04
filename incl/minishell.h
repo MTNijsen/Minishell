@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/01 16:49:52 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 19:16:09 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void	bi_unset(char **argv, t_data *data);
 int		pipeline(void);
 void	wait_exit(int pid, int *exit_code);
 void	clean_exit(t_data *data, int exit_status);
+char	*ft_strappend(char const *s1, char const *s2);
+char	*ft_triappend(char const *s1, char const *s2, char const *s3);
+char	*ft_strchr_null(const char *str, int c);
 
 // filedescriptors for recovering stdin and stdout if overwritten
 #define STDIN_CLONE 3

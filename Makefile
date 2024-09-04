@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/09/04 17:40:28 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/09/04 19:14:52 by mnijsen       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ SRC_FILES		:=	main.c \
 					exit.c \
 					ft_strappend.c \
 					ft_strchr_null.c ) \
-					$(addprefix $(built_in)/, \
+					$(addprefix $(SRC_BUILT_IN)/, \
 					built_in_cd.c \
 					built_in_echo.c \
 					built_in_env.c \

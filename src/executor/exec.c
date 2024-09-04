@@ -6,12 +6,14 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 17:52:17 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/04 19:07:14 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <errno.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 static int command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 {
