@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   funcs_env.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
+/*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:14 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:13:28 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 20:51:50 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char **realloc_envp(char **envp, size_t size, size_t *old_size)
 	{
 		output[i] = ft_strdup(envp[i]);
 		if (output == NULL)
-			return (ft_free_arr(output), NULL);
+			return (ft_free_arr(&output), NULL);
 		i++;
 	}
 	while (i < size)
@@ -55,7 +55,7 @@ char **realloc_envp(char **envp, size_t size, size_t *old_size)
 		i++;
 	}
 	*old_size = size;
-	ft_free_arr(envp);
+	ft_free_arr(&envp);
 	return (output);
 }
 
@@ -137,7 +137,7 @@ int	copy_array(char ***new_array, char **old_array)
 	{
 		(*new_array)[i] = ft_strdup(old_array[i]);
 		if (!(*new_array)[i])
-			return (ft_free_arr(*new_array), 1);
+			return (ft_free_arr(new_array), 1);
 		i++;
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   built_in_cd.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
+/*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:35 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:15:53 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 20:51:34 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*cd_add_dirs(char *str, char *output)
 			temp = ft_triappend(output, "/", array[i]);
 		free(output);
 		if(!temp)
-			return (ft_free_arr(array), NULL);
+			return (ft_free_arr(&array), NULL);
 		output = temp;
 		i++;
 	}
@@ -42,7 +42,7 @@ static char	*cd_add_dirs(char *str, char *output)
 		free(output);
 		output = ft_strdup("/");
 	}
-	return(ft_free_arr(array), output);
+	return(ft_free_arr(&array), output);
 }
 
 static char	*parse_cd(char *str, t_data *data)

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/24 13:47:50 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/28 10:36:47 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/04 20:04:00 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ int	ft_lexer(t_data *data, char *input)
 			return (-1);
 		i = x;
 	}
+	// print_tokens(data->tokens);
+	// printf("lexing works\n");
 	reclassify_text_token(data, 1);
+	// print_tokens(data->tokens);
+	// printf("reclassifying works\n");
 	return (input_check(data));
 }

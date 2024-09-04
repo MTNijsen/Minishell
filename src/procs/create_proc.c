@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 17:32:57 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/04 20:45:35 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ t_proc	*create_proc(t_token *token, t_count *counter)
 	current = token;
 	counter->argv_c = count_arguments(current);
 	if (counter->argv_c != 0)
+	{
 		proc->argv = (char **)malloc((counter->argv_c + 1) * sizeof(char *));
-	if (!proc->argv)
-		return (NULL); //have to check if this is correct
+		if (!proc->argv)
+			return (NULL); //have to check if this is correct
+	}
 	i = 0;
 	while (current && current->type != PIPE)
 	{
