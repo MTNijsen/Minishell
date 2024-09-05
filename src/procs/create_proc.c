@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 17:32:57 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 21:25:36 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,11 @@ t_proc	*create_proc(t_token *token, t_count *counter)
 	while (current && current->type != PIPE)
 	{
 		if (current->type == COMMAND)
+		{
 			proc->cmd = ft_strdup(current->value);
+			proc->argv[i] = ft_strdup(current->value);
+			i++;
+		}
 		else if (current->type == STRING)
 		{
 			proc->argv[i] = ft_strdup(current->value);

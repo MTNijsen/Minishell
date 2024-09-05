@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:57:34 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/05 20:15:04 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	execute_section(t_proc *proc, t_data *data, \
 	exit_code = redirect(proc);
 	if (exit_code != 0)
 		return (exit_code);
-	if (proc->argv)
+	if (proc->argv && proc->argv[0])
 		exit_code = command(proc, data, pipe_present, pid);
 	return (exit_code);
 }

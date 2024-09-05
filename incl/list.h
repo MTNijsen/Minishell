@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 20:02:25 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/05 21:25:08 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int		create_pipe_token(t_data *data, int i);
 int		create_redir_token(t_data *data, char *input, int i);
 int		create_right_redir(t_data *data, char *input, int i);
 int		create_left_redir(t_data *data, char *input, int i);
-int		create_text_token(t_data *data, char *input, int i);
-int		create_quotes_token(t_data *data, char *input, int i);
 int		text_tokens(t_data *data, char *input, int i);
 
 // PROCS //

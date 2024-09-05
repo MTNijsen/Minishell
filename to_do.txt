@@ -9,3 +9,13 @@
 5.	Organize functions
 6.	Finish process list making
 
+
+7. echo does not output argv
+8. free_struct and reset_struct need to be different
+9. export adding
+10. make ft_error not exit on syntax error
+11. delete all useless printf
+
+12. quotes
+13. make unset case insensitive
+14. add paths to command incase it isnt found
