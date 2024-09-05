@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:20 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/01 16:51:21 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 19:34:09 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 #include <linux/limits.h>
 #include <errno.h>
 
-//returns the pointer to the charachter after the '='
-//from the enviroment variable inside of envp
-char *return_pwd(t_data *data)
+char	*return_pwd(t_data *data)
 {
 	char	*buf;
 	char	buf_m[PATH_MAX];
@@ -33,9 +31,9 @@ char *return_pwd(t_data *data)
 	return (buf);
 }
 
-int bi_pwd(t_data *data)
+int	bi_pwd(t_data *data)
 {
-	char 	*buf;
+	char	*buf;
 
 	buf = return_pwd(data);
 	if (!buf)

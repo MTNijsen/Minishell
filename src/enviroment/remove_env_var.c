@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   built_in_exit.c                                    :+:    :+:            */
+/*   remove_env_var.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/09/01 16:51:28 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:33:30 by mnijsen       ########   odam.nl         */
+/*   Created: 2024/09/04 19:38:08 by mnijsen       #+#    #+#                 */
+/*   Updated: 2024/09/04 19:38:11 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	bi_exit(char **argv, t_data *data, bool pipe_present)
+void	remove_env_var(t_data *data, char *name)
 {
-	if (!pipe_present)
-		write(1, "exit\n", 5);
-	if (argv[1] != NULL)
-		clean_exit(data, ft_atoi(argv[1]));
-	clean_exit(data, 0);
+	size_t			i;
+	const size_t	name_len = ft_strlen(name);
+
+	i = 0;
+	while (data->envp[i] != NULL && \
+		ft_strncmp(data->envp[i], name, name_len +1) != '=')
+		i++;
+	if (data->envp[i] != NULL)
+	{
+		free(data->envp[i]);
+		while (data->envp[i +1] != NULL)
+		{
+			data->envp[i] = data->envp[i +1];
+			i++;
+		}
+		data->envp[i] = data->envp[i +1];
+	}
 }

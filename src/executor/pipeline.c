@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:04 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/01 16:51:05 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 19:46:32 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 #include <signal.h>
 #include <errno.h>
 
-//creates a child process and sets up a pipe between the child process' stdout and the parent process' stdin
-int pipeline(void)
+int	pipeline(void)
 {
-	int pipe_ids[2];
+	int	pipe_ids[2];
 	int	pid;
 
 	if (pipe(pipe_ids) == -1)

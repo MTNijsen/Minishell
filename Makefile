@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/09/05 17:12:39 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/09/05 19:51:57 by mnijsen       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC_ENVIROMENT	:=	enviroment
 SRC_UTILS		:=	utils
 SRC_BUILT_IN	:=	built_in
 SRC_LEXER		:=	lexer
+SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR) $(SRC_LIST) $(SRC_LEXER)
 SRC_FILES		:=	main.c \
 					input_check.c \
 					init_struct.c \
@@ -68,8 +69,13 @@ SRC_FILES		:=	main.c \
 					pipeline.c \
 					redirect.c ) \
 					$(addprefix $(SRC_ENVIROMENT)/, \
-					funcs_env.c ) \
+					is_valid_env.c \
+					modify_env_var.c \
+					realloc_env.c \
+					remove_env_var.c \
+					return_env_var.c ) \
 					$(addprefix $(SRC_UTILS)/, \
+					copy_array.c\
 					exit.c \
 					ft_strappend.c \
 					ft_strchr_null.c ) \

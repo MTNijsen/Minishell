@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:07:14 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 19:57:34 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,23 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-static int command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
+static int	command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 {
-	if (proc->cmd == NULL)
-		return (0);
-	else if (!ft_strncmp(proc->cmd, "cd", 3))
+	if (!ft_strncmp(proc->argv[0], "cd", 3))
 		return (bi_cd(proc->argv, data));
-	else if (!ft_strncmp(proc->cmd, "echo", 5))
+	else if (!ft_strncmp(proc->argv[0], "echo", 5))
 		return (bi_echo(proc->argv), 0);
-	else if (!ft_strncmp(proc->cmd, "env", 4))
+	else if (!ft_strncmp(proc->argv[0], "env", 4))
 		return (bi_env(data), 0);
-	else if (!ft_strncmp(proc->cmd, "exit", 5))
+	else if (!ft_strncmp(proc->argv[0], "exit", 5))
 		return (bi_exit(proc->argv, data, pipe_present), 0);
-	else if (!ft_strncmp(proc->cmd, "export", 7))
+	else if (!ft_strncmp(proc->argv[0], "export", 7))
 		return (bi_export(proc->argv, data), 0);
-	else if (!ft_strncmp(proc->cmd, "pwd", 4))
+	else if (!ft_strncmp(proc->argv[0], "pwd", 4))
 		return (bi_pwd(data));
-	else if (!ft_strncmp(proc->cmd, "unset", 6))
+	else if (!ft_strncmp(proc->argv[0], "unset", 6))
 		return (bi_unset(proc->argv, data), 0);
-	if (access(proc->cmd, X_OK))
+	if (access(proc->argv[0], X_OK))
 		return (errno);
 	if (!pipe_present)
 	{
@@ -45,27 +43,30 @@ static int command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 	return (0);
 }
 
-static int execute_section(t_proc *proc, t_data *data, int *pid, bool pipe_present)
+static int	execute_section(t_proc *proc, t_data *data, \
+	int *pid, bool pipe_present)
 {
 	int		exit_code;
 
 	exit_code = redirect(proc);
 	if (exit_code != 0)
 		return (exit_code);
-	exit_code = command(proc, data, pipe_present, pid);
+	if (proc->argv)
+		exit_code = command(proc, data, pipe_present, pid);
 	return (exit_code);
 }
 
-static int exec_exit(int pid, int exit_code)
+static int	exec_exit(int pid, int exit_code)
 {
 	wait_exit(pid, &exit_code);
-	while (waitpid (-1, NULL, 0) != -1);
+	while (waitpid (-1, NULL, 0) != -1)
+		;
 	dup2(STDIN_CLONE, STDIN_FILENO);
 	dup2(STDOUT_CLONE, STDOUT_FILENO);
 	return (exit_code);
 }
 
-static t_proc *exec_pipes(t_data *data)
+static t_proc	*exec_pipes(t_data *data)
 {
 	t_proc	*proc;
 	int		pid;
@@ -85,9 +86,9 @@ static t_proc *exec_pipes(t_data *data)
 	return (proc);
 }
 
-int executor(t_data *data)
+int	executor(t_data *data)
 {
-	int 		exit_code;
+	int			exit_code;
 	int			pid;
 	t_proc		*last_proc;
 

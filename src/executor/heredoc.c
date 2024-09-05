@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/01 16:51:09 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 19:44:48 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	heredoc_read(char *delimiter, t_proc *proc, t_data *data)
 	clean_exit(data, EXIT_FAILURE);
 }
 
-int heredoc(t_data *data)
+int	heredoc(t_data *data)
 {
 	int		pid;
 	int		exit_code;
