@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/25 18:08:49 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 20:16:27 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 15:51:47 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ void	print_procs(t_proc *lst)
 		printf("|PROC %i|\n", i);
 		printf("--------\n");
 		printf("CMD: [%s]\n", lst->cmd);
-		while (lst && lst->argv && lst->argv[x])
+		if (lst->argv)
 		{
-			printf("ARGV[%i]: [%s]\n", x, lst->argv[x]);
-			x++;
+			while (lst->argv[x])
+			{
+				printf("ARGV[%i]: [%s]\n", x, lst->argv[x]);
+				x++;
+			}
 		}
 		while (lst && lst->redirs)
 		{

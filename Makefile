@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/09/04 19:43:41 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/09/05 14:53:26 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ SRC_ENVIROMENT	:=	enviroment
 SRC_UTILS		:=	utils
 SRC_BUILT_IN	:=	built_in
 SRC_LEXER		:=	lexer
-SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR) $(SRC_LIST) $(SRC_LEXER)
 SRC_FILES		:=	main.c \
 					input_check.c \
 					init_struct.c \
@@ -105,7 +104,6 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)/$(SRC_TOKENS)
 	mkdir -p $(OBJ_DIR)/$(SRC_LEXER)
 	mkdir -p $(OBJ_DIR)/$(SRC_PROCS)
-	mkdir -p $(OBJ_DIR)/$(SRC_REDIRS)
 	mkdir -p $(OBJ_DIR)/$(SRC_ENVIROMENT)
 	mkdir -p $(OBJ_DIR)/$(SRC_UTILS)
 	mkdir -p $(OBJ_DIR)/$(SRC_BUILT_IN)
