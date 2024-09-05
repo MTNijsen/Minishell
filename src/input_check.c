@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 14:59:26 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/15 13:51:32 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 17:47:50 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int		input_check(t_data *data)
 			else if (is_redirect(next) == true)
 				return (-2);//should be Syntax Error
 		}
+		else if (current->type == PIPE && current->next == NULL)
+			return (-2);
 		current = next;
 	}
 	return (0);

@@ -2,10 +2,15 @@
 | TO DO TODAY: |
 ----------------
 
-1.	Change all t_token * and t_proc * passed to functions
+✅	Change all t_token * and t_proc * passed to functions✅
 2.	Finish input_check
 3.	Clean up main
-4.	Finish lexer
+✅	Finish lexer✅
 5.	Organize functions
-6.	Finish process list making
+✅	Finish process list making✅
 
+7. echo does not output argv
+8. free_struct and reset_struct need to be different
+9. export adding
+10. make ft_error not exit on syntax error
+11. delete all useless printf

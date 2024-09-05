@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:21:54 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/15 14:06:20 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 17:43:37 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	create_pipe_token(t_data *data, int i)
 	if (token == NULL)
 		return (-1);
 	add_token(data, token);
+		// printf("%p\n", data->tokens);
+
 	i++;
 	return (i);
 }

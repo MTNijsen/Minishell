@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/09/05 14:53:26 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/09/05 17:12:39 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRC_FILES		:=	main.c \
 					init_struct.c \
 					free_struct.c \
 					error.c \
+					print_data.c \
 					$(addprefix $(SRC_LEXER)/, \
 					lexer.c \
 					special_tokens.c \

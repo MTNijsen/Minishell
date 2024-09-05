@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 16:56:16 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 17:20:01 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,7 @@ typedef struct s_count
 typedef struct s_data
 {
 	t_proc	*procs;
-	int		proc_count;
 	t_token	*tokens;
-	int		token_count;
 	char	**envp;
 	int		env_count;
 	char	*input;

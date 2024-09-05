@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 14:40:01 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 20:19:48 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 17:17:50 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	free_struct(t_data *data)
 		if (data->procs)
 			free_procs(&data->procs);
 		if (data->input)
+		{
 			free(data->input);
+			data->input = NULL;
+		}
+
+		
 	}
 }

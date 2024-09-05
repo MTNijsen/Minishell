@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 15:53:49 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 17:27:43 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,22 @@ static int	count_arguments(t_token *token)
 *			its working on. 
 */
 
-t_proc	*create_proc(t_token *token, t_count *counter)
+t_proc	*create_proc(t_token *token)
 {
 	t_token	*current;
 	t_token	*new_redir;
 	t_proc	*proc;
 	int		i;
+	int		argc;
 
-	proc = init_proc(token, counter);
+	proc = init_proc();
 	if (!proc)
 		return (NULL);
 	current = token;
-	counter->argv_c = count_arguments(current);
-	if (counter->argv_c != 0)
+	argc = count_arguments(current);
+	if (argc != 0)
 	{
-		proc->argv = (char **)ft_calloc((counter->argv_c + 1), sizeof(char *));
+		proc->argv = (char **)ft_calloc((argc + 1), sizeof(char *));
 		if (!proc->argv)
 			return (NULL); //have to check if this is correct
 	}

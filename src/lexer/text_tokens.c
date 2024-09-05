@@ -6,37 +6,13 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/29 17:11:01 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 18:34:34 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	reclassify_text_token(t_data *data, int flag)
-{
-	t_token	*token;
-	t_token	*next;
-
-	token = data->tokens;
-	while (token)
-	{
-		next = token->next;
-		if (token->type == PIPE)
-			flag = 1;
-		if (next && is_redirect(token) && next->type == TEXT)
-			next->type = FILES;
-		else if (token->type == TEXT && flag == 1)
-		{
-			token->type = COMMAND;
-			flag = 0;
-		}
-		else if (token->type == TEXT)
-			token->type = STRING;
-		token = next;
-	}
-}
-
-int	create_text_token(t_data *data, char *input, int i)
+static int	create_text_token(t_data *data, char *input, int i)
 {
 	t_token	*token;
 	int		start;
@@ -55,7 +31,7 @@ int	create_text_token(t_data *data, char *input, int i)
 	return (i);
 }
 
-int	create_quotes_token(t_data *data, char *input, int i)
+static int	create_quotes_token(t_data *data, char *input, int i)
 {
 	t_token	*token;
 	int		x;

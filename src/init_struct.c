@@ -6,13 +6,13 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 13:05:05 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 13:58:28 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 18:24:42 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data	*init_struct(void)
+t_data	*init_struct(char **env)
 {
 	t_data	*data;
 
@@ -21,7 +21,8 @@ t_data	*init_struct(void)
 		return (NULL);
 	data->procs = NULL;
 	data->tokens = NULL;
-	data->envp = NULL;
+	copy_array(&(data->envp), env);
 	data->input = NULL;
+	// printf("init_struct data_token: %p\n", data->tokens);
 	return (data);
 }
