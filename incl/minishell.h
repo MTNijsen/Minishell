@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 20:25:39 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/10 14:35:01 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	print_data(t_data *data);
 int		executor(t_data *data);
 int		redirect(t_proc *proc);
 int		heredoc(t_data *data);
+int	get_path(t_data *data, t_proc* proc);
 
 int		bi_cd(char **argv, t_data *data);
 void	bi_echo(char **argv);

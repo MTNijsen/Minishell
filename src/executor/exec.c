@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/05 20:15:04 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/10 14:57:26 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 static int	command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 {
+	char	**envp;
+	char	**argv;
+	
 	if (!ft_strncmp(proc->argv[0], "cd", 3))
 		return (bi_cd(proc->argv, data));
 	else if (!ft_strncmp(proc->argv[0], "echo", 5))
@@ -31,7 +34,7 @@ static int	command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 		return (bi_pwd(data));
 	else if (!ft_strncmp(proc->argv[0], "unset", 6))
 		return (bi_unset(proc->argv, data), 0);
-	if (access(proc->argv[0], X_OK))
+	if (get_path(data, proc))
 		return (errno);
 	if (!pipe_present)
 	{
@@ -39,7 +42,11 @@ static int	command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 		if (*pid)
 			return (0);
 	}
-	execve(proc->cmd, proc->argv, data->envp);
+	envp = data->envp;
+	copy_array(&argv, proc->argv);
+	free_struct(data);
+	free(data);
+	execve(argv[0], argv, envp);
 	return (0);
 }
 

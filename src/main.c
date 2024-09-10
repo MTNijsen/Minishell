@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 20:12:22 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/10 16:36:37 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ int	main(int argc, char **argv, char **env)
 		x = ft_lexer(data, data->input);
 		ft_error(data, x);
 		x = get_procs(data);
+		ft_error(data, x);
 		x = executor(data);
-		printf("exit_code = %d\n", x);
+		if (x)
+			printf("exit_code = %d\n", x);
 		free_struct(data);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:24 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:33:45 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/10 16:38:04 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	export_display(char **envp)
 	while (envp[i] != NULL)
 	{
 		eq_index = strchr(envp[i], '=') - envp[i];
-		write(1, "-x declare ", 12);
+		write(1, "-x declare ", 11);
 		write(1, envp[i], eq_index);
 		if (envp[i][eq_index +1] != '\0')
 		{

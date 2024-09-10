@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/09 16:18:07 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/10 14:19:49 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/10 14:37:50 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ char *check_paths(t_data *data, char *arg)
 	i = 0;
 	while (path_locations[i] != NULL)
 	{
-		temp = ft_strjoin(path_locations[i], arg);
-		if (access(temp, F_OK))
+		temp = ft_triappend(path_locations[i], "/", arg);
+		if (!access(temp, F_OK))
 			return (ft_free_arr(path_locations), temp);
 		free(temp);
 		i++;
@@ -135,14 +135,12 @@ int	get_path(t_data *data, t_proc* proc)
 {
 	char	*cmd;
 	
-	printf("get_path entered\n");
 	if (ft_strchr(proc->argv[0], '/')) //if path provided aka there is a / in the string
 		cmd = expand_path(data, proc->cmd);
 	else //split path env and concatinate command after the paths and check access for existing not executing
 		cmd = check_paths(data, proc->cmd);
 	if (!access(cmd, X_OK))
 	{
-		printf("%s exists\n", cmd);
 		free(proc->cmd);
 		proc->cmd = cmd;
 		proc->argv[0] = cmd;

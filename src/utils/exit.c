@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 15:03:57 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/05 20:25:50 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/10 14:42:26 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ void	wait_exit(int pid, int *exit_code)
 void	clean_exit(t_data *data, int exit_status)
 {
 	free_data(data);
+	close(STDIN_CLONE);
+	close(STDOUT_CLONE);
 	exit(exit_status);
 }

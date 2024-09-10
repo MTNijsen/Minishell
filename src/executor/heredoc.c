@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:44:48 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/10 14:51:10 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,26 @@ int	heredoc(t_data *data)
 
 	proc = data->procs;
 	exit_code = 0;
-	if (proc->redirs == NULL)
-		return (0);
 	while (proc != NULL)
 	{
 		redir = proc->redirs;
-		while (redir->type == HEREDOC)
+		while (redir)
 		{
-			if (pipe(proc->hd_pipe) == -1)
-				return (errno);
-			pid = fork();
-			if (pid == -1)
-				return (errno);
-			if (pid == 0)
-				heredoc_read(redir->value, proc, data);
-			close(proc->hd_pipe[1]);
-			wait_exit(pid, &exit_code);
-			if (exit_code != 0)
-				return (exit_code);
+			if (redir->type == HEREDOC)
+			{
+				if (pipe(proc->hd_pipe) == -1)
+					return (errno);
+				pid = fork();
+				if (pid == -1)
+					return (errno);
+				if (pid == 0)
+					heredoc_read(redir->value, proc, data);
+				close(proc->hd_pipe[1]);
+				wait_exit(pid, &exit_code);
+				if (exit_code != 0)
+					return (exit_code);
+			}
+			redir = redir->next;
 		}
 		proc = proc->next;
 	}
