@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 18:35:57 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 20:12:22 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv, char **env)
 		ft_error(data, x);
 		x = get_procs(data);
 		x = executor(data);
+		printf("exit_code = %d\n", x);
 		free_struct(data);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 14:40:01 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 17:17:50 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 20:26:02 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,15 @@ void	free_struct(t_data *data)
 			free(data->input);
 			data->input = NULL;
 		}
+	}
+}
 
-		
+void	free_data(t_data *data)
+{
+	if (data)
+	{
+		free_struct(data);
+		ft_free_arr(data->envp);
+		free(data);
 	}
 }

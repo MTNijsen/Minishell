@@ -14,3 +14,7 @@
 9. export adding
 10. make ft_error not exit on syntax error
 11. delete all useless printf
+
+12. quotes
+13. make unset case insensitive
+14. add paths to command incase it isnt found
