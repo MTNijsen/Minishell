@@ -6,17 +6,17 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:30 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/01 16:51:31 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 19:33:24 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void bi_env(t_data *data)
+void	bi_env(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while(data->envp[i] != NULL)
+	while (data->envp[i] != NULL)
 		printf("%s\n", data->envp[i++]);
 }

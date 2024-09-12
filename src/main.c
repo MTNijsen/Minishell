@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 15:51:09 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/10 16:36:37 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ int	main(int argc, char **argv, char **env)
 	int		x;
 
 	(void)argv;
-	(void)env;
 	if (argc != 1)
 		ft_puterror_fd("That's too many arguments bro!", STDERR_FILENO);
-	data = init_struct();
+	data = init_struct(env);
 	if (data == NULL)
 		ft_error(NULL, -1);
 	while (1)
@@ -33,14 +32,15 @@ int	main(int argc, char **argv, char **env)
 		if (*input && input[0] != '\0')
 			add_history(input);
 		data->input = ft_substr(input, 0, ft_strlen(input));
-		// free(input);
-		x = ft_lexer(data, input);
+		free(input);
+		x = ft_lexer(data, data->input);
 		ft_error(data, x);
 		x = get_procs(data);
-		print_procs(data->procs);
-		// free_struct(data);
-		// free_tokens(data);
+		ft_error(data, x);
+		x = executor(data);
+		if (x)
+			printf("exit_code = %d\n", x);
+		free_struct(data);
 	}
-	//ft_error(x);
 	return (0);
 }

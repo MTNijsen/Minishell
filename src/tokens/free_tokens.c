@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/25 09:05:49 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 17:39:40 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 17:18:14 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ void	free_tokens(t_token **tokens)
 		free(current);
 		current = next;
 	}
-	tokens = NULL;
+	*tokens = NULL;
 }

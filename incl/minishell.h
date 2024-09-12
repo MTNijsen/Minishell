@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/04 19:16:09 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/10 14:35:01 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ int		ft_lexer(t_data *data, char *input);
 int		input_check(t_data *data);
 bool	is_special(char input, const char *check);
 int		handle_quotes(char *input, int i);
-void	reclassify_text_token(t_data *data, int flag);
 void	ft_error(t_data *data, int flag);
-t_data	*init_struct(void);
+t_data	*init_struct(char **env);
 bool	is_redirect(t_token *token);
 void	free_struct(t_data *data);
+void	free_data(t_data *data);
+void	print_data(t_data *data);
+
 
 int		executor(t_data *data);
 int		redirect(t_proc *proc);
 int		heredoc(t_data *data);
+int	get_path(t_data *data, t_proc* proc);
 
 int		bi_cd(char **argv, t_data *data);
 void	bi_echo(char **argv);
@@ -50,10 +53,10 @@ char	*ft_triappend(char const *s1, char const *s2, char const *s3);
 char	*ft_strchr_null(const char *str, int c);
 
 // filedescriptors for recovering stdin and stdout if overwritten
-#define STDIN_CLONE 3
-#define STDOUT_CLONE 4
+# define STDIN_CLONE 3
+# define STDOUT_CLONE 4
 
 //
-#define ENV_VARIABLE_LENGTH 96
+# define ENV_VARIABLE_LENGTH 96
 
 #endif

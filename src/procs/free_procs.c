@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/25 09:05:49 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 15:10:11 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/05 17:18:06 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	free_procs(t_proc **procs)
 		free(current);
 		current = next;
 	}
-	procs = NULL;
+	*procs = NULL;
 }

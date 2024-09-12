@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/06 23:17:26 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/01 15:00:53 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/04 20:01:47 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,3 @@ char	*ft_triappend(char const *s1, char const *s2, char const *s3)
 		str[i++] = s3[j++];
 	return (str);
 }
-

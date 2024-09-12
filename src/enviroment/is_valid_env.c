@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   add_token.c                                        :+:    :+:            */
+/*   is_valid_env.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
+/*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/25 14:16:41 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 18:32:53 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/09/04 19:35:02 by mnijsen       #+#    #+#                 */
+/*   Updated: 2024/09/04 19:35:05 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_token(t_data *data, t_token *new)
+bool	is_valid_env(char *env_var)
 {
-	t_token	*last_node;
+	int	i;
 
-	if (data->tokens == NULL)
-		data->tokens = new;
-	else
+	i = 0;
+	if (env_var == NULL)
+		return (false);
+	if (ft_isdigit(env_var[i]))
+		return (false);
+	while (env_var[i] != '\0' && env_var[i] != '=')
 	{
-		last_node = last_token(data->tokens);
-		last_node->next = new;
+		if (!ft_isalnum(env_var[i]) && env_var[i] != '_')
+			return (false);
+		i++;
 	}
+	return (true);
 }
