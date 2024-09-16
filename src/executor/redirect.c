@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:01 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:57:57 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/16 14:23:35 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,24 @@ static int	redirect_heredoc(t_proc *proc)
 
 int	redirect(t_proc *proc)
 {
-	int	exit_code;
-
+	int		exit_code;
+	t_token	*redir;
+	
 	exit_code = 0;
-	while (proc->redirs != NULL)
+	redir = proc->redirs;
+	while (redir != NULL)
 	{
-		if (proc->redirs->type == IN_REDIRECT)
-			exit_code = (redirect_in(proc->redirs));
-		else if (proc->redirs->type == OUT_REDIRECT)
-			exit_code = (redirect_out(proc->redirs));
-		else if (proc->redirs->type == APP_REDIRECT)
-			exit_code = (redirect_out_append(proc->redirs));
-		else if (proc->redirs->type == HEREDOC)
+		if (redir->type == IN_REDIRECT)
+			exit_code = (redirect_in(redir));
+		else if (redir->type == OUT_REDIRECT)
+			exit_code = (redirect_out(redir));
+		else if (redir->type == APP_REDIRECT)
+			exit_code = (redirect_out_append(redir));
+		else if (redir->type == HEREDOC)
 			exit_code = (redirect_heredoc(proc));
 		if (exit_code != 0)
 			return (exit_code);
-		proc->redirs = proc->redirs->next;
+		redir = redir->next;
 	}
 	return (exit_code);
 }

@@ -1,9 +1,0 @@
-echo hello > text.txt| cat text2.txt
-==55997== 34 (24 direct, 10 indirect) bytes in 1 blocks are definitely lost in loss record 23 of 91
-==55997==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==55997==    by 0x401F28: create_token (create_token.c:19)
-==55997==    by 0x40233F: create_proc (create_proc.c:72)
-==55997==    by 0x4027BB: get_procs (get_procs.c:23)
-==55997==    by 0x40136A: main (main.c:38)
-
-redirects are not properly cleaned ??? how
