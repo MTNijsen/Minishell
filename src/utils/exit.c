@@ -6,22 +6,33 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 15:03:57 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/10 14:42:26 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/16 18:57:35 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <signal.h>
 
-void	wait_exit(int pid, int *exit_code)
+void	wait_exit(int pid, int *exit_code, t_sign child)
 {
 	if (pid != -1 && waitpid(pid, exit_code, 0) != -1)
 	{
-		if (WIFEXITED(*exit_code))
+		if (g_sign == SIGINT)
+		{
+			*exit_code += 128;
+			g_sign = 0;
+		}
+		else if (WIFEXITED(*exit_code))
 			*exit_code = WEXITSTATUS(*exit_code);
 		else
-			*exit_code = WTERMSIG(*exit_code);
+		{
+			if (child == S_HEREDOC)
+				write(1, "\n", 1);
+			else if (child == S_CHILD && *exit_code == SIGQUIT)
+				write(1, "Quit (core dumped)", 19);
+		}
 	}
 }
 

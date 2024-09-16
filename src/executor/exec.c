@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/10 14:57:26 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/16 18:11:46 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int	command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 	copy_array(&argv, proc->argv);
 	free_struct(data);
 	free(data);
+	set_sig(S_CHILD);
 	execve(argv[0], argv, envp);
 	return (0);
 }
@@ -65,7 +66,7 @@ static int	execute_section(t_proc *proc, t_data *data, \
 
 static int	exec_exit(int pid, int exit_code)
 {
-	wait_exit(pid, &exit_code);
+	wait_exit(pid, &exit_code, S_CHILD);
 	while (waitpid (-1, NULL, 0) != -1)
 		;
 	dup2(STDIN_CLONE, STDIN_FILENO);
@@ -100,8 +101,6 @@ int	executor(t_data *data)
 	t_proc		*last_proc;
 
 	pid = -1;
-	dup2(STDIN_FILENO, STDIN_CLONE);
-	dup2(STDOUT_FILENO, STDOUT_CLONE);
 	exit_code = heredoc(data);
 	if (exit_code != 0)
 		return (exit_code);

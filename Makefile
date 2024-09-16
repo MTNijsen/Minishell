@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/09/16 14:20:35 by mnijsen       ########   odam.nl          #
+#    Updated: 2024/09/16 18:00:57 by mnijsen       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ SRC_FILES		:=	main.c \
 					remove_env_var.c \
 					return_env_var.c ) \
 					$(addprefix $(SRC_UTILS)/, \
+					signal.c \
 					copy_array.c\
 					exit.c \
 					ft_strappend.c \

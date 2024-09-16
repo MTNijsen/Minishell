@@ -6,17 +6,19 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/16 14:25:37 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/16 19:11:57 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <errno.h>
 
+//on ctrl-d could give a warning
 static void	heredoc_read(char *delimiter, t_proc *proc, t_data *data)
 {
 	char	*buf;
 
+	set_sig(S_HEREDOC);
 	buf = readline("heredoc> ");
 	while (buf != NULL)
 	{
@@ -27,7 +29,7 @@ static void	heredoc_read(char *delimiter, t_proc *proc, t_data *data)
 		free(buf);
 		buf = readline("heredoc> ");
 	}
-	clean_exit(data, EXIT_FAILURE);
+	clean_exit(data, EXIT_SUCCESS);
 }
 
 int	heredoc(t_data *data)
@@ -54,7 +56,7 @@ int	heredoc(t_data *data)
 				if (pid == 0)
 					heredoc_read(redir->value, proc, data);
 				close(proc->hd_pipe[1]);
-				wait_exit(pid, &exit_code);
+				wait_exit(pid, &exit_code, S_HEREDOC);
 				if (exit_code != 0)
 					return (exit_code);
 			}

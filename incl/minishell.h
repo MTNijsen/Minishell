@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/16 14:18:44 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/16 18:55:20 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,19 @@ int		bi_pwd(t_data *data);
 void	bi_unset(char **argv, t_data *data);
 
 int		pipeline(void);
-void	wait_exit(int pid, int *exit_code);
+void	wait_exit(int pid, int *exit_code, t_sign child);
 void	clean_exit(t_data *data, int exit_status);
 char	*ft_strappend(char const *s1, char const *s2);
 char	*ft_triappend(char const *s1, char const *s2, char const *s3);
 char	*ft_strchr_null(const char *str, int c);
+void 	set_sig(t_sign status);
 
 // filedescriptors for recovering stdin and stdout if overwritten
 # define STDIN_CLONE 3
 # define STDOUT_CLONE 4
-
 //
+extern int g_sign;
+
 # define ENV_VARIABLE_LENGTH 96
 
 #endif

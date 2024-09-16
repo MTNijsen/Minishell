@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 19:52:42 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/16 18:06:07 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,12 @@ typedef struct s_data
 	int		env_count;
 	char	*input;
 }			t_data;
+
+typedef enum e_sign
+{
+	S_INTERACTIVE,
+	S_HEREDOC,
+	S_CHILD
+}			t_sign;
 
 #endif

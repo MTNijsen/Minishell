@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:04 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:46:32 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/16 18:00:00 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	pipeline(void)
 		return (close(pipe_ids[0]), close(pipe_ids[1]), errno);
 	if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 		close(pipe_ids[0]);
 		dup2(pipe_ids[1], STDOUT_FILENO);
 		close(pipe_ids[1]);
