@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/24 13:47:50 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 18:34:03 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/18 18:22:37 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_lexer(t_data *data, char *input)
 		else if (input[i] == '<' || input[i] == '>')
 			x = create_redir_token(data, input, i);
 		else
-			x = text_tokens(data, input, i);
+			x = text_tokens(data, input, i); //PLACE HANDLE QUOTES ON DIFFERENT PLACE SEE TO DO
 		if (x < 0)
 			return (-1);
 		i = x;
