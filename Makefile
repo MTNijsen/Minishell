@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/09/05 19:51:57 by mnijsen       ########   odam.nl          #
+#    Updated: 2024/09/17 16:18:49 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC_PARSER		:=	parser
 SRC_EXECUTOR	:=	executor
 SRC_TOKENS		:=	tokens
 SRC_PROCS		:=	procs
+SRC_EXPANSION	:=	expansion
 SRC_ENVIROMENT	:=	enviroment
 SRC_UTILS		:=	utils
 SRC_BUILT_IN	:=	built_in
@@ -63,6 +64,8 @@ SRC_FILES		:=	main.c \
 					last_proc.c \
 					count_tokens_proc.c \
 					get_procs.c ) \
+					$(addprefix $(SRC_EXPANSION)/, \
+					expansion.c )\
 					$(addprefix $(SRC_EXECUTOR)/, \
 					exec.c \
 					heredoc.c \
