@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/09 16:18:07 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/24 13:58:08 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 17:12:03 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,19 +105,22 @@ char	*check_paths(t_data *data, char *arg)
 	char	*temp;
 	size_t	i;
 
-	path_locations = ft_split(return_env_val(data->envp, "PATH"), ':');
+	temp = return_env_val(data->envp, "PATH");
+	if (temp == NULL)
+		return (arg);
+	path_locations = ft_split(temp, ':');
 	if (!path_locations)
-		return (NULL);
+		clean_exit(data, MALLOC_ERROR);
 	i = 0;
 	while (path_locations[i] != NULL)
 	{
 		temp = ft_triappend(path_locations[i], "/", arg);
-		if (!access(temp, F_OK))
+		if (access(temp, F_OK) == 0)
 			return (ft_free_arr(path_locations), temp);
 		free(temp);
 		i++;
 	}
-	return (ft_free_arr(path_locations), NULL);
+	return (ft_free_arr(path_locations), arg);
 }
 
 int	get_path(t_data *data, t_proc *proc)
@@ -128,7 +131,7 @@ int	get_path(t_data *data, t_proc *proc)
 		cmd = expand_path(data, proc->cmd);
 	else
 		cmd = check_paths(data, proc->cmd);
-	if (!access(cmd, X_OK))
+	if (access(cmd, X_OK) == 0)
 	{
 		free(proc->cmd);
 		proc->cmd = cmd;

@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 19:37:49 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/24 13:54:26 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 16:50:27 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	modify_env_var(t_data *data, char *env_var)
 			data->envp[i] = env_var;
 			return (0);
 		}
-		data->envp = realloc_envp(data->envp, i +2, i +1);
+		realloc_envp(data, i +2);
 	}
 	else
 		data->envp = (char **)ft_calloc(2, sizeof(char *));

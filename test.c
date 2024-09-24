@@ -1,14 +1,22 @@
-#include <sys/ioctl.h>
-#include <unistd.h>
 #include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <wait.h>
-#include <error.h>
 #include <errno.h>
-#include <fcntl.h>
-int main()
+# include <unistd.h>
+# include <stdio.h>
+# include <stdbool.h>
+# include <string.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <ctype.h>
+# include <stdarg.h>
+
+int main (void)
 {
-	open("NO", X_OK);
-	perror("NO");
+	char str[100];
+	getcwd(str, 100);
+	printf("%d\n", errno);
+	perror("getcwd");
+
+	chdir("src");
+	printf("%d\n", errno);
+	perror("chdir");
 }

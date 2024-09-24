@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/24 13:30:48 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 18:20:49 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,18 @@ static int	command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 		if (*pid)
 			return (0);
 	}
-	envp = data->envp;
-	copy_array(&argv, proc->argv);
-	free_struct(data);
-	free(data);
+	if (copy_array(&envp, data->envp))
+		clean_exit(data, MALLOC_ERROR);
+	if (copy_array(&argv, proc->argv))
+		clean_exit(data, MALLOC_ERROR);
+	free_data(data);
 	set_sig(S_CHILD);
 	if (execve(argv[0], argv, envp) == -1)
 		return (-1);
 	return (0);
 }
 
-static int	built_in(t_proc *proc, t_data *data, bool pipe_present, int *pid)
+static int	built_in(t_proc *proc, t_data *data, bool pipe_present)
 {
 	if (!ft_strncmp(proc->argv[0], "cd", 3))
 		return (bi_cd(proc->argv, data));
@@ -54,7 +55,7 @@ static int	built_in(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 		return (bi_pwd(data));
 	else if (!ft_strncmp(proc->argv[0], "unset", 6))
 		return (bi_unset(proc->argv, data), 0);
-	return (0);
+	return (-1);
 }
 
 static int	execute_section(t_proc *proc, t_data *data, \
@@ -67,11 +68,12 @@ static int	execute_section(t_proc *proc, t_data *data, \
 		return (exit_code);
 	if (proc->argv && proc->argv[0])
 	{
-		if (is_built_in(proc->argv[0]))
-			exit_code = built_in(proc, data, pipe_present, pid);
-		else
+		exit_code = built_in(proc, data, pipe_present);
+		if (exit_code == -1)
 			exit_code = command(proc, data, pipe_present, pid);
 	}
+	if (pipe_present)
+		clean_exit(data, exit_code);
 	return (exit_code);
 }
 
@@ -85,11 +87,10 @@ static t_proc	*exec_pipes(t_data *data)
 	while (proc->next)
 	{
 		pid = pipeline();
-		if (pid == 0)
-		{
+		if (pid == -1)
+			return (NULL);
+		else if (pid == 0)
 			exit_code = execute_section(proc, data, &pid, true);
-			clean_exit(data, exit_code);
-		}
 		proc = proc->next;
 	}
 	return (proc);
@@ -106,16 +107,18 @@ int	executor(t_data *data)
 	if (exit_code != 0)
 		return (exit_code);
 	last_proc = exec_pipes(data);
-	if (&last_proc == &data->procs)
+	if (&last_proc == &(data->procs))
 	{
 		pid = fork();
 		if (pid == -1)
-			return (errno);
+			return (perror("fork"), errno);
 		if (pid == 0)
-			clean_exit(data, execute_section(last_proc, data, &pid, true));
+			execute_section(last_proc, data, &pid, true);
 	}
-	else
+	else if (last_proc != NULL)
 		exit_code = execute_section(last_proc, data, &pid, false);
+	else
+		exit_code = errno;
 	wait_exit(pid, &exit_code, S_CHILD);
 	while (waitpid (-1, NULL, 0) != -1)
 		;

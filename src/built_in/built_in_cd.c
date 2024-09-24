@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:35 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/24 13:42:56 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 18:07:14 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ int	bi_cd(char **argv, t_data *data)
 	else
 	{
 		pwd = parse_dir(argv[1], data);
+		if (pwd == NULL)
+			return (errno);
 		temp = pwd;
 	}
 	oldpwd = return_pwd(data);
-	if (!oldpwd)
+	if (oldpwd == NULL)
 		return (errno);
 	if (chdir(pwd))
 		return (free(pwd), perror(pwd), errno);

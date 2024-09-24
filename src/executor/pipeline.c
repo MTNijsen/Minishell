@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:04 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/16 18:00:00 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 16:24:18 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	pipeline(void)
 	int	pid;
 
 	if (pipe(pipe_ids) == -1)
-		return (errno);
+		return (perror("pipe"), -1);
 	pid = fork();
 	if (pid == -1)
-		return (close(pipe_ids[0]), close(pipe_ids[1]), errno);
+		return (perror("fork"), close(pipe_ids[0]), close(pipe_ids[1]), -1);
 	if (pid == 0)
 	{
 		close(pipe_ids[0]);

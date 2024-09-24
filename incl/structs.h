@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/24 14:50:53 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 18:22:01 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ typedef struct s_data
 	t_proc	*procs;
 	t_token	*tokens;
 	char	**envp;
+	size_t	envp_count;
 	char	*input;
+	int		exit_code;
 }			t_data;
 
 typedef enum e_sign

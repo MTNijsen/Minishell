@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 12:58:19 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/21 21:54:10 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/09/24 18:20:43 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_error(t_data *data, int flag)
 {
 	if (flag < 0)
 	{
-		free_struct(data);
+		free_data(data);
 		if (flag == -1)
 			ft_puterror_fd("Malloc error", STDERR_FILENO);
 		else if (flag == -2)

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/24 14:53:26 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 18:20:28 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int		input_check(t_data *data);
 bool	is_special(char input, const char *check);
 int		handle_quotes(char *input, int i);
 void	ft_error(t_data *data, int flag);
-t_data	*init_struct(char **env);
+void	init_data(t_data *data, char **env);
 bool	is_redirect(t_token *token);
-void	free_struct(t_data *data);
+void	clean_data(t_data *data);
 void	free_data(t_data *data);
 void	print_data(t_data *data);
 

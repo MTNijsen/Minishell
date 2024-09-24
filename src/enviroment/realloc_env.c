@@ -6,13 +6,13 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 19:35:25 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/24 13:56:55 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 16:50:11 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**realloc_envp(char **envp, size_t size, size_t *old_size)
+void	realloc_envp(t_data *data, size_t size)
 {
 	size_t	i;
 	char	**output;
@@ -20,12 +20,15 @@ char	**realloc_envp(char **envp, size_t size, size_t *old_size)
 	i = 0;
 	output = (char **)malloc(sizeof(char *) * size);
 	if (output == NULL)
-		return (NULL);
-	while (i < size && i < *old_size)
+		clean_exit(data, MALLOC_ERROR);
+	while (data->envp && data->envp[i])
 	{
-		output[i] = ft_strdup(envp[i]);
+		output[i] = ft_strdup(data->envp[i]);
 		if (output == NULL)
-			return (ft_free_arr(output), NULL);
+		{
+			ft_free_arr(output);
+			clean_exit(data, MALLOC_ERROR);
+		}
 		i++;
 	}
 	while (i < size)
@@ -33,7 +36,6 @@ char	**realloc_envp(char **envp, size_t size, size_t *old_size)
 		output[i] = NULL;
 		i++;
 	}
-	*old_size = size;
-	ft_free_arr(envp);
-	return (output);
+	ft_free_arr(data->envp);
+	data->envp = output;
 }

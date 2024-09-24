@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 19:55:47 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 16:50:16 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		count_tokens_proc(t_token *token);
 
 // ENV //
 bool	is_valid_env(char *env_var);
-char	**realloc_envp(char **envp, size_t size, size_t *old_size);
+void	realloc_envp(t_data *data, size_t size);
 int		modify_env_var(t_data *data, char *env_var);
 void	remove_env_var(t_data *data, char *name);
 char	*return_env_val(char **envp, char *name);
