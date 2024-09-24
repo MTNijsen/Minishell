@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:20 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:34:09 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 13:44:17 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*return_pwd(t_data *data)
 	if (buf)
 		return (buf);
 	if (getcwd(buf_m, PATH_MAX) == NULL)
-		return (NULL);
+		return (perror("PWD"), NULL);
 	buf = ft_strappend("PWD", buf_m);
 	if (!buf)
 		clean_exit (data, MALLOC_ERROR);
@@ -38,6 +38,5 @@ int	bi_pwd(t_data *data)
 	buf = return_pwd(data);
 	if (!buf)
 		return (errno);
-	printf("%s\n", buf);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:01 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/16 14:23:35 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/18 16:58:04 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	redirect(t_proc *proc)
 {
 	int		exit_code;
 	t_token	*redir;
-	
+
 	exit_code = 0;
 	redir = proc->redirs;
 	while (redir != NULL)

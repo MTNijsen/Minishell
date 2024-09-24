@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/16 18:11:46 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 13:30:48 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,27 @@ static int	command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 {
 	char	**envp;
 	char	**argv;
-	
+
+	if (get_path(data, proc))
+		return (errno);
+	if (!pipe_present)
+	{
+		*pid = fork();
+		if (*pid)
+			return (0);
+	}
+	envp = data->envp;
+	copy_array(&argv, proc->argv);
+	free_struct(data);
+	free(data);
+	set_sig(S_CHILD);
+	if (execve(argv[0], argv, envp) == -1)
+		return (-1);
+	return (0);
+}
+
+static int	built_in(t_proc *proc, t_data *data, bool pipe_present, int *pid)
+{
 	if (!ft_strncmp(proc->argv[0], "cd", 3))
 		return (bi_cd(proc->argv, data));
 	else if (!ft_strncmp(proc->argv[0], "echo", 5))
@@ -34,20 +54,6 @@ static int	command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 		return (bi_pwd(data));
 	else if (!ft_strncmp(proc->argv[0], "unset", 6))
 		return (bi_unset(proc->argv, data), 0);
-	if (get_path(data, proc))
-		return (errno);
-	if (!pipe_present)
-	{
-		*pid = fork();
-		if (*pid)
-			return (0);
-	}
-	envp = data->envp;
-	copy_array(&argv, proc->argv);
-	free_struct(data);
-	free(data);
-	set_sig(S_CHILD);
-	execve(argv[0], argv, envp);
 	return (0);
 }
 
@@ -60,17 +66,12 @@ static int	execute_section(t_proc *proc, t_data *data, \
 	if (exit_code != 0)
 		return (exit_code);
 	if (proc->argv && proc->argv[0])
-		exit_code = command(proc, data, pipe_present, pid);
-	return (exit_code);
-}
-
-static int	exec_exit(int pid, int exit_code)
-{
-	wait_exit(pid, &exit_code, S_CHILD);
-	while (waitpid (-1, NULL, 0) != -1)
-		;
-	dup2(STDIN_CLONE, STDIN_FILENO);
-	dup2(STDOUT_CLONE, STDOUT_FILENO);
+	{
+		if (is_built_in(proc->argv[0]))
+			exit_code = built_in(proc, data, pipe_present, pid);
+		else
+			exit_code = command(proc, data, pipe_present, pid);
+	}
 	return (exit_code);
 }
 
@@ -111,12 +112,12 @@ int	executor(t_data *data)
 		if (pid == -1)
 			return (errno);
 		if (pid == 0)
-		{
-			exit_code = execute_section(last_proc, data, &pid, true);
-			clean_exit(data, exit_code);
-		}
+			clean_exit(data, execute_section(last_proc, data, &pid, true));
 	}
 	else
 		exit_code = execute_section(last_proc, data, &pid, false);
-	return (exec_exit(pid, exit_code));
+	wait_exit(pid, &exit_code, S_CHILD);
+	while (waitpid (-1, NULL, 0) != -1)
+		;
+	return (exit_code);
 }

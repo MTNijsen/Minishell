@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/16 18:55:20 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 14:53:26 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ void	free_struct(t_data *data);
 void	free_data(t_data *data);
 void	print_data(t_data *data);
 
-
 int		executor(t_data *data);
 int		redirect(t_proc *proc);
 int		heredoc(t_data *data);
-int		get_path(t_data *data, t_proc* proc);
+int		get_path(t_data *data, t_proc *proc);
+char	*parse_dir(char *str, t_data *data);
+int		pipeline(void);
 
 int		bi_cd(char **argv, t_data *data);
 void	bi_echo(char **argv);
@@ -45,19 +46,18 @@ void	bi_export(char **argv, t_data *data);
 int		bi_pwd(t_data *data);
 void	bi_unset(char **argv, t_data *data);
 
-int		pipeline(void);
 void	wait_exit(int pid, int *exit_code, t_sign child);
 void	clean_exit(t_data *data, int exit_status);
 char	*ft_strappend(char const *s1, char const *s2);
 char	*ft_triappend(char const *s1, char const *s2, char const *s3);
 char	*ft_strchr_null(const char *str, int c);
-void 	set_sig(t_sign status);
+void	set_sig(t_sign status);
 
 // filedescriptors for recovering stdin and stdout if overwritten
 # define STDIN_CLONE 3
 # define STDOUT_CLONE 4
 //
-extern int g_sign;
+extern int	g_sign;
 
 # define ENV_VARIABLE_LENGTH 96
 

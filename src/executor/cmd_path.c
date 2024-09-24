@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/09 16:18:07 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/10 14:37:50 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 13:58:08 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ static char	*add_dirs(char *output, char **array)
 {
 	char	*temp;
 	int		i;
-	
+
 	i = 0;
-	//deal with any entries that can occur any amount of times like .. or dir name
 	while (array[i] != NULL)
 	{
 		if (!ft_strncmp(array[i], ".", 2))
@@ -41,7 +40,8 @@ static char	*add_dirs(char *output, char **array)
 	return (output);
 }
 
-//deal with first entry like / . ~ or else
+/*returns absolute path to directory on success, 
+exits on malloc failure and returns NULL when env PWD is not found */
 char	*parse_dir(char *str, t_data *data)
 {
 	char	*output;
@@ -50,44 +50,30 @@ char	*parse_dir(char *str, t_data *data)
 
 	output = NULL;
 	if (str[0] == '/')
-	{
 		output = ft_strdup("");
-		if (!output)
-			clean_exit(data, MALLOC_ERROR);
-	}
-	else if (str[0] == '~')
-	{
-		temp = return_env_val(data->envp, "HOME");
-		if (temp)
-		{
-			output = ft_strdup(temp);
-			if (!output)
-				clean_exit(data, MALLOC_ERROR);
-		}
-	}
 	else
 	{
 		temp = return_pwd(data);
-		if (temp)
-		{
-			output = ft_strdup(temp);
-			if (!output)
-				clean_exit(data, MALLOC_ERROR);
-		}
+		if (!temp)
+			return (NULL);
+		output = ft_strdup(temp);
 	}
 	if (!output)
-		return (NULL);
+		clean_exit(data, MALLOC_ERROR);
 	array = ft_split(str, '/');
 	if (!array)
-		return (free(output), NULL);
+		clean_exit(data, MALLOC_ERROR);
 	output = add_dirs(output, array);
-	return (ft_free_arr(array), output);
+	ft_free_arr(array);
+	if (!output)
+		clean_exit(data, MALLOC_ERROR);
+	return (output);
 }
 
-char *expand_path(t_data *data, char *arg)
+char	*expand_path(t_data *data, char *arg)
 {
 	char	*cmd;
-	char 	*dir;
+	char	*dir;
 	char	*temp;
 
 	dir = ft_substr(arg, 0, ft_strrchr(arg, '/') - arg);
@@ -96,21 +82,24 @@ char *expand_path(t_data *data, char *arg)
 	temp = parse_dir(dir, data);
 	free(dir);
 	if (!temp)
-		clean_exit(data, MALLOC_ERROR);
+		return (NULL);
 	dir = temp;
-	cmd = ft_substr(arg, ft_strrchr(arg, '/') - arg, ft_strlen(arg) - (ft_strrchr(arg, '/') - arg));//copies all that occures after the last /
+	cmd = ft_substr(arg, ft_strrchr(arg, '/') - arg, ft_strlen(arg) - \
+		(ft_strrchr(arg, '/') - arg));
 	if (!cmd)
 	{
 		free(dir);
 		clean_exit(data, MALLOC_ERROR);
 	}
 	temp = ft_strjoin(dir, cmd);
+	free(dir);
+	free(cmd);
 	if (!temp)
 		clean_exit(data, MALLOC_ERROR);
-	return (free(dir), free(cmd), temp);
+	return (temp);
 }
 
-char *check_paths(t_data *data, char *arg)
+char	*check_paths(t_data *data, char *arg)
 {
 	char	**path_locations;
 	char	*temp;
@@ -131,13 +120,13 @@ char *check_paths(t_data *data, char *arg)
 	return (ft_free_arr(path_locations), NULL);
 }
 
-int	get_path(t_data *data, t_proc* proc)
+int	get_path(t_data *data, t_proc *proc)
 {
 	char	*cmd;
-	
-	if (ft_strchr(proc->argv[0], '/')) //if path provided aka there is a / in the string
+
+	if (ft_strchr(proc->argv[0], '/'))
 		cmd = expand_path(data, proc->cmd);
-	else //split path env and concatinate command after the paths and check access for existing not executing
+	else
 		cmd = check_paths(data, proc->cmd);
 	if (!access(cmd, X_OK))
 	{
@@ -146,6 +135,6 @@ int	get_path(t_data *data, t_proc* proc)
 		proc->argv[0] = cmd;
 		return (0);
 	}
-	printf("%s doesnt exist\n", cmd);
+	perror(proc->cmd);
 	return (1);
 }

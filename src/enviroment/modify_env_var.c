@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 19:37:49 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:37:52 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 13:54:26 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,21 @@ int	modify_env_var(t_data *data, char *env_var)
 	i = 0;
 	if (!is_valid_env(env_var))
 		return (1);
-	while (data->envp[i] != NULL && \
-		ft_strncmp(data->envp[i], env_var, var_len +1))
-		i++;
-	if (data->envp[i] != NULL)
+	if (data->envp != NULL)
 	{
-		free(data->envp[i]);
-		data->envp[i] = env_var;
-		return (0);
+		while (data->envp[i] != NULL && \
+			ft_strncmp(data->envp[i], env_var, var_len +1))
+			i++;
+		if (data->envp[i] != NULL)
+		{
+			free(data->envp[i]);
+			data->envp[i] = env_var;
+			return (0);
+		}
+		data->envp = realloc_envp(data->envp, i +2, i +1);
 	}
-	if (i == data->env_count)
-		data->envp = realloc_envp(data->envp, i +2, (size_t *)&data->env_count);
+	else
+		data->envp = (char **)ft_calloc(2, sizeof(char *));
 	if (data->envp == NULL)
 		clean_exit(data, MALLOC_ERROR);
 	data->envp[i] = env_var;

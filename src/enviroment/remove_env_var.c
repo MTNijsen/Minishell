@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 19:38:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:38:11 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 13:55:46 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	remove_env_var(t_data *data, char *name)
 	const size_t	name_len = ft_strlen(name);
 
 	i = 0;
+	if (data->envp == NULL)
+		return ;
 	while (data->envp[i] != NULL && \
 		ft_strncmp(data->envp[i], name, name_len +1) != '=')
 		i++;

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/16 19:09:36 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 14:50:09 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,21 @@
 
 int g_sign = 0;
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_data	*data;
-	int		x;
+	int		x;//we can now just store the exit code in *data
 
 	(void)argv;
 	if (argc != 1)
 		ft_puterror_fd("That's too many arguments bro!", STDERR_FILENO);
-	data = init_struct(env);
-	set_sig(S_INTERACTIVE);
+	data = init_struct(envp);
 	if (data == NULL)
-		ft_error(NULL, -1);
+		ft_error(NULL, MALLOC_ERROR);
 	while (1)
 	{
-		input = readline("Crab-shell$ ");
+		input = readline("Crab-shell$ ");//could we not simply readline directly into data->input
 		if (!input)
 			break;
 		if (g_sign == SIGINT)
@@ -38,7 +37,7 @@ int	main(int argc, char **argv, char **env)
 			g_sign = 0;
 			x = 130;
 		}
-		if (*input && input[0] != '\0')
+		if (input[0] != '\0')
 			add_history(input);
 		data->input = ft_substr(input, 0, ft_strlen(input));
 		free(input);
@@ -47,12 +46,9 @@ int	main(int argc, char **argv, char **env)
 		x = get_procs(data);
 		ft_error(data, x);
 		x = executor(data);
-		if (x)
-			printf("exit_code = %d\n", x);
-		if (g_sign)
-			printf("signal received = %d\n", g_sign);
+		ft_error(data, x);
 		free_struct(data);
 	}
-	clean_exit(data, 130);
+	clean_exit(data, x);
 	return (0);
 }

@@ -15,6 +15,9 @@
 		"ranges": "c",
 		"span": "c",
 		"sigevent-consts.h": "c",
-		"sigevent_t.h": "c"
+		"sigevent_t.h": "c",
+		"readline.h": "c",
+		"history.h": "c",
+		"error.h": "c"
 	}
 }

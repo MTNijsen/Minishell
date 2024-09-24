@@ -6,57 +6,12 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:35 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/05 19:53:06 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 13:42:56 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <errno.h>
-
-static char	*cd_add_dirs(char *str, char *output)
-{
-	char	*temp;
-	char	**array;
-	int		i;
-
-	array = ft_split(str, '/');
-	if (!array)
-		return (NULL);
-	i = 0;
-	while (array[i] != NULL)
-	{
-		if (!ft_strncmp(array[i], ".", 2))
-			temp = ft_strdup(output);
-		else if (!ft_strncmp(array[i], "..", 2))
-			temp = ft_substr(output, 0, ft_strrchr(output, '/') - output);
-		else
-			temp = ft_triappend(output, "/", array[i]);
-		free(output);
-		if (!temp)
-			return (ft_free_arr(array), NULL);
-		output = temp;
-		i++;
-	}
-	if (output[0] == '\0')
-	{
-		free(output);
-		output = ft_strdup("/");
-	}
-	return (ft_free_arr(array), output);
-}
-
-static char	*parse_cd(char *str, t_data *data)
-{
-	char	*output;
-
-	if (str[0] == '/')
-		output = ft_strdup("");
-	else
-		output = ft_strdup(return_pwd(data));
-	if (!output)
-		return (NULL);
-	return (cd_add_dirs(str, output));
-}
 
 int	bi_cd(char **argv, t_data *data)
 {
@@ -71,14 +26,14 @@ int	bi_cd(char **argv, t_data *data)
 		pwd = return_env_val(data->envp, "OLDPWD");
 	else
 	{
-		pwd = parse_cd(argv[1], data);
+		pwd = parse_dir(argv[1], data);
 		temp = pwd;
 	}
 	oldpwd = return_pwd(data);
 	if (!oldpwd)
 		return (errno);
 	if (chdir(pwd))
-		return (free(pwd), errno);
+		return (free(pwd), perror(pwd), errno);
 	pwd = ft_strappend("PWD=", pwd);
 	oldpwd = ft_strappend("OLDPWD=", oldpwd);
 	free(temp);

@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 15:03:57 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/16 18:57:35 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/17 16:19:40 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ void	wait_exit(int pid, int *exit_code, t_sign child)
 		}
 		else if (WIFEXITED(*exit_code))
 			*exit_code = WEXITSTATUS(*exit_code);
-		else
-		{
-			if (child == S_HEREDOC)
-				write(1, "\n", 1);
-			else if (child == S_CHILD && *exit_code == SIGQUIT)
-				write(1, "Quit (core dumped)", 19);
-		}
+		else if (child == S_HEREDOC)
+			write(1, "\n", 1);
+		else if (child == S_CHILD && *exit_code == SIGQUIT)
+			write(1, "Quit (core dumped)", 19);
 	}
+	dup2(STDIN_CLONE, STDIN_FILENO);
+	dup2(STDOUT_CLONE, STDOUT_FILENO);
 }
 
 void	clean_exit(t_data *data, int exit_status)

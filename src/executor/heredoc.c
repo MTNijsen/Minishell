@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/16 19:11:57 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/24 13:35:35 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,34 @@ static void	heredoc_read(char *delimiter, t_proc *proc, t_data *data)
 	clean_exit(data, EXIT_SUCCESS);
 }
 
+int	proc_here(t_data *data, t_proc *proc, t_token *redir)
+{
+	int	pid;
+	int	exit_code;
+
+	exit_code = 0;
+	if (pipe(proc->hd_pipe) == -1)
+		return (errno);
+	pid = fork();
+	if (pid == -1)
+		return (errno);
+	if (pid == 0)
+		heredoc_read(redir->value, proc, data);
+	close(proc->hd_pipe[1]);
+	wait_exit(pid, &exit_code, S_HEREDOC);
+	if (exit_code != 0)
+		return (exit_code);
+	return (0);
+}
+
 int	heredoc(t_data *data)
 {
-	int		pid;
 	int		exit_code;
 	t_token	*redir;
 	t_proc	*proc;
 
-	proc = data->procs;
 	exit_code = 0;
+	proc = data->procs;
 	while (proc != NULL)
 	{
 		redir = proc->redirs;
@@ -48,17 +67,7 @@ int	heredoc(t_data *data)
 		{
 			if (redir->type == HEREDOC)
 			{
-				if (pipe(proc->hd_pipe) == -1)
-					return (errno);
-				pid = fork();
-				if (pid == -1)
-					return (errno);
-				if (pid == 0)
-					heredoc_read(redir->value, proc, data);
-				close(proc->hd_pipe[1]);
-				wait_exit(pid, &exit_code, S_HEREDOC);
-				if (exit_code != 0)
-					return (exit_code);
+				exit_code = proc_here(data, proc, redir);
 			}
 			redir = redir->next;
 		}
