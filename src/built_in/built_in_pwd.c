@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:20 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/24 16:56:47 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/25 18:43:45 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*return_pwd(t_data *data)
 		return (buf);
 	if (getcwd(buf_m, PATH_MAX) == NULL)
 	{
-		write(STDERR_FILENO, "ERROR: Unable to run getcwd to reaquire $PWD\n", 46);
+		write(STDERR_FILENO, SASS, ft_strlen(SASS));
 		return (NULL);
 	}
 	buf = ft_strappend("PWD=", buf_m);

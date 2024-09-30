@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/24 18:20:28 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/25 18:44:44 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,9 @@ void	set_sig(t_sign status);
 extern int	g_sign;
 
 # define ENV_VARIABLE_LENGTH 96
+# define SASS "Oh you thought you were so clever deleting the folder \
+you are in and then going and unsetting the enviroment variable \
+for your proccess working directory, why WHY would you do that \
+how would you ever end up here without being absolutely demented.\n"
 
 #endif

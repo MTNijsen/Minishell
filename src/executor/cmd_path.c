@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/09 16:18:07 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/24 17:12:03 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/09/25 18:32:09 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*add_dirs(char *output, char **array)
 	{
 		if (!ft_strncmp(array[i], ".", 2))
 			temp = ft_strdup(output);
-		else if (!ft_strncmp(array[i], "..", 2))
+		else if (!ft_strncmp(array[i], "..", 3))
 			temp = ft_substr(output, 0, ft_strrchr(output, '/') - output);
 		else
 			temp = ft_triappend(output, "/", array[i]);

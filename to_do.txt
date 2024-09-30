@@ -10,15 +10,14 @@
 ✅	Finish process list making✅
 
 ✅ echo does not output argv
-8. free_struct and reset_struct need to be different
+✅ free_struct and reset_struct need to be different
 ✅ export adding
-10. make ft_error not exit on syntax error
-11. delete all useless printf
+✅ make ft_error not exit on syntax error
+✅ delete all useless printf
 
 12. quotes
-13. make unset case insensitive
-14. add paths to command incase it isnt found
+✅ add paths to command incase it isnt found
 
 15. impliment backup fds with tty funcs
-16. add error messages to functions, print locally and send back exit_code
-17. add errors for execve, fork and pipe, and discuss what to do if they fail
+✅ add error messages to functions, print locally and send back exit_code
+17. add errors for execve, fork(forkbomb so dont crash) and pipe(fd limit of comp so crash), and discuss what to do if they fail
