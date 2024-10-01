@@ -6,11 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2024/10/01 16:03:59 by lade-kon      ########   odam.nl         */
-=======
-/*   Updated: 2024/09/18 16:54:18 by lade-kon      ########   odam.nl         */
->>>>>>> ba12efcfd7d328d4a0ff1965e7858ea4537478d4
+/*   Updated: 2024/10/01 16:08:57 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +28,7 @@ int		create_pipe_token(t_data *data, int i);
 int		create_redir_token(t_data *data, char *input, int i);
 int		create_right_redir(t_data *data, char *input, int i);
 int		create_left_redir(t_data *data, char *input, int i);
-int		create_text_token(t_data *data, char *input, int i);
+int		create_text_tokens(t_data *data, char *input, int i);
 
 // PROCS //
 t_proc	*init_proc(void);
