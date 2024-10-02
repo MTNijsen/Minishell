@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/09/17 16:18:49 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/10/02 20:14:24 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ SRC_FILES		:=	main.c \
 					count_tokens_proc.c \
 					get_procs.c ) \
 					$(addprefix $(SRC_EXPANSION)/, \
-					expansion.c )\
+					handle_quotes.c )\
 					$(addprefix $(SRC_EXECUTOR)/, \
 					exec.c \
 					heredoc.c \
@@ -118,9 +118,10 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)/$(SRC_UTILS)
 	mkdir -p $(OBJ_DIR)/$(SRC_BUILT_IN)
 
-
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+libft: $(LIBFT_A)
 
 norminette:
 	@echo "${CYAN}🧐 Checking the Norm...${RESET}"

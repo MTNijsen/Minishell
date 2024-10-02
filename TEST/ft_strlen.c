@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_tokens.c                                     :+:    :+:            */
+/*   ft_strlen.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/01 21:18:48 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/02 15:40:53 by lade-kon      ########   odam.nl         */
+/*   Created: 2023/10/03 14:49:23 by lde-koni      #+#    #+#                 */
+/*   Updated: 2024/10/02 20:27:03 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "test.h"
 
-bool	is_special(char input, const char *check)
+size_t	ft_strlen(const char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (check[i])
-	{
-		if (input == check[i])
-			return (true);
+	while (str[i] != '\0')
 		i++;
-	}
-	return (false);
+	return (i);
 }
-

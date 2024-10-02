@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/10 14:35:01 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/02 15:38:59 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 int		ft_lexer(t_data *data, char *input);
 int		input_check(t_data *data);
 bool	is_special(char input, const char *check);
-int		handle_quotes(char *input, int i);
 void	ft_error(t_data *data, int flag);
 t_data	*init_struct(char **env);
 bool	is_redirect(t_token *token);
@@ -51,6 +50,10 @@ void	clean_exit(t_data *data, int exit_status);
 char	*ft_strappend(char const *s1, char const *s2);
 char	*ft_triappend(char const *s1, char const *s2, char const *s3);
 char	*ft_strchr_null(const char *str, int c);
+
+//HANDLING QUOTES//
+void	handle_quotes(t_data *data);
+
 
 // filedescriptors for recovering stdin and stdout if overwritten
 # define STDIN_CLONE 3

@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_tokens.c                                     :+:    :+:            */
+/*   ft_bzero.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/01 21:18:48 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/02 15:40:53 by lade-kon      ########   odam.nl         */
+/*   Created: 2023/10/11 20:24:10 by lde-koni      #+#    #+#                 */
+/*   Updated: 2024/10/02 20:26:45 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+/*The bzero() function writes n zeroed bytes to the string s. If n is zero, 
+bzero() does nothing.*/
 
-bool	is_special(char input, const char *check)
+#include "test.h"
+
+void	ft_bzero(void *s, size_t n)
 {
-	int	i;
-
-	i = 0;
-	while (check[i])
-	{
-		if (input == check[i])
-			return (true);
-		i++;
-	}
-	return (false);
+	ft_memset(s, '\0', n);
 }
-
