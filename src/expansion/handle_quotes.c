@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/02 21:14:20 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/04 12:08:08 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,46 @@ char	*remove_quotes(char *str)
 	return (result);
 }
 
+void	hanlde_str(t_data *data)
+{ 
+	int		i;
+	char	**str;
+
+	i = 1;
+	while (data->procs->argv[i])
+	{
+		str[i] = ft_strdup(data->procs->argv[i]);
+		// if (!str[i])
+		// 	exit;
+		i++;
+	}
+	free_arr(data->procs->argv);
+	i = 1;
+	while (str[i])
+	{
+		if (check_quotes(str[i]) && !check_dollar(str[i]))
+			data->procs->argv[i] = remove_quotes(str[i]);
+		i++;
+	}
+}
+
+void	handle_cmd(t_data *data)
+{
+	char	*str;
+
+	str = ft_strdup(data->procs->argv[0]);
+//	if (!str)
+//		exit;
+	free(data->procs->argv[0]);
+		if (!check_spaces(str) && !check_dollar(str))
+			data->procs->argv[0] = remove_quotes(str);
+}
+
+
+/**
+ * @brief	if the cmd has quotes, there has to be a check if there are
+ * 			spaces, if so cmd is invalid (this will be checked in )
+ */
 char	*handle_quotes(char *str)
 {
 	char *result;
@@ -133,9 +173,6 @@ char	*handle_quotes(char *str)
 
 // void	handle_quotes(t_data *data)
 // {
-// 	if (data->procs->argv[0] && check_quotes(data->procs->argv[0]))
-// 	{
-// 		if (!check_spaces(data->procs->argv[0]) && !check_dollar(data->procs->argv[0]))
-// 			remove_quotes(data->procs->argv[0]);
-// 	}
+// 	if (data->procs->cmd && check_quotes(data->procs->cmd))
+// 		handle_cmd(data);
 // }
