@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   text_tokens.c                                      :+:    :+:            */
+/*   last_input_check.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/01 16:07:35 by lade-kon      ########   odam.nl         */
+/*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/10/04 12:25:12 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	create_text_token(t_data *data, char *input, int i)
+int	last_check(t_data *data)
 {
-	t_token	*token;
-	int		start;
-	char	*value;
-
-	start = i;
-	value = NULL;
-	while (input[i] && !is_special(input[i], " |<>\"\'"))
-		i++;
-	value = ft_substr(input, start, (i - start));
-	token = create_token(TEXT, value);
-	if (token == NULL || value == NULL)
-		return (-1);
-	add_token(data, token);
-	free (value);
-	return (i);
+	if (check_spaces(data->procs->argv[0]))
+		return ("Syntax error");
+	
 }

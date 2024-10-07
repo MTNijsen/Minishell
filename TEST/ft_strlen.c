@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   text_tokens.c                                      :+:    :+:            */
+/*   ft_strlen.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/01 16:07:35 by lade-kon      ########   odam.nl         */
+/*   Created: 2023/10/03 14:49:23 by lde-koni      #+#    #+#                 */
+/*   Updated: 2024/10/02 20:27:03 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "test.h"
 
-int	create_text_token(t_data *data, char *input, int i)
+size_t	ft_strlen(const char *str)
 {
-	t_token	*token;
-	int		start;
-	char	*value;
+	size_t	i;
 
-	start = i;
-	value = NULL;
-	while (input[i] && !is_special(input[i], " |<>\"\'"))
+	i = 0;
+	while (str[i] != '\0')
 		i++;
-	value = ft_substr(input, start, (i - start));
-	token = create_token(TEXT, value);
-	if (token == NULL || value == NULL)
-		return (-1);
-	add_token(data, token);
-	free (value);
 	return (i);
 }

@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   text_tokens.c                                      :+:    :+:            */
+/*   ft_bzero.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/01 16:07:35 by lade-kon      ########   odam.nl         */
+/*   Created: 2023/10/11 20:24:10 by lde-koni      #+#    #+#                 */
+/*   Updated: 2024/10/02 20:26:45 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+/*The bzero() function writes n zeroed bytes to the string s. If n is zero, 
+bzero() does nothing.*/
 
-int	create_text_token(t_data *data, char *input, int i)
+#include "test.h"
+
+void	ft_bzero(void *s, size_t n)
 {
-	t_token	*token;
-	int		start;
-	char	*value;
-
-	start = i;
-	value = NULL;
-	while (input[i] && !is_special(input[i], " |<>\"\'"))
-		i++;
-	value = ft_substr(input, start, (i - start));
-	token = create_token(TEXT, value);
-	if (token == NULL || value == NULL)
-		return (-1);
-	add_token(data, token);
-	free (value);
-	return (i);
+	ft_memset(s, '\0', n);
 }

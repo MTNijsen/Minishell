@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   text_tokens.c                                      :+:    :+:            */
+/*   ft_strdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/01 16:07:35 by lade-kon      ########   odam.nl         */
+/*   Created: 2023/10/17 21:24:24 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/10/02 20:26:59 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "test.h"
 
-int	create_text_token(t_data *data, char *input, int i)
+char	*ft_strdup(const char *s1)
 {
-	t_token	*token;
-	int		start;
-	char	*value;
+	char	*dup;
+	size_t	slen;
 
-	start = i;
-	value = NULL;
-	while (input[i] && !is_special(input[i], " |<>\"\'"))
-		i++;
-	value = ft_substr(input, start, (i - start));
-	token = create_token(TEXT, value);
-	if (token == NULL || value == NULL)
-		return (-1);
-	add_token(data, token);
-	free (value);
-	return (i);
+	slen = ft_strlen(s1);
+	dup = (char *)ft_calloc((slen + 1), sizeof(char));
+	if (dup == NULL)
+		return (NULL);
+	else
+		ft_memcpy(dup, s1, slen);
+	return (dup);
 }
+
+// #include <string.h>
+// int	main()
+// {
+// 	char	string[] = "";
+
+// 	printf("%s\n", ft_strdup(string));
+// 	printf("%s\n", strdup(string));
+// }
