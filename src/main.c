@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/01 16:11:40 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/04 12:21:54 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char **argv, char **env)
 		x = get_procs(data);
 		ft_error(data, x);
 		//before stuff goes in the executor the quotes have to be deleted.
+		//and the last input check has to be performed.
 		x = executor(data);
 		if (x)
 			printf("exit_code = %d\n", x);

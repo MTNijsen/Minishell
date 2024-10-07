@@ -11,7 +11,7 @@
 
 int	main(void)
 {
-	char *old = "Destring\"is\"dit\"";
+	char *old = "Des\"tringis\'d\'i\"t";
 	char *new;
 
 	printf("OLD STRING: %s\n", old);
