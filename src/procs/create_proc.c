@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/16 14:22:03 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/07 13:41:54 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,15 @@ t_proc	*create_proc(t_token *token)
 	t_token	*new_redir;
 	t_proc	*proc;
 	int		i;
-	int		argc;
 
 	proc = init_proc();
 	if (!proc)
 		return (NULL);
 	current = token;
-	argc = count_arguments(current);
-	if (argc != 0)
+	proc->argc = count_arguments(current);
+	if (proc->argc != 0)
 	{
-		proc->argv = (char **)ft_calloc((argc + 1), sizeof(char *));
+		proc->argv = (char **)ft_calloc((proc->argc + 1), sizeof(char *));
 		if (!proc->argv)
 			return (NULL); //have to check if this is correct
 	}

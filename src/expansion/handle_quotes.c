@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/07 13:18:17 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/07 15:53:24 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	quote_cpy_loop(char *str, char *new, int *i, int *j)
 char	*remove_quotes(char *str)
 {
 	char	*new;
-	char	*result;
 	int		i;
 	int		j;
 
@@ -114,44 +113,50 @@ char	*remove_quotes(char *str)
 		if (is_quote(str[i]))
 			quote_cpy_loop(str, new, &i, &j);
 	}
-	result = ft_strdup(new);
-	return (result);
+	return (new);
 }
 
-void	handle_str(t_data *data)
+void	handle_str(t_proc *proc)
 { 
 	int		i;
 	char	**str;
 
-	str = NULL;
-	i = 1;
-	while (data->procs->argv[i])
+	str = (char **)ft_calloc((proc->argc + 1), sizeof(char *));
+	i = 0;
+	while (proc->argv[i])
 	{
-		str[i] = ft_strdup(data->procs->argv[i]);
+		str[i] = ft_strdup(proc->argv[i]);
 		// if (!str[i])
 		// 	exit;
 		i++;
 	}
-	ft_free_arr(data->procs->argv);
-	i = 1;
+	ft_free_arr(proc->argv);
+	proc->argv = (char **)ft_calloc((proc->argc + 1), sizeof(char *));
+	i = 0;
+	proc->argv[i] = ft_strdup(str[i]);
+	i++;
 	while (str[i])
 	{
 		if (check_quotes(str[i]) && !check_dollar(str[i]))
-			data->procs->argv[i] = remove_quotes(str[i]);
+			proc->argv[i] = remove_quotes(str[i]);
+		else
+			proc->argv[i] = ft_strdup(str[i]);
 		i++;
 	}
 }
 
-void	handle_cmd(t_data *data)
+void	handle_cmd(t_proc *proc)
 {
 	char	*str;
 
-	str = ft_strdup(data->procs->argv[0]);
+	str = ft_strdup(proc->argv[0]);
 //	if (!str)
 //		exit;
-	free(data->procs->argv[0]);
+	free(proc->argv[0]);
 		if (!check_spaces(str) && !check_dollar(str))
-			data->procs->argv[0] = remove_quotes(str);
+			proc->argv[0] = remove_quotes(str);
+		else if (check_spaces(str))
+			printf("Syntax error!\n");
 }
 
 /**
@@ -160,8 +165,15 @@ void	handle_cmd(t_data *data)
  */
 void	handle_quotes(t_data *data)
 {
-	if (data->procs->argv[0] && check_quotes(data->procs->argv[0]))
-		handle_cmd(data);
-	if (data->procs->argv)
-		handle_str(data);
+	t_proc	*proc;
+
+	proc = data->procs;
+	while (proc != NULL)
+	{
+		if (proc->argv[0] && check_quotes(proc->argv[0]))
+			handle_cmd(proc);
+		if (proc->argv)
+			handle_str(proc);
+		proc = proc->next;
+	}
 }
