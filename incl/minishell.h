@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/07 13:22:22 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/07 17:50:39 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ bool	is_redirect(t_token *token);
 void	free_struct(t_data *data);
 void	free_data(t_data *data);
 void	print_data(t_data *data);
+void	print_arr(char **arr);
+
 
 
 int		executor(t_data *data);
@@ -52,7 +54,12 @@ char	*ft_triappend(char const *s1, char const *s2, char const *s3);
 char	*ft_strchr_null(const char *str, int c);
 
 //HANDLING QUOTES//
-void	handle_quotes(t_data *data);
+int		handle_quotes(t_data *data);
+char	*remove_quotes(char *str);
+int		check_spaces(char *str);
+int		check_dollar(char *str);
+int		check_quotes(char *str);
+int		is_quote(int q);
 
 
 // filedescriptors for recovering stdin and stdout if overwritten

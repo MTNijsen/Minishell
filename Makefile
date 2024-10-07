@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/10/07 14:38:50 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/10/07 17:50:09 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC_FILES		:=	main.c \
 					init_struct.c \
 					free_struct.c \
 					error.c \
+					print_arr.c \
 					print_data.c \
 					$(addprefix $(SRC_LEXER)/, \
 					lexer.c \
@@ -65,7 +66,9 @@ SRC_FILES		:=	main.c \
 					count_tokens_proc.c \
 					get_procs.c ) \
 					$(addprefix $(SRC_EXPANSION)/, \
-					handle_quotes.c )\
+					handle_quotes.c \
+					quote_utils.c \
+					quote_utils_2.c )\
 					$(addprefix $(SRC_EXECUTOR)/, \
 					cmd_path.c \
 					exec.c \

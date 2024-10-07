@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/07 13:29:18 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/07 17:26:10 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,17 @@ int	main(int argc, char **argv, char **env)
 			break;
 		if (*input && input[0] != '\0')
 			add_history(input);
-		data->input = ft_substr(input, 0, ft_strlen(input));
+		data->input = ft_strdup(input);
 		free(input);
 		x = ft_lexer(data, data->input);
 		ft_error(data, x);
 		x = get_procs(data);
 		ft_error(data, x);
-		//before stuff goes in the executor the quotes have to be deleted.
-		//and the last input check has to be performed.
-		handle_quotes(data);
-		x = executor(data);
+		x = handle_quotes(data);
+		if (x == SUCCESS)
+			x = executor(data);
+		else if (x == SYNTAX_ERROR)
+			printf("Syntax Error!\n");
 		if (x)
 			printf("exit_code = %d\n", x);
 		free_struct(data);
