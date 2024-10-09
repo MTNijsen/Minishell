@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/24 18:22:01 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/03 12:19:54 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,6 @@ typedef struct s_token
 	char			*value;
 	struct s_token	*next;
 }					t_token;
-
-// //NISK HOEFT  T_REDIR IS ZELFDE ALS T_TOKEN
-// typedef struct s_redir
-// {
-// 	t_type			type; // < << > >>
-// 	char			*file; // test.txt, EOF
-// 	struct s_redir	*next;
-// }					t_redir;
 
 /**
  * @brief	This struct will be a node in a list of processes. It's an organized

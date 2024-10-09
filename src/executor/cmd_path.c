@@ -6,11 +6,12 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/09 16:18:07 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/25 18:32:09 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/09 12:24:42 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/stat.h>
 
 static char	*add_dirs(char *output, char **array)
 {
@@ -125,19 +126,30 @@ char	*check_paths(t_data *data, char *arg)
 
 int	get_path(t_data *data, t_proc *proc)
 {
-	char	*cmd;
+	char		*cmd;
+	struct stat	buf;
 
 	if (ft_strchr(proc->argv[0], '/'))
 		cmd = expand_path(data, proc->cmd);
 	else
 		cmd = check_paths(data, proc->cmd);
-	if (access(cmd, X_OK) == 0)
+	if (access(cmd, X_OK) == 0 && stat(cmd, &buf) != -1) //use stat!!!
 	{
-		free(proc->cmd);
-		proc->cmd = cmd;
-		proc->argv[0] = cmd;
-		return (0);
+		if (S_ISREG(buf.st_mode))
+		{
+			free(proc->cmd);
+			proc->cmd = cmd;
+			proc->argv[0] = cmd;
+			return (0);
+		}
+		else
+		{
+			write(2, proc->cmd, ft_strlen(proc->cmd));
+			write(2, ": Is a directory\n", 18);
+		}
 	}
-	perror(proc->cmd);
+	else
+		perror(proc->cmd);
+	free(cmd);
 	return (1);
 }

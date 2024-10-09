@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/25 18:44:44 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/07 17:13:50 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 int		ft_lexer(t_data *data, char *input);
 int		input_check(t_data *data);
 bool	is_special(char input, const char *check);
-int		handle_quotes(char *input, int i);
 void	ft_error(t_data *data, int flag);
 void	init_data(t_data *data, char **env);
 bool	is_redirect(t_token *token);
@@ -37,6 +36,7 @@ int		heredoc(t_data *data);
 int		get_path(t_data *data, t_proc *proc);
 char	*parse_dir(char *str, t_data *data);
 int		pipeline(void);
+void	env_expand(t_data *data, int exit_code);
 
 int		bi_cd(char **argv, t_data *data);
 void	bi_echo(char **argv);
@@ -51,6 +51,10 @@ void	clean_exit(t_data *data, int exit_status);
 char	*ft_strappend(char const *s1, char const *s2);
 char	*ft_triappend(char const *s1, char const *s2, char const *s3);
 char	*ft_strchr_null(const char *str, int c);
+
+//HANDLING QUOTES//
+void	handle_quotes(t_data *data);
+
 void	set_sig(t_sign status);
 
 // filedescriptors for recovering stdin and stdout if overwritten

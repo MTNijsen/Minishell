@@ -6,6 +6,16 @@
 		"structs.h": "c",
 		"limits.h": "c",
 		"errno.h": "c",
-		"ranges": "c"
+		"ranges": "c",
+		"stdbool.h": "c",
+		"ctype.h": "c",
+		"optional": "c",
+		"ostream": "c",
+		"system_error": "c",
+		"array": "c",
+		"functional": "c",
+		"tuple": "c",
+		"type_traits": "c",
+		"utility": "c"
 	}
 }

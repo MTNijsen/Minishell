@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
+/*   utils_tokens.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:18:48 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/14 12:48:11 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/02 15:40:53 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,3 @@ bool	is_special(char input, const char *check)
 	return (false);
 }
 
-int	handle_quotes(char *input, int i)
-{
-	int		end_quote;
-	char	quote;
-
-	quote = input[i];
-	end_quote = false;
-	while (input[i] && input[i + 1] && end_quote == false)
-	{
-		i++;
-		if (input[i] == quote)
-			end_quote = true;
-	}
-	if (end_quote == false)
-		return (-1);
-	return (i + 1);
-}

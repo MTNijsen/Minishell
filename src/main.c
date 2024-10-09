@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/30 18:51:31 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/07 17:56:51 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ int	main(int argc, char **argv, char **envp)
 		get_line(&data, &x);
 		x = ft_lexer(&data, data.input);
 		ft_error(&data, x);
+		env_expand(&data, x);
 		x = get_procs(&data);
 		ft_error(&data, x);
+		//before stuff goes in the executor the quotes have to be deleted.
 		x = executor(&data);
 		ft_error(&data, x);
 		clean_data(&data);

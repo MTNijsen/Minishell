@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/09/24 18:17:29 by mnijsen       ########   odam.nl          #
+#    Updated: 2024/10/07 17:15:21 by mnijsen       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC_EXECUTOR	:=	executor
 SRC_TOKENS		:=	tokens
 SRC_PROCS		:=	procs
 SRC_ENVIROMENT	:=	enviroment
+SRC_EXPANSION	:=	expansion
 SRC_UTILS		:=	utils
 SRC_BUILT_IN	:=	built_in
 SRC_LEXER		:=	lexer
@@ -75,6 +76,8 @@ SRC_FILES		:=	main.c \
 					realloc_env.c \
 					remove_env_var.c \
 					return_env_var.c ) \
+					$(addprefix $(SRC_EXPANSION)/, \
+					expansion.c) \
 					$(addprefix $(SRC_UTILS)/, \
 					signal.c \
 					copy_array.c\
@@ -89,7 +92,6 @@ SRC_FILES		:=	main.c \
 					built_in_export.c \
 					built_in_pwd.c \
 					built_in_unset.c)
-
 SRC				:=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ_DIR			:=	obj
@@ -117,9 +119,10 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)/$(SRC_UTILS)
 	mkdir -p $(OBJ_DIR)/$(SRC_BUILT_IN)
 
-
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+libft: $(LIBFT_A)
 
 norminette:
 	@echo "${CYAN}🧐 Checking the Norm...${RESET}"
