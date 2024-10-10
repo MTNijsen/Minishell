@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/09 12:22:16 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/10 22:01:07 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ static t_proc	*exec_pipes(t_data *data)
 			return (NULL);
 		else if (pid == 0)
 			exit_code = execute_section(proc, data, &pid, true);
+		printf("Exit code of exec_pipes: %i\n", exit_code);
 		proc = proc->next;
 	}
 	return (proc);

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/10 21:16:01 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/10 21:28:22 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_proc	*create_proc(t_token *token)
 		return (NULL);
 	current = token;
 	proc->argc = count_arguments(current);
-	if (!allocate_proc_argv(proc));
+	if (!allocate_proc_argv(proc))
 		return (NULL);
 	process_tokens(proc, current);
 	return (proc);

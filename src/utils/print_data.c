@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/05 17:11:52 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/10 21:17:37 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/10 22:10:51 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	print_tokens(t_token *lst)
 void	print_procs(t_proc *lst)
 {
 	t_token	*redir;
-	int		x;
 	int		i;
 
-	x = 0;
 	i = 0;
 	redir = lst->redirs;
 	while (lst)
