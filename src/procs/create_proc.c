@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/07 13:41:54 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/10 12:05:47 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static int	count_arguments(t_token *token)
 *			a pointer to the current token so it knows which process
 *			its working on. 
 */
-
 t_proc	*create_proc(t_token *token)
 {
 	t_token	*current;

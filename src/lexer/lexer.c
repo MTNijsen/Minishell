@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/24 13:47:50 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/07 13:19:10 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/10 12:04:20 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	ft_lexer(t_data *data, char *input)
 	x = 0;
 	while (input[i])
 	{
-		// printf("ft_lexer data_token: %p\n", data->tokens);
 		if (input[i] == ' ')
 			x = i + 1;
 		else if (input[i] == '|')
@@ -59,6 +58,5 @@ int	ft_lexer(t_data *data, char *input)
 		i = x;
 	}
 	reclassify_text_token(data, 1);
-
 	return (input_check(data));
 }
