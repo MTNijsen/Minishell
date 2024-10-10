@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/09 16:18:07 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/09 12:24:42 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/10 13:30:47 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*check_paths(t_data *data, char *arg)
 
 	temp = return_env_val(data->envp, "PATH");
 	if (temp == NULL)
-		return (arg);
+		return (NULL);
 	path_locations = ft_split(temp, ':');
 	if (!path_locations)
 		clean_exit(data, MALLOC_ERROR);
@@ -121,7 +121,7 @@ char	*check_paths(t_data *data, char *arg)
 		free(temp);
 		i++;
 	}
-	return (ft_free_arr(path_locations), arg);
+	return (ft_free_arr(path_locations), NULL);
 }
 
 int	get_path(t_data *data, t_proc *proc)
@@ -130,26 +130,26 @@ int	get_path(t_data *data, t_proc *proc)
 	struct stat	buf;
 
 	if (ft_strchr(proc->argv[0], '/'))
-		cmd = expand_path(data, proc->cmd);
+		cmd = expand_path(data, proc->argv[0]);
 	else
-		cmd = check_paths(data, proc->cmd);
+		cmd = check_paths(data, proc->argv[0]);
 	if (access(cmd, X_OK) == 0 && stat(cmd, &buf) != -1) //use stat!!!
 	{
 		if (S_ISREG(buf.st_mode))
 		{
-			free(proc->cmd);
+			free(proc->argv[0]);
 			proc->cmd = cmd;
 			proc->argv[0] = cmd;
 			return (0);
 		}
 		else
 		{
-			write(2, proc->cmd, ft_strlen(proc->cmd));
+			write(2, proc->argv[0], ft_strlen(proc->argv[0]));
 			write(2, ": Is a directory\n", 18);
 		}
 	}
 	else
-		perror(proc->cmd);
+		perror(proc->argv[0]);
 	free(cmd);
 	return (1);
 }

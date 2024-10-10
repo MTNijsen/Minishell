@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 13:05:05 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/30 18:52:06 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/10 13:31:39 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_data(t_data *data, char **env)
 		i++;
 	data->envp_count = i;
 	data->input = NULL;
+	data->exit_code = 0;
 	dup2(STDIN_FILENO, STDIN_CLONE);
 	dup2(STDOUT_FILENO, STDOUT_CLONE);
 	set_sig(S_INTERACTIVE);

@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   last_input_check.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/14 12:58:19 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/09 13:33:58 by mnijsen       ########   odam.nl         */
+/*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/10/04 12:25:12 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// This function could use some cleaning up and maybe exit codes etc.
-// Also needs cleaning up stuff.
-void	ft_error(t_data *data, int flag)
+int	last_check(t_data *data)
 {
-	if (flag < 0)
-	{
-		if (flag == -1)
-		{
-			ft_puterror_fd("Malloc error", STDERR_FILENO);
-			clean_exit(data, MALLOC_ERROR);
-		}
-		else if (flag == -2)
-			write(STDERR_FILENO, "Syntax error\n", 14);
-	}
-	else
-		return ;
+	if (check_spaces(data->procs->argv[0]))
+		return ("Syntax error");
+	
 }

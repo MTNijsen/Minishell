@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/10/07 17:15:21 by mnijsen       ########   odam.nl          #
+#    Updated: 2024/10/10 13:23:53 by mnijsen       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,12 +35,13 @@ SRC_EXPANSION	:=	expansion
 SRC_UTILS		:=	utils
 SRC_BUILT_IN	:=	built_in
 SRC_LEXER		:=	lexer
-SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR) $(SRC_LIST) $(SRC_LEXER)
+SRC_DIRS		:=	$(SRC_PARSER) $(SRC_EXECUTOR) $(SRC_LIST) $(SRC_LEXER) $(SRC_EXPANSION)
 SRC_FILES		:=	main.c \
 					input_check.c \
 					init_struct.c \
 					free_struct.c \
 					error.c \
+					print_arr.c \
 					print_data.c \
 					$(addprefix $(SRC_LEXER)/, \
 					lexer.c \
@@ -77,7 +78,10 @@ SRC_FILES		:=	main.c \
 					remove_env_var.c \
 					return_env_var.c ) \
 					$(addprefix $(SRC_EXPANSION)/, \
-					expansion.c) \
+					expansion.c \
+					handle_quotes.c \
+					quote_utils_2.c \
+					quote_utils.c) \
 					$(addprefix $(SRC_UTILS)/, \
 					signal.c \
 					copy_array.c\
@@ -118,6 +122,7 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)/$(SRC_ENVIROMENT)
 	mkdir -p $(OBJ_DIR)/$(SRC_UTILS)
 	mkdir -p $(OBJ_DIR)/$(SRC_BUILT_IN)
+	mkdir -p $(OBJ_DIR)/$(SRC_EXPANSION)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

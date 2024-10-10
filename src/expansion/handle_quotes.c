@@ -6,136 +6,96 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/02 21:14:20 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/10 18:19:27 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
-#include "test.h"
+#include "minishell.h"
 
-int	check_spaces(char *str)
+static char	**prepare_2d_arr(t_data *data, t_proc *proc)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	check_dollar(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	check_quotes(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\"' || str[i] == '\'')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-int	is_quote(int q)
-{
-	if (q == '\"')
-		return (1);
-	else if (q == '\'')
-		return (1);
-	return (0);
-}
-
-void	no_quote_cpy_loop(char *str, char *new, int *i, int *j)
-{
-	while (str[(*i)] && !is_quote(str[(*i)]))
-	{
-		new[(*j)] = str[(*i)];
-		(*i)++;
-		(*j)++;
-	}
-}
-
-void	quote_cpy_loop(char *str, char *new, int *i, int *j)
-{
-	int		q;
-
-	q = str[(*i)];
-	i++;
-	while (str[(*i)] && str[(*i)]  != q)
-	{
-		new[(*j)] = str[(*i)];
-		(*i)++;
-		(*j)++;
-	}
-	if (str[(*i)] == q)
-	{
-		q = 0;
-		(*i)++;
-	}
-	if (q != 0)
-		printf("Syntax ERROR!\n");
-}
-
-char	*remove_quotes(char *str)
-{
-	char	*new;
-	char	*result;
+	char	**cpy_argv;
 	int		i;
-	int		j;
 
-	new = (char *)ft_calloc(sizeof(char), (ft_strlen(str) - 1));
-	if (!new)
-		return (NULL);
+	cpy_argv = (char **)ft_calloc((proc->argc + 1), sizeof(char *));
+	if (!cpy_argv)
+		clean_exit(data, MALLOC_ERROR);
 	i = 0;
-	j = 0;
+	while (proc->argv[i])
+	{
+		cpy_argv[i] = ft_strdup(proc->argv[i]);
+		if (!cpy_argv[i])
+			clean_exit(data, MALLOC_ERROR);
+		i++;
+	}
+	ft_free_arr(proc->argv);
+	proc->argv = (char **)ft_calloc((proc->argc + 1), sizeof(char *));
+	if (!proc->argv)
+		clean_exit(data, MALLOC_ERROR);
+	proc->argv[0] = ft_strdup(cpy_argv[0]);
+	if (!cpy_argv[0])
+		clean_exit(data, MALLOC_ERROR);
+	return (cpy_argv);
+}
+
+int	handle_str(t_data *data, t_proc *proc)
+{
+	int		i;
+	char	**str;
+
+	str = prepare_2d_arr(data, proc);
+	i = 1;
 	while (str[i])
 	{
-		no_quote_cpy_loop(str, new, &i, &j);
-		if (is_quote(str[i]))
-			quote_cpy_loop(str, new, &i, &j);
-		
-	}
-	result = ft_strdup(new);
-	return (result);
-}
-
-char	*handle_quotes(char *str)
-{
-	char *result;
-
-	if (str && check_quotes(str))
-	{
-		if (!check_spaces(str) && !check_dollar(str))
-			result = remove_quotes(str);
+		if (check_quotes(str[i]) && !check_dollar(str[i]))
+		{
+			proc->argv[i] = remove_quotes(str[i]);
+			if (proc->argv[i] == NULL)
+				return (SYNTAX_ERROR);
+		}
 		else
-			printf("Komt niet in remove_quotes\n");
+			proc->argv[i] = ft_strdup(str[i]);
+		if (!str[i])
+			clean_exit(data, MALLOC_ERROR);
+		i++;
 	}
-	return (result);
+	return (SUCCESS);
 }
 
-// void	handle_quotes(t_data *data)
-// {
-// 	if (data->procs->argv[0] && check_quotes(data->procs->argv[0]))
-// 	{
-// 		if (!check_spaces(data->procs->argv[0]) && !check_dollar(data->procs->argv[0]))
-// 			remove_quotes(data->procs->argv[0]);
-// 	}
-// }
+int	handle_cmd(t_data *data, t_proc *proc)
+{
+	char	*str;
+
+	str = ft_strdup(proc->argv[0]);
+	if (!str)
+		clean_exit(data, MALLOC_ERROR);
+	free(proc->argv[0]);
+	if (!check_spaces(str) && !check_dollar(str))
+		proc->argv[0] = remove_quotes(str);
+	if (check_spaces(str) || proc->argv[0] == NULL)
+		return (SYNTAX_ERROR);
+	return (SUCCESS);
+}
+
+/**
+ * @brief	if the cmd has quotes, there has to be a check if there are
+ * 			spaces, if so cmd is invalid (this will be checked in )
+ */
+int	handle_quotes(t_data *data)
+{
+	t_proc	*proc;
+	int		x;
+
+	proc = data->procs;
+	while (proc != NULL)
+	{
+		if (proc->argv[0] && check_quotes(proc->argv[0]))
+			x = handle_cmd(data, proc);
+		if (proc->argv)
+			x = handle_str(data, proc);
+		if (x == SYNTAX_ERROR)
+			return (SYNTAX_ERROR);
+		proc = proc->next;
+	}
+	return (SUCCESS);
+}

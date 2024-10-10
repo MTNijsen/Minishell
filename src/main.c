@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/07 17:56:51 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/10 13:19:17 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	g_sign = 0;
 
-static void	get_line(t_data *data, int *x)
+static void	get_line(t_data *data)
 {
 	char	*input;
 
@@ -23,17 +23,38 @@ static void	get_line(t_data *data, int *x)
 	if (!input)
 	{
 		write(2, "exit\n", 5);
-		clean_exit(data, *x);
+		clean_exit(data, data->exit_code);
 	}
 	if (g_sign == SIGINT)
 	{
 		g_sign = 0;
-		*x = 130;
+		data->exit_code = 130;
 	}
 	if (input[0] != '\0')
 		add_history(input);
 	data->input = ft_substr(input, 0, ft_strlen(input));
 	free(input);
+}
+
+static int	parse(t_data *data)
+{
+	int	x;
+	
+	x = ft_lexer(data, data->input);
+	if (x != 0)
+	{
+		ft_error(data, x);
+		return (x);
+	}
+	env_expand(data);
+	x = get_procs(data);
+	if (x != 0)
+	{
+		ft_error(data, x);
+		return (x);
+	}
+	x = handle_quotes(data);
+	return (x);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -48,16 +69,17 @@ int	main(int argc, char **argv, char **envp)
 	init_data(&data, envp);
 	while (1)
 	{
-		get_line(&data, &x);
-		x = ft_lexer(&data, data.input);
-		ft_error(&data, x);
-		env_expand(&data, x);
-		x = get_procs(&data);
-		ft_error(&data, x);
-		//before stuff goes in the executor the quotes have to be deleted.
-		x = executor(&data);
-		ft_error(&data, x);
+		get_line(&data);
+		x = parse(&data);
+		if (x == SUCCESS)
+			x = executor(&data);
+		else if (x == SYNTAX_ERROR)
+			printf("Syntax Error!\n");
+		if (x)
+			printf("exit_code = %d\n", x);
 		clean_data(&data);
+		data.exit_code = x;
 	}
+	free_data(&data);
 	return (0);
 }

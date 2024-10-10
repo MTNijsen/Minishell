@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   print_arr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/14 12:58:19 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/09 13:33:58 by mnijsen       ########   odam.nl         */
+/*   Created: 2024/10/07 17:48:31 by lade-kon      #+#    #+#                 */
+/*   Updated: 2024/10/07 17:49:52 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// This function could use some cleaning up and maybe exit codes etc.
-// Also needs cleaning up stuff.
-void	ft_error(t_data *data, int flag)
+void	print_arr(char **arr)
 {
-	if (flag < 0)
+	int	x;
+
+	x = 0;
+	while (arr[x])
 	{
-		if (flag == -1)
-		{
-			ft_puterror_fd("Malloc error", STDERR_FILENO);
-			clean_exit(data, MALLOC_ERROR);
-		}
-		else if (flag == -2)
-			write(STDERR_FILENO, "Syntax error\n", 14);
+		printf("arr[%i] = %s\n", x, arr[x]);
+		x++;
 	}
-	else
-		return ;
 }

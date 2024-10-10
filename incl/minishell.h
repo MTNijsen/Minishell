@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/07 17:13:50 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/10 13:19:13 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ bool	is_redirect(t_token *token);
 void	clean_data(t_data *data);
 void	free_data(t_data *data);
 void	print_data(t_data *data);
+void	print_arr(char **arr);
 
 int		executor(t_data *data);
 int		redirect(t_proc *proc);
@@ -36,7 +37,7 @@ int		heredoc(t_data *data);
 int		get_path(t_data *data, t_proc *proc);
 char	*parse_dir(char *str, t_data *data);
 int		pipeline(void);
-void	env_expand(t_data *data, int exit_code);
+void	env_expand(t_data *data);
 
 int		bi_cd(char **argv, t_data *data);
 void	bi_echo(char **argv);
@@ -53,7 +54,12 @@ char	*ft_triappend(char const *s1, char const *s2, char const *s3);
 char	*ft_strchr_null(const char *str, int c);
 
 //HANDLING QUOTES//
-void	handle_quotes(t_data *data);
+int		handle_quotes(t_data *data);
+char	*remove_quotes(char *str);
+int		check_spaces(char *str);
+int		check_dollar(char *str);
+int		check_quotes(char *str);
+int		is_quote(int q);
 
 void	set_sig(t_sign status);
 

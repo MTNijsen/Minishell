@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 12:31:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/07 17:56:48 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/10 16:30:25 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static char *expand_env(char **envp, char *text, int *i, int exit_code)
 	end_string = ft_substr(text, *i + len_till_quote(&text[*i]), ft_strlen(text + *i + len_till_quote(&text[*i])));
 	if (end_string == NULL)
 		return (free(front_string), free(end_string), NULL);//clean_exit
-	if (text[*i +1] != '?')
+	if (text[*i] != '?')
 	{
 		env_var = ft_substr(text, *i, len_till_quote(&text[*i]));
 		if (env_var == NULL)
@@ -92,7 +92,7 @@ static char *expand_env(char **envp, char *text, int *i, int exit_code)
 		env_val = return_env_val(envp, env_var);
 		if (env_val == NULL)
 			env_val = "";
-		printf("env_val = %s\n", env_val);
+		printf("hello1\n");
 	}
 	else
 	{
@@ -109,7 +109,7 @@ static char *expand_env(char **envp, char *text, int *i, int exit_code)
 	return (new_text);
 }
 
-static void	expand_token(t_data *data, t_token *current, int exit_code)
+static void	expand_token(t_data *data, t_token *current)
 {
 	int		i;
 	char	*text;
@@ -121,13 +121,16 @@ static void	expand_token(t_data *data, t_token *current, int exit_code)
 		if (text[i] == '$')
 		{
 			i++;
-			text = expand_env(data->envp, text, &i, exit_code);
+			text = expand_env(data->envp, text, &i, data->exit_code);
+			printf("done %d\n", i);
 		}
 		else if (text[i] == '\'')
 		{
 			i++;
 			while (text[i] != '\'' && text[i] != '\0')
 				i++;
+			if (text[i] == '\0')
+				break ;
 			i++;
 		}
 		else
@@ -138,14 +141,14 @@ static void	expand_token(t_data *data, t_token *current, int exit_code)
 	current->value = text;
 }
 
-void	env_expand(t_data *data, int exit_code)
+void	env_expand(t_data *data)
 {
 	t_token *current;
 
 	current = data->tokens;
 	while(current != NULL)
 	{
-		expand_token(data, current, exit_code);
+		expand_token(data, current);
 		token_split(&current);
 		current = current->next;
 	}
