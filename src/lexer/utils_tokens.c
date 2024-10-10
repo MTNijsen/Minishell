@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:18:48 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/02 15:40:53 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/10 12:04:00 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,3 @@ bool	is_special(char input, const char *check)
 	}
 	return (false);
 }
-

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/25 09:05:49 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/16 14:21:06 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/10 12:04:38 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	free_procs(t_proc **procs)
 	while (current)
 	{
 		next = current->next;
-		// if (current->cmd)
-		// 	free(current->cmd);
+		if (current->cmd)
+			free(current->cmd);
 		if (current->argv)
 			ft_free_arr(current->argv);
 		if (current->redirs)
