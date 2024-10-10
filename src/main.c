@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/10 13:19:17 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/10 21:25:22 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ static void	get_line(t_data *data)
 	}
 	if (input[0] != '\0')
 		add_history(input);
-	data->input = ft_substr(input, 0, ft_strlen(input));
+	data->input = ft_strdup(input);
 	free(input);
 }
 
 static int	parse(t_data *data)
 {
 	int	x;
-	
+
 	x = ft_lexer(data, data->input);
 	if (x != 0)
 	{

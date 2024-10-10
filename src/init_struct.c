@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/14 13:05:05 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/10 13:31:39 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/10 21:25:30 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	init_data(t_data *data, char **env)
 {
 	int		i;
-	
+
 	data->procs = NULL;
 	data->tokens = NULL;
 	copy_array(&(data->envp), env);

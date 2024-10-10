@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 14:59:26 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 17:47:50 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/10 21:25:17 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,14 @@ bool	is_redirect(t_token *token)
 	return (false);
 }
 
-// In this function I check if there comes a file after a redirect. If there is no node
-// after the redirect the functions returns false. The function also returns false if
-// if there is another redirect following. 
-int		input_check(t_data *data)
+/**
+ * @brief	The function returns an error if:
+ * 			- There is no file after the redirect.
+ * 			- There is nothing after the redirect.
+ * 			- There is another redirect after the redirect.
+ * 			- There is nothing after the pipe. 
+ */
+int	input_check(t_data *data)
 {
 	t_token	*current;
 	t_token	*next;
@@ -41,12 +45,12 @@ int		input_check(t_data *data)
 		if (is_redirect(current) == true)
 		{
 			if (next == NULL || next->type != FILES)
-				return (-2);//should be Syntax Error
+				return (SYNTAX_ERROR);
 			else if (is_redirect(next) == true)
-				return (-2);//should be Syntax Error
+				return (SYNTAX_ERROR);
 		}
 		else if (current->type == PIPE && current->next == NULL)
-			return (-2);
+			return (SYNTAX_ERROR);
 		current = next;
 	}
 	return (0);

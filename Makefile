@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/10/10 13:23:53 by mnijsen       ########   odam.nl          #
+#    Updated: 2024/10/10 21:09:46 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,6 @@ SRC_FILES		:=	main.c \
 					init_struct.c \
 					free_struct.c \
 					error.c \
-					print_arr.c \
-					print_data.c \
 					$(addprefix $(SRC_LEXER)/, \
 					lexer.c \
 					special_tokens.c \
@@ -52,7 +50,6 @@ SRC_FILES		:=	main.c \
 					create_token.c \
 					add_token.c \
 					free_tokens.c \
-					print_tokens.c \
 					last_token.c \
 					count_tokens.c ) \
 					$(addprefix $(SRC_PROCS)/, \
@@ -60,7 +57,6 @@ SRC_FILES		:=	main.c \
 					create_proc.c \
 					add_proc.c \
 					add_redir.c \
-					print_procs.c \
 					free_procs.c \
 					last_proc.c \
 					count_tokens_proc.c \
@@ -87,6 +83,7 @@ SRC_FILES		:=	main.c \
 					copy_array.c\
 					exit.c \
 					ft_strappend.c \
+					print_data.c \
 					ft_strchr_null.c ) \
 					$(addprefix $(SRC_BUILT_IN)/, \
 					built_in_cd.c \

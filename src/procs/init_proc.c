@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/08 16:25:31 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/09/05 17:27:17 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/10 20:31:32 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,7 @@ t_proc	*init_proc(void)
 	if (!proc)
 		return (NULL);
 	ft_bzero(proc, sizeof(t_proc));
-	// counter->token_c = count_tokens_proc(current); //possibly not needed, maybe remove at end
 	proc->next = NULL;
-	// proc->cmd = NULL;
 	proc->argv = NULL;
-	// proc->redirs = NULL;
-	// proc->token_count = 0;
-	// proc->index = 0;
 	return (proc);
 }

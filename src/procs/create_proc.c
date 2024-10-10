@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/10 12:05:47 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/10 21:16:01 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,22 @@ static int	count_arguments(t_token *token)
 	return (count);
 }
 
-/**
-* @brief	this function needs the complete data struct and also
-*			a pointer to the current token so it knows which process
-*			its working on. 
-*/
-t_proc	*create_proc(t_token *token)
+static bool	allocate_proc_argv(t_proc *proc)
 {
-	t_token	*current;
-	t_token	*new_redir;
-	t_proc	*proc;
-	int		i;
-
-	proc = init_proc();
-	if (!proc)
-		return (NULL);
-	current = token;
-	proc->argc = count_arguments(current);
 	if (proc->argc != 0)
 	{
 		proc->argv = (char **)ft_calloc((proc->argc + 1), sizeof(char *));
 		if (!proc->argv)
-			return (NULL); //have to check if this is correct
+			return (false);
 	}
+	return (true);
+}
+
+static void	process_tokens(t_proc *proc, t_token *current)
+{
+	t_token	*new_redir;
+	int		i;
+
 	i = 0;
 	while (current && current->type != PIPE)
 	{
@@ -73,5 +66,25 @@ t_proc	*create_proc(t_token *token)
 		}
 		current = current->next;
 	}
+}
+
+/**
+* @brief	this function needs the complete data struct and also
+*			a pointer to the current token so it knows which process
+*			its working on. 
+*/
+t_proc	*create_proc(t_token *token)
+{
+	t_token	*current;
+	t_proc	*proc;
+
+	proc = init_proc();
+	if (!proc)
+		return (NULL);
+	current = token;
+	proc->argc = count_arguments(current);
+	if (!allocate_proc_argv(proc));
+		return (NULL);
+	process_tokens(proc, current);
 	return (proc);
 }
