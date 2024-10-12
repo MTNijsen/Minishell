@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:12:56 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/09 13:25:25 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/12 16:14:11 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct s_token
  */
 typedef struct s_proc
 {
-	char			*cmd;
 	char			**argv;
 	int				argc;
 	t_token			*redirs;

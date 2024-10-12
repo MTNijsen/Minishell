@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 12:31:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/10 16:30:25 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/12 16:25:46 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ static char *expand_env(char **envp, char *text, int *i, int exit_code)
 		env_val = return_env_val(envp, env_var);
 		if (env_val == NULL)
 			env_val = "";
-		printf("hello1\n");
 	}
 	else
 	{
@@ -122,7 +121,6 @@ static void	expand_token(t_data *data, t_token *current)
 		{
 			i++;
 			text = expand_env(data->envp, text, &i, data->exit_code);
-			printf("done %d\n", i);
 		}
 		else if (text[i] == '\'')
 		{

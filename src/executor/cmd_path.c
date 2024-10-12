@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/09 16:18:07 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/10 13:30:47 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/12 16:13:08 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ int	get_path(t_data *data, t_proc *proc)
 		if (S_ISREG(buf.st_mode))
 		{
 			free(proc->argv[0]);
-			proc->cmd = cmd;
 			proc->argv[0] = cmd;
 			return (0);
 		}

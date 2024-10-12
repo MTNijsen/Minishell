@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/10 18:19:27 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/12 16:26:48 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	handle_str(t_data *data, t_proc *proc)
 	i = 1;
 	while (str[i])
 	{
-		if (check_quotes(str[i]) && !check_dollar(str[i]))
+		if (check_quotes(str[i]))
 		{
 			proc->argv[i] = remove_quotes(str[i]);
 			if (proc->argv[i] == NULL)
@@ -70,7 +70,8 @@ int	handle_cmd(t_data *data, t_proc *proc)
 	if (!str)
 		clean_exit(data, MALLOC_ERROR);
 	free(proc->argv[0]);
-	if (!check_spaces(str) && !check_dollar(str))
+	proc->argv[0] = NULL;
+	if (!check_spaces(str))
 		proc->argv[0] = remove_quotes(str);
 	if (check_spaces(str) || proc->argv[0] == NULL)
 		return (SYNTAX_ERROR);
