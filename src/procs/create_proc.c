@@ -6,13 +6,13 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 19:07:29 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/12 16:29:10 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/13 15:37:23 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	count_arguments(t_token *token)
+static int	count_argc_proc(t_token *token)
 {
 	t_token	*current;
 	int		count;
@@ -28,11 +28,14 @@ static int	count_arguments(t_token *token)
 	return (count);
 }
 
-static bool	allocate_proc_argv(t_proc *proc)
+static bool	allocate_proc_argv(t_proc *proc, t_token *current)
 {
-	if (proc->argc != 0)
+	int	argc;
+
+	argc = count_argc_proc(current);
+	if (argc != 0)
 	{
-		proc->argv = (char **)ft_calloc((proc->argc + 1), sizeof(char *));
+		proc->argv = (char **)ft_calloc((argc + 1), sizeof(char *));
 		if (!proc->argv)
 			return (false);
 	}
@@ -81,8 +84,7 @@ t_proc	*create_proc(t_token *token)
 	if (!proc)
 		return (NULL);
 	current = token;
-	proc->argc = count_arguments(current);
-	if (!allocate_proc_argv(proc))
+	if (!allocate_proc_argv(proc, current))
 		return (NULL);
 	process_tokens(proc, current);
 	return (proc);

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/10 13:19:13 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/13 15:27:15 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@
 int		ft_lexer(t_data *data, char *input);
 int		input_check(t_data *data);
 bool	is_special(char input, const char *check);
-void	ft_error(t_data *data, int flag);
+int		ft_error(t_data *data, int flag);
 void	init_data(t_data *data, char **env);
 bool	is_redirect(t_token *token);
 void	clean_data(t_data *data);
 void	free_data(t_data *data);
-void	print_data(t_data *data);
-void	print_arr(char **arr);
+void	print_procs(t_proc *proc);
+void	print_tokens(t_token *token);
+void	print_array(char **arr);
 
 int		executor(t_data *data);
 int		redirect(t_proc *proc);
@@ -57,8 +58,8 @@ char	*ft_strchr_null(const char *str, int c);
 int		handle_quotes(t_data *data);
 char	*remove_quotes(char *str);
 int		check_spaces(char *str);
-int		check_dollar(char *str);
 int		check_quotes(char *str);
+int	count_arguments(t_token *token);
 int		is_quote(int q);
 
 void	set_sig(t_sign status);
