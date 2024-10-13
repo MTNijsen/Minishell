@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/10/13 11:42:12 by lade-kon      ########   odam.nl          #
+#    Updated: 2024/10/13 14:33:19 by mnijsen       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ SRC_FILES		:=	main.c \
 					remove_env_var.c \
 					return_env_var.c ) \
 					$(addprefix $(SRC_EXPANSION)/, \
+					expansion_2.c \
 					expansion.c \
 					handle_quotes.c \
 					quote_utils_2.c \
