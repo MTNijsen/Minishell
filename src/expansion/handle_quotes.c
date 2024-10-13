@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/13 15:48:11 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/13 16:03:37 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static int	handle_cmd(t_data *data, t_token *token)
 	free(str);
 	return (SUCCESS);
 }
-
 
 static int	str_or_cmd(t_data *data, t_token *token)
 {

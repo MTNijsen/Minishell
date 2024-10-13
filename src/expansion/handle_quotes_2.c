@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   quote_utils_2.c                                    :+:    :+:            */
+/*   handle_quotes_2.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 17:34:05 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/13 15:56:10 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/13 16:02:56 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,10 @@ char	*remove_quotes(char *str)
 		return (NULL);
 	i = 0;
 	j = 0;
+	if (!str || ft_strlen(str) == 0)
+		return (ft_strdup("\n"));
 	while (str[i])
 	{
-		if (!str || ft_strlen(str) == 0)
-		{
-			new = ft_strdup("\n");
-			break ;
-		}
 		no_quote_cpy_loop(str, new, &i, &j);
 		if (is_quote(str[i]))
 			x = quote_cpy_loop(str, new, &i, &j);
