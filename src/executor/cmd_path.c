@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/09 16:18:07 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/12 16:13:08 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/13 14:52:49 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	get_path(t_data *data, t_proc *proc)
 		cmd = expand_path(data, proc->argv[0]);
 	else
 		cmd = check_paths(data, proc->argv[0]);
-	if (access(cmd, X_OK) == 0 && stat(cmd, &buf) != -1) //use stat!!!
+	if (access(cmd, X_OK) == 0 && stat(cmd, &buf) != -1)
 	{
 		if (S_ISREG(buf.st_mode))
 		{
