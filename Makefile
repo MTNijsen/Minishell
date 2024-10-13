@@ -6,7 +6,7 @@
 #    By: lade-kon <lade-kon@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/06/12 12:11:18 by lade-kon      #+#    #+#                  #
-#    Updated: 2024/10/12 16:28:52 by mnijsen       ########   odam.nl          #
+#    Updated: 2024/10/13 11:42:12 by lade-kon      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			:=	minishell
 
 CC				:=	cc
 #CFLAGS are the compiler flags: show all warnings and include debug info
-CFLAGS			:=	-Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS			:=	-Wall -Werror -Wextra -g -fsanitize=address
 #LDFLAGS are linker flags
 LDFLAGS			:=	-lreadline
 
