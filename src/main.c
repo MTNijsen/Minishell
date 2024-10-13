@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/13 16:11:17 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/13 16:43:13 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ int	main(int argc, char **argv, char **envp)
 		x = parse(&data);
 		if (x == SUCCESS)
 			x = executor(&data);
-		else if (x == SYNTAX_ERROR)
-			printf("Syntax Error!\n");
 		if (x)
 			printf("exit_code = %d\n", x);
 		clean_data(&data);

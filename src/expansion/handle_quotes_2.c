@@ -6,13 +6,13 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 17:34:05 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/13 16:02:56 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/13 16:36:45 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	no_quote_cpy_loop(char *str, char *new, int *i, int *j)
+void	no_quote_cpy_loop(char *str, char *new, int *i, int *j)
 {
 	while (str[(*i)] && !is_quote(str[(*i)]))
 	{
@@ -22,7 +22,7 @@ static void	no_quote_cpy_loop(char *str, char *new, int *i, int *j)
 	}
 }
 
-static int	quote_cpy_loop(char *str, char *new, int *i, int *j)
+int	quote_cpy_loop(char *str, char *new, int *i, int *j)
 {
 	int		q;
 
