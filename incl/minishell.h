@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/13 15:27:15 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/13 16:03:44 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		handle_quotes(t_data *data);
 char	*remove_quotes(char *str);
 int		check_spaces(char *str);
 int		check_quotes(char *str);
-int	count_arguments(t_token *token);
+int		count_arguments(t_token *token);
 int		is_quote(int q);
 
 void	set_sig(t_sign status);
