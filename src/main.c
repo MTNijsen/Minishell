@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/14 14:08:54 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/14 14:41:39 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ static int	parse(t_data *data)
 	x = ft_lexer(data, data->input);
 	if (x != 0)
 		return (ft_error(data, x));
-	env_expand(data);
+	x = env_expand(data);
+	if (x != 0)
+		return (ft_error(data, x));
 	x = handle_quotes(data);
 	if (x != 0)
 		return (ft_error(data, x));

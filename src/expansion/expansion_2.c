@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/13 14:23:27 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/13 18:34:12 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/14 14:17:51 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ static int	len_till_quote(char *text)
 	int	i;
 
 	i = 0;
-	while (text[i] != '\0')
+	if (ft_isdigit(text[i]))
+		return (0);
+	while (text[i] != '\0' && text[i] != '=')
 	{
-		if (text[i] == '\'' || text[i] == '\"' || text[i] == '$')
+		if (!ft_isalnum(text[i]) && text[i] != '_')
 			return (i);
 		i++;
 	}
@@ -89,18 +91,15 @@ char	*expand_env(char **envp, char *text, int *i, int exit_code)
 
 	if (get_front_and_back(&front_string, &end_string, text, *i))
 		return (NULL);
-	if (text[*i] != '?')
-	{
-		env_var = ft_substr(text, *i, len_till_quote(&text[*i]));
-		if (env_var == NULL)
-			return (free(front_string), free(end_string), NULL);
-		env_val = return_env_val(envp, env_var);
-		if (env_val == NULL)
-			env_val = "";
-		new_text = ft_triappend(front_string, env_val, end_string);
-		*i += ft_strlen(env_val) - 2;
-		return (free(env_var), free(front_string), free(end_string), new_text);
-	}
-	else
+	if (text[*i] == '?')
 		return (expand_exit(front_string, end_string, exit_code, i));
+	env_var = ft_substr(text, *i, len_till_quote(&text[*i]));
+	if (env_var == NULL)
+		return (free(front_string), free(end_string), NULL);
+	env_val = return_env_val(envp, env_var);
+	if (env_val == NULL)
+		env_val = "";
+	new_text = ft_triappend(front_string, env_val, end_string);
+	*i += ft_strlen(env_val) - 2;
+	return (free(env_var), free(front_string), free(end_string), new_text);
 }

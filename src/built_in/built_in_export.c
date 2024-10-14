@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:24 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/14 14:05:33 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/14 16:18:09 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ static void	export_display(char **envp)
 	{
 		env_val = ft_strchr(envp[i], '=');
 		if (!env_val)
-		{
 			printf("-x declare %s\n", envp[i]);
-		}
 		else
 		{
 			eq_index = env_val - envp[i];
@@ -51,10 +49,13 @@ static void	add_export(char **argv, t_data *data)
 	i = 1;
 	while (argv[i] != NULL)
 	{
-		printf("argv[i]= %s\n", argv[i]);
 		temp = ft_strdup(argv[i]);
 		if (modify_env_var(data, temp))
+		{
+			printf("export: %s: not a valid identifier\n", temp);
 			free(temp);
+			break ;
+		}
 		i++;
 	}
 }

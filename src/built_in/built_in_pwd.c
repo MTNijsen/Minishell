@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:20 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/25 18:43:45 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/14 14:24:50 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	bi_pwd(t_data *data)
 
 	buf = return_pwd(data);
 	if (!buf)
-		return (errno);
+		return (1);
 	printf("%s\n", buf);
 	return (0);
 }

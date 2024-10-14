@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 12:31:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/14 13:58:16 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/14 15:53:52 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	token_split(t_token **cur_token)
 	return (0);
 }
 
-void	env_expand(t_data *data)
+int	env_expand(t_data *data)
 {
 	t_token	*current;
 
@@ -81,12 +81,15 @@ void	env_expand(t_data *data)
 		if (!ft_strncmp(current->value, "~", 2))
 		{
 			free(current->value);
-			current->value = return_env_val(data->envp, "HOME");//actual bash still magically knows it
+			current->value = return_env_val(data->envp, "HOME");
 			if (current->value == NULL)
 			{
-				write(1, "HOME not found\n", 16);
-				return ;//break out of loop and go back to prompt
+				write(2, "HOME not found\n", 16);
+				return (2);
 			}
+			current->value = ft_strdup(current->value);
+			if (current->value == NULL)
+				clean_exit(data, MALLOC_ERROR);
 		}
 		else 
 		{
@@ -96,4 +99,5 @@ void	env_expand(t_data *data)
 		}
 		current = current->next;
 	}
+	return (0);
 }

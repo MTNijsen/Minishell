@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 19:35:02 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/04 19:35:05 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/14 16:15:25 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_valid_env(char *env_var)
 	int	i;
 
 	i = 0;
-	if (env_var == NULL)
+	if (env_var == NULL || env_var[0] == '\0')
 		return (false);
 	if (ft_isdigit(env_var[i]))
 		return (false);

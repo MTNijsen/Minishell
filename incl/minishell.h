@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/13 16:03:44 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/14 14:28:46 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		heredoc(t_data *data);
 int		get_path(t_data *data, t_proc *proc);
 char	*parse_dir(char *str, t_data *data);
 int		pipeline(void);
-void	env_expand(t_data *data);
+int		env_expand(t_data *data);
 
 int		bi_cd(char **argv, t_data *data);
 void	bi_echo(char **argv);

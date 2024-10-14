@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/10 22:01:07 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/14 14:22:14 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	built_in(t_proc *proc, t_data *data, bool pipe_present)
 		return (bi_cd(proc->argv, data));
 	else if (!ft_strncmp(proc->argv[0], "echo", 5))
 		return (bi_echo(proc->argv), 0);
-	else if (!ft_strncmp(proc->argv[0], "env", 4))
+	else if (!ft_strncmp(proc->argv[0], "env", 4) && proc->argv[1] == NULL)
 		return (bi_env(data), 0);
 	else if (!ft_strncmp(proc->argv[0], "exit", 5))
 		return (bi_exit(proc->argv, data, pipe_present), 0);

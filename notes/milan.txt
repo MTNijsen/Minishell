@@ -1,0 +1,3 @@
+stupid ass env not being a builtin so it has different behaviour
+proccess tokens needs to be malloc protected (check all uses of strdup)
+for some reason it breaks in export ls="ls -l"
