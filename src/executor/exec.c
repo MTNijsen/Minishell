@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/14 14:22:14 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/14 17:38:27 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,13 @@ static t_proc	*exec_pipes(t_data *data)
 	int		exit_code;
 
 	proc = data->procs;
-	while (proc->next)
+	while (proc && proc->next)
 	{
 		pid = pipeline();
 		if (pid == -1)
 			return (NULL);
 		else if (pid == 0)
 			exit_code = execute_section(proc, data, &pid, true);
-		printf("Exit code of exec_pipes: %i\n", exit_code);
 		proc = proc->next;
 	}
 	return (proc);
