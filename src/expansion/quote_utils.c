@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 16:57:03 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/07 17:35:28 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/13 15:27:23 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,6 @@ int	check_spaces(char *str)
 	while (str[i])
 	{
 		if (str[i] == ' ')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	check_dollar(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
 			return (1);
 		i++;
 	}

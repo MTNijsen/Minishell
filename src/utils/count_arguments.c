@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_procs.c                                      :+:    :+:            */
+/*   count_arguments.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/15 15:56:16 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/08/15 15:57:52 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/13 16:03:17 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	count_arguments(t_token *token)
 
 	current = token;
 	argc = 0;
-	while (current && current->type != PIPE)
+	while (current)
 	{
 		if (current->type == STRING)
 			argc++;
