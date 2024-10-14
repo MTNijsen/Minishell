@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 12:31:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/13 14:50:44 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/14 13:58:16 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,22 @@ void	env_expand(t_data *data)
 	current = data->tokens;
 	while (current != NULL)
 	{
-		expand_token(data, current);
-		if (token_split(&current) == -1)
-			clean_exit(data, MALLOC_ERROR);
+		if (!ft_strncmp(current->value, "~", 2))
+		{
+			free(current->value);
+			current->value = return_env_val(data->envp, "HOME");//actual bash still magically knows it
+			if (current->value == NULL)
+			{
+				write(1, "HOME not found\n", 16);
+				return ;//break out of loop and go back to prompt
+			}
+		}
+		else 
+		{
+			expand_token(data, current);
+			if (token_split(&current) == -1)
+				clean_exit(data, MALLOC_ERROR);
+		}
 		current = current->next;
 	}
 }
