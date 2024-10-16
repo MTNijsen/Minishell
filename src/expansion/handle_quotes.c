@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/16 13:43:12 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/16 14:32:05 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	handle_quotes(t_data *data)
 	token = data->tokens;
 	while (token != NULL)
 	{
-		printf("token value: %s\n", token->value);
 		if (token->value && check_quotes(token->value))
 			x = str_or_cmd(data, token);
 		if (x == SYNTAX_ERROR)

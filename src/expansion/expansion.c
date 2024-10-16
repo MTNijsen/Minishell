@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 12:31:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/16 14:01:46 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/16 14:31:49 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,12 @@ void	env_expand(t_data *data)
 {
 	t_token	*current;
 
-	printf("TOKEN CHECK START ENV_EXPAND\n");
-	print_tokens(data->tokens);
 	current = data->tokens;
 	while (current != NULL)
 	{
 		expand_token(data, current);
-		printf("TOKEN CHECK AFTER ENXPAND_TOKEN\n");
-		print_tokens(data->tokens);
 		if (token_split(&current) == -1)
 			clean_exit(data, MALLOC_ERROR);
-		printf("TOKEN CHECK AFTER TOKEN_SPLIT\n");
-		print_tokens(data->tokens);
 		current = current->next;
 	}
 }

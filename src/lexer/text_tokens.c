@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/16 13:57:08 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/16 14:31:28 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,72 +30,7 @@ int	find_end_quote(char *input, int i)
 	return (i + 1);
 }
 
-// int	create_text_token(t_data *data, char *input, int i)
-// {
-// 	t_token	*token;
-// 	int		start;
-// 	char	*value;
-
-// 	start = i;
-// 	value = NULL;
-// 	if(is_quote(input[i]) == 1)
-// 		i = find_end_quote(input, i);
-// 	else
-// 	{
-// 		while (input[i] && !is_special(input[i], " |<>"))
-// 			i++;
-// 	}
-// 	value = ft_substr(input, start, (i - start));
-// 	token = create_token(TEXT, value);
-// 	if (token == NULL || value == NULL)
-// 		return (-1);
-// 	add_token(data, token);
-// 	free (value);
-// 	return (i);
-// }
-
-// int	text_no_quotes_token(t_data *data, char *input, int i)
-// {
-// 	t_token	*token;
-// 	int		start;
-// 	char	*value;
-
-// 	start = i;
-// 	value = NULL;
-// 	while (input[i] && !is_special(input[i], " |<>\"\'"))
-// 		i++;
-// 	value = ft_substr(input, start, (i - start));
-// 	token = create_token(TEXT, value);
-// 	if (token == NULL || value == NULL)
-// 		return (-1);
-// 	add_token(data, token);
-// 	free (value);
-// 	return (i);
-// }
-
-// int	text_with_quotes_token(t_data *data, char *input, int i)
-// {
-// 	t_token	*token;
-// 	int		x;
-// 	int		start;
-// 	char	*value;
-
-// 	start = i;
-// 	value = NULL;
-// 	x = find_end_quote(input, i);
-// 	value = ft_substr(input, (start), (x - start));
-// 	printf("VALUE = %s\n", value);
-// 	i = x;
-// 	token = create_token(STRING, value);
-// 	if (token == NULL || value == NULL)
-// 		return (-1);
-// 	add_token(data, token);
-// 	printf("token->value = %s\n", token->value);
-// 	free (value);
-// 	return (i);
-// }
-
-int	text_no_quotes_token(t_data *data, char *input, int i)
+int	create_text_token(t_data *data, char *input, int i)
 {
 	t_token	*token;
 	int		start;
@@ -106,13 +41,13 @@ int	text_no_quotes_token(t_data *data, char *input, int i)
 	value = NULL;
 	while (input[i] && !is_special(input[i], " |<>"))
 	{
-		i++;
 		if (input[i] == '\"' || input[i] == '\'')
 		{
 			x = find_end_quote(input, i);
 			i = x;
 			break;
 		}
+		i++;
 	}
 	value = ft_substr(input, start, (i - start));
 	token = create_token(TEXT, value);
@@ -121,18 +56,4 @@ int	text_no_quotes_token(t_data *data, char *input, int i)
 	add_token(data, token);
 	free (value);
 	return (i);
-}
-
-int	create_text_token(t_data *data, char *input, int i)
-{
-	int	x;
-
-	x = 0;
-	x = text_no_quotes_token(data, input, i);
-	
-	// if (input[i] == '\"' || input[i] == '\'')
-	// 	x = text_with_quotes_token(data, input, i);
-	// else
-	// 	x = text_no_quotes_token(data, input, i);
-	return (x);
 }
