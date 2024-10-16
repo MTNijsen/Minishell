@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/16 17:02:58 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 18:10:28 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	parse(t_data *data)
 		return (ft_error(data, x));
 	x = env_expand(data);
 	if (x != 0)
-		return (ft_error(data, x));
+		return (x);
 	x = handle_quotes(data);
 	if (x != 0)
 		return (ft_error(data, x));
@@ -70,16 +70,8 @@ int	main(int argc, char **argv, char **envp)
 		get_line(&data);
 		x = parse(&data);
 		if (x == SUCCESS)
-		{
 			x = executor(&data);
-			data.exit_code = x;
-		}
-		else if (x == SYNTAX_ERROR)
-		{
-			printf("Syntax Error!\n");
-			data.exit_code = 1;
-		}
-		printf("exit_code = %d\n", x);
+		data.exit_code = x;
 		clean_data(&data);
 	}
 	free_data(&data);

@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/16 17:37:27 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:58:18 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	executor(t_data *data)
 	else if (last_proc != NULL)
 		exit_code = execute_section(last_proc, data, &pid, false);
 	else
-		exit_code = 1;
+		exit_code = 0;
 	wait_exit(pid, &exit_code, S_CHILD);
 	while (waitpid (-1, NULL, 0) != -1)
 		;

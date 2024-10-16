@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 12:31:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/16 17:29:05 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 18:00:50 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,37 @@ static int	token_split(t_token **cur_token)
 	return (0);
 }
 
+static int	expand_home(t_data *data, t_token *current)
+{
+	free(current->value);
+	current->value = return_env_val(data->envp, "HOME");
+	if (current->value == NULL)
+	{
+		write(2, "Error: HOME not set\n", 21);
+		return (COMMON_ERROR);
+	}
+	current->value = ft_strdup(current->value);
+	if (current->value == NULL)
+		clean_exit(data, MALLOC_ERROR);
+	return (0);
+}
+
 int	env_expand(t_data *data)
 {
 	t_token	*current;
+	int		x;
 
 	current = data->tokens;
 	while (current != NULL)
 	{
 		if (!ft_strncmp(current->value, "~", 2))
 		{
-			free(current->value);
-			current->value = return_env_val(data->envp, "HOME");
-			if (current->value == NULL)
-			{
-				write(2, "Error: HOME not set\n", 21);
-				return (COMMON_ERROR);
-			}
-			current->value = ft_strdup(current->value);
-			if (current->value == NULL)
-				clean_exit(data, MALLOC_ERROR);
+			x = 0;
+			x = expand_home(data, current);
+			if (x != 0)
+				return (x);
 		}
-		else 
+		else
 		{
 			expand_token(data, current);
 			if (token_split(&current) == -1)

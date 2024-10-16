@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/04 19:37:49 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/14 16:14:32 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:53:29 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static	int	find_env(t_data *data, char *env_var)
 	temp = strchr(env_var, '=');
 	if (temp == NULL)
 		var_len = ft_strlen(env_var);
-	else 
+	else
 		var_len = temp - env_var;
 	while (data->envp[i] != NULL && \
-		ft_strncmp(data->envp[i], env_var, var_len +1) != '\0' && \
-		ft_strncmp(data->envp[i], env_var, var_len +1) != -'=' && \
-		ft_strncmp(data->envp[i], env_var, var_len +1) != '=')
+		ft_strncmp(data->envp[i], env_var, var_len + 1) != '\0' && \
+		ft_strncmp(data->envp[i], env_var, var_len + 1) != - '=' && \
+		ft_strncmp(data->envp[i], env_var, var_len + 1) != '=')
 		i++;
 	return (i);
 }

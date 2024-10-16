@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:28 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/16 17:34:21 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 18:01:42 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	bi_exit(char **argv, t_data *data, bool pipe_present)
 	}
 	if (argv[1] != NULL && argv[2] != NULL)
 	{
-		write(2 , "exit: too many arguments\n", 26);
+		write(2, "exit: too many arguments\n", 26);
 		return (1);
 	}
 	if (pipe_present == false)

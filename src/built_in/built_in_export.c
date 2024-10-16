@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:24 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/16 17:13:58 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 18:10:01 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	export_display(char **envp)
 {
 	int		i;
 	char	*env_val;
-	int		eq_index;
+	int		ei;
 
 	i = 0;
 	while (envp[i] != NULL)
@@ -26,13 +26,13 @@ static void	export_display(char **envp)
 			printf("-x declare %s\n", envp[i]);
 		else
 		{
-			eq_index = env_val - envp[i];
+			ei = env_val - envp[i];
 			write(1, "-x declare ", 11);
-			write(1, envp[i], eq_index);
-			if (envp[i][eq_index +1] != '\0')
+			write(1, envp[i], ei);
+			if (envp[i][ei +1] != '\0')
 			{
 				write(1, "=\"", 2);
-				write(1, &envp[i][eq_index +1], ft_strlen(&envp[i][eq_index +1]));
+				write(1, &envp[i][ei +1], ft_strlen(&envp[i][ei +1]));
 				write(1, "\"", 1);
 			}
 			write(1, "\n", 1);

@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/09 16:18:07 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/16 17:30:23 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 18:03:34 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,10 @@ int	get_path(t_data *data, t_proc *proc)
 		{
 			write(2, proc->argv[0], ft_strlen(proc->argv[0]));
 			write(2, ": Permission denied\n", 21);
-			free(cmd);
-			return (126);
+			return (free(cmd), 126);
 		}
 	}
 	write(2, proc->argv[0], ft_strlen(proc->argv[0]));
 	write(2, ": command not found\n", 21);
-	free(cmd);
-	return (127);
+	return (free(cmd), 127);
 }
