@@ -6,27 +6,13 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/14 14:10:49 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 14:36:19 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	handle_str(t_data *data, t_token *token)
-{
-	char	*str;
-
-	str = ft_strdup(token->value);
-	if (!str)
-		clean_exit(data, MALLOC_ERROR);
-	free(token->value);
-	token->value = NULL;
-	token->value = remove_quotes(str);
-	free(str);
-	return (SUCCESS);
-}
-
-static int	handle_cmd(t_data *data, t_token *token)
+int	handle_str(t_data *data, t_token *token)
 {
 	char	*str;
 
@@ -37,20 +23,44 @@ static int	handle_cmd(t_data *data, t_token *token)
 	token->value = NULL;
 	token->value = remove_quotes(str);
 	if (check_spaces(str) || token->value == NULL)
+	{
+		free(str);
 		return (SYNTAX_ERROR);
+	}
 	free(str);
 	return (SUCCESS);
 }
 
-static int	str_or_cmd(t_data *data, t_token *token)
+int	handle_cmd(t_data *data, t_token *token)
+{
+	char	*str;
+
+	str = ft_strdup(token->value);
+	if (!str)
+		clean_exit(data, MALLOC_ERROR);
+	free(token->value);
+	token->value = NULL;
+	token->value = remove_quotes(str);
+	if (check_spaces(str) || token->value == NULL)
+	{
+		free(str);
+		return (SYNTAX_ERROR);
+	}
+	free(str);
+	return (SUCCESS);
+}
+
+int	str_or_cmd(t_data *data, t_token *token)
 {
 	int	x;
 
 	x = 0;
 	if (token->type == COMMAND)
 		x = handle_cmd(data, token);
-	if (token->type == STRING)
+	else if (token->type == STRING)
 		x = handle_str(data, token);
+	else
+		return (SUCCESS);
 	return (x);
 }
 
@@ -63,9 +73,11 @@ int	handle_quotes(t_data *data)
 	t_token	*token;
 	int		x;
 
+	x = 0;
 	token = data->tokens;
 	while (token != NULL)
 	{
+		printf("token value: %s\n", token->value);
 		if (token->value && check_quotes(token->value))
 			x = str_or_cmd(data, token);
 		if (x == SYNTAX_ERROR)
