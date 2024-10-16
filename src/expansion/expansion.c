@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   expansion.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
+/*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 12:31:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/13 14:50:44 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 13:38:17 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	token_split(t_token **cur_token)
 	current = (*cur_token)->value;
 	while (current[i])
 	{
-		if ((current[i] == '\'' || current[i] == '\"') && type != '\0')
+		if ((current[i] == '\'' || current[i] == '\"') && type == '\0')
 			type = current[i];
 		else if (current[i] == type && type != '\0')
 			type = '\0';
@@ -75,12 +75,18 @@ void	env_expand(t_data *data)
 {
 	t_token	*current;
 
+	printf("TOKEN CHECK START ENV_EXPAND\n");
+	print_tokens(data->tokens);
 	current = data->tokens;
 	while (current != NULL)
 	{
 		expand_token(data, current);
+		printf("TOKEN CHECK AFTER ENXPAND_TOKEN\n");
+		print_tokens(data->tokens);
 		if (token_split(&current) == -1)
 			clean_exit(data, MALLOC_ERROR);
+		printf("TOKEN CHECK AFTER TOKEN_SPLIT\n");
+		print_tokens(data->tokens);
 		current = current->next;
 	}
 }
