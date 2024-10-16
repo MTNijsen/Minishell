@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/16 13:33:10 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/16 14:03:30 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static int	parse(t_data *data)
 	printf("TOKEN CHECK AFTER ENV_EXPAND\n");
 	print_tokens(data->tokens);
 	x = handle_quotes(data);
+	printf("TOKEN CHECK AFTER HANDLE_QUOTES\n");
+	print_tokens(data->tokens);
 	if (x != 0)
 		return (ft_error(data, x));
 	x = get_procs(data);
