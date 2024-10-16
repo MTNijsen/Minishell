@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/15 21:03:50 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/16 13:25:55 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	text_with_quotes_token(t_data *data, char *input, int i)
 	if (token == NULL || value == NULL)
 		return (-1);
 	add_token(data, token);
+	printf("token->value = %s\n", token->value);
 	free (value);
 	return (i);
 }
