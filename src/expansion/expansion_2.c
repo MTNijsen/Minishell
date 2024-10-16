@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/13 14:23:27 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/14 14:17:51 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 15:48:59 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,27 @@ static int	len_till_quote(char *text)
 	return (i);
 }
 
-char	*fix_spaces(t_token **cur_token, char *current, int i)
+void	fix_spaces(t_token **cur_token, char *current, int i)
 {
 	t_token	*next_token;
 	char	*temp;
 
 	temp = ft_substr(current, 0, i);
 	if (temp == NULL)
-		return (NULL);
+		return ;
 	while (current[i] == ' ')
 		i++;
 	(*cur_token)->value = temp;
 	temp = ft_substr(current, i, ft_strlen(current) - i);
 	if (temp == NULL)
-		return (NULL);
-	next_token = create_token(TEXT, temp);
+		return ;
+	next_token = create_token(STRING, temp);
+	free(temp);
 	if (next_token == NULL)
-		return (NULL);
+		return ;
 	next_token->next = (*cur_token)->next;
 	(*cur_token)->next = next_token;
 	(*cur_token) = (*cur_token)->next;
-	return (temp);
 }
 
 static char	*expand_exit(char *front_string, char *end_string, \

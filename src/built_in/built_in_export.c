@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:24 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/14 16:18:09 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:13:58 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	export_display(char **envp)
 	}
 }
 
-static void	add_export(char **argv, t_data *data)
+static int	add_export(char **argv, t_data *data)
 {
 	int		i;
 	char	*temp;
@@ -54,16 +54,17 @@ static void	add_export(char **argv, t_data *data)
 		{
 			printf("export: %s: not a valid identifier\n", temp);
 			free(temp);
-			break ;
+			return (1);
 		}
 		i++;
 	}
+	return (0);
 }
 
-void	bi_export(char **argv, t_data *data)
+int	bi_export(char **argv, t_data *data)
 {
 	if (argv[1] == NULL)
-		export_display(data->envp);
+		return (export_display(data->envp), 0);
 	else
-		add_export(argv, data);
+		return (add_export(argv, data));
 }

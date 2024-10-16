@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:31:35 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/14 14:28:46 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:15:14 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int		env_expand(t_data *data);
 int		bi_cd(char **argv, t_data *data);
 void	bi_echo(char **argv);
 void	bi_env(t_data *data);
-void	bi_exit(char **argv, t_data *data, bool pipe_present);
-void	bi_export(char **argv, t_data *data);
+int		bi_exit(char **argv, t_data *data, bool pipe_present);
+int		bi_export(char **argv, t_data *data);
 int		bi_pwd(t_data *data);
 void	bi_unset(char **argv, t_data *data);
 

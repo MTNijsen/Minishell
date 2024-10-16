@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/16 14:35:52 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:02:58 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,17 @@ int	main(int argc, char **argv, char **envp)
 		get_line(&data);
 		x = parse(&data);
 		if (x == SUCCESS)
+		{
 			x = executor(&data);
+			data.exit_code = x;
+		}
 		else if (x == SYNTAX_ERROR)
+		{
 			printf("Syntax Error!\n");
+			data.exit_code = 1;
+		}
 		printf("exit_code = %d\n", x);
 		clean_data(&data);
-		data.exit_code = x;
 	}
 	free_data(&data);
 	return (0);

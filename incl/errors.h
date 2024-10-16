@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/08 15:55:25 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/09 13:23:34 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:03:22 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@
 
 */
 
+# define SYNTAX_ERROR -2
 # define MALLOC_ERROR -1
 # define SUCCESS 0
-# define SYNTAX_ERROR 1
+# define COMMON_ERROR 1
 # define COMMAND_ERROR 2
 # define FILE_ERROR 3 
 

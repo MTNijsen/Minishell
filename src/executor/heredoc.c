@@ -6,12 +6,11 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/24 13:35:35 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:06:15 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
 
 //on ctrl-d could give a warning
 static void	heredoc_read(char *delimiter, t_proc *proc, t_data *data)
@@ -39,10 +38,10 @@ int	proc_here(t_data *data, t_proc *proc, t_token *redir)
 
 	exit_code = 0;
 	if (pipe(proc->hd_pipe) == -1)
-		return (errno);
+		return (COMMON_ERROR);
 	pid = fork();
 	if (pid == -1)
-		return (errno);
+		return (COMMON_ERROR);
 	if (pid == 0)
 		heredoc_read(redir->value, proc, data);
 	close(proc->hd_pipe[1]);

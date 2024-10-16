@@ -3,33 +3,36 @@
 /*                                                        ::::::::            */
 /*   expansion.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
+/*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 12:31:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/14 15:53:52 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:29:05 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 char	*expand_env(char **envp, char *text, int *i, int exit_code);
-char	*fix_spaces(t_token **cur_token, char *current, int i);
+void	fix_spaces(t_token **cur_token, char *current, int i);
 
 static void	expand_token(t_data *data, t_token *current)
 {
 	int		i;
 	char	*text;
+	char	*temp;
 
 	i = -1;
 	text = current->value;
 	while (i++ < (int)ft_strlen(text))
 	{
-		if (text[i] == '$')
+		if (text[i] == '$' && text[i + 1] != '\0')
 		{
 			i++;
-			text = expand_env(data->envp, text, &i, data->exit_code);
-			if (text == NULL)
+			temp = expand_env(data->envp, text, &i, data->exit_code);
+			free(text);
+			if (temp == NULL)
 				clean_exit(data, MALLOC_ERROR);
+			text = temp;
 		}
 		else if (text[i] == '\'')
 		{
@@ -38,32 +41,26 @@ static void	expand_token(t_data *data, t_token *current)
 				i++;
 		}
 	}
-	if (current->value != text)
-		free(current->value);
 	current->value = text;
 }
 
 static int	token_split(t_token **cur_token)
 {
-	char	*current;
-	char	*temp;
 	char	type;
 	int		i;
 
 	i = 0;
 	type = '\0';
-	current = (*cur_token)->value;
-	while (current[i])
+	while ((*cur_token)->value[i])
 	{
-		if ((current[i] == '\'' || current[i] == '\"') && type != '\0')
-			type = current[i];
-		else if (current[i] == type && type != '\0')
+		if (((*cur_token)->value[i] == '\'' || \
+			(*cur_token)->value[i] == '\"') && type == '\0')
+			type = (*cur_token)->value[i];
+		else if ((*cur_token)->value[i] == type && type != '\0')
 			type = '\0';
-		else if (current[i] == ' ' && type == '\0')
+		else if ((*cur_token)->value[i] == ' ' && type == '\0')
 		{
-			temp = fix_spaces(cur_token, current, i);
-			free(current);
-			current = temp;
+			fix_spaces(cur_token, (*cur_token)->value, i);
 			i = -1;
 		}
 		i++;
@@ -84,8 +81,8 @@ int	env_expand(t_data *data)
 			current->value = return_env_val(data->envp, "HOME");
 			if (current->value == NULL)
 			{
-				write(2, "HOME not found\n", 16);
-				return (2);
+				write(2, "Error: HOME not set\n", 21);
+				return (COMMON_ERROR);
 			}
 			current->value = ft_strdup(current->value);
 			if (current->value == NULL)

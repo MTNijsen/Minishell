@@ -6,12 +6,11 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:01 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/18 16:58:04 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:06:15 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
 
 static int	redirect_in(t_token *redir)
 {
@@ -19,7 +18,7 @@ static int	redirect_in(t_token *redir)
 
 	fd = open(redir->value, O_RDONLY);
 	if (fd == -1)
-		return (errno);
+		return (COMMON_ERROR);
 	dup2(fd, 0);
 	close(fd);
 	return (0);
@@ -31,7 +30,7 @@ static int	redirect_out(t_token *redir)
 
 	fd = open(redir->value, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
-		return (errno);
+		return (COMMON_ERROR);
 	dup2(fd, 1);
 	close(fd);
 	return (0);
@@ -43,7 +42,7 @@ static int	redirect_out_append(t_token *redir)
 
 	fd = open(redir->value, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (fd == -1)
-		return (errno);
+		return (COMMON_ERROR);
 	dup2(fd, 1);
 	close(fd);
 	return (0);

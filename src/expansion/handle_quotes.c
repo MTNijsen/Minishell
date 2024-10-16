@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/16 14:36:19 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 14:41:11 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	handle_str(t_data *data, t_token *token)
 	free(token->value);
 	token->value = NULL;
 	token->value = remove_quotes(str);
-	if (check_spaces(str) || token->value == NULL)
+	if (token->value == NULL)
 	{
 		free(str);
 		return (SYNTAX_ERROR);
@@ -77,7 +77,6 @@ int	handle_quotes(t_data *data)
 	token = data->tokens;
 	while (token != NULL)
 	{
-		printf("token value: %s\n", token->value);
 		if (token->value && check_quotes(token->value))
 			x = str_or_cmd(data, token);
 		if (x == SYNTAX_ERROR)

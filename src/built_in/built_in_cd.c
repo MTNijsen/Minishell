@@ -6,24 +6,31 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:35 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/25 18:39:05 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:09:35 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
 
 static int	straight_cd(char **argv, t_data *data, char **pwd, char **temp)
 {
 	if (argv[1] == NULL || !ft_strncmp(argv[1], "--", 3))
+	{
 		*pwd = return_env_val(data->envp, "HOME");
+		if ((*pwd) == NULL)
+			write(2, "Error: HOME not set\n", 21);
+	}
 	else if (!ft_strncmp(argv[1], "-", 2))
+	{
 		*pwd = return_env_val(data->envp, "OLDPWD");
+		if ((*pwd) == NULL)
+			write(2, "Error: OLDPWD not set\n", 23);
+	}
 	else
 	{
 		*pwd = parse_dir(argv[1], data);
 		if (*pwd == NULL)
-			return (errno);
+			return (COMMON_ERROR);
 		*temp = *pwd;
 	}
 	return (0);
@@ -38,12 +45,12 @@ int	bi_cd(char **argv, t_data *data)
 	pwd = NULL;
 	temp = NULL;
 	if (straight_cd(argv, data, &pwd, &temp))
-		return (perror(argv[1]), errno);
+		return (COMMON_ERROR);
 	oldpwd = return_pwd(data);
 	if (oldpwd == NULL)
-		return (errno);
+		return (COMMON_ERROR);
 	if (chdir(pwd))
-		return (perror(pwd), free(pwd), errno);
+		return (perror(argv[1]), free(temp), 1);
 	pwd = ft_strappend("PWD=", pwd);
 	oldpwd = ft_strappend("OLDPWD=", oldpwd);
 	free(temp);

@@ -6,13 +6,12 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:20 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/14 14:24:50 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:06:15 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <linux/limits.h>
-#include <errno.h>
 
 char	*return_pwd(t_data *data)
 {
@@ -40,7 +39,7 @@ int	bi_pwd(t_data *data)
 
 	buf = return_pwd(data);
 	if (!buf)
-		return (1);
+		return (COMMON_ERROR);
 	printf("%s\n", buf);
 	return (0);
 }

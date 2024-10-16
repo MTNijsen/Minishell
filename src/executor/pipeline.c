@@ -6,13 +6,12 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:04 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/09/24 16:24:18 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 16:52:36 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <signal.h>
-#include <errno.h>
 
 int	pipeline(void)
 {

@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:33 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/14 16:29:08 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:29:41 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	is_flag(char *str)
 	while (str[i] == 'n')
 		i++;
 	if (str[i] == '\0')
-		return (1);
+		return (COMMON_ERROR);
 	return (0);
 }
 
@@ -40,15 +40,10 @@ void	bi_echo(char **argv)
 	}
 	while (argv[i] != NULL)
 	{
-		if (argv[i][0] == '\0')
-			i++;
-		else
-		{
-			write(1, argv[i], ft_strlen(argv[i]));
-			i++;
-			if (argv[i] != NULL)
-				write(1, " ", 1);
-		}
+		write(1, argv[i], ft_strlen(argv[i]));
+		i++;
+		if (argv[i] != NULL)
+			write(1, " ", 1);
 	}
 	if (!flags)
 		write(1, "\n", 1);

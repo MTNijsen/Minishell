@@ -6,22 +6,24 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/01 16:51:12 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/14 17:38:27 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/16 17:37:27 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 static int	command(t_proc *proc, t_data *data, bool pipe_present, int *pid)
 {
 	char	**envp;
 	char	**argv;
+	int		x;
 
-	if (get_path(data, proc))
-		return (errno);
+	x = get_path(data, proc);
+	if (x)
+		return (x);
 	if (!pipe_present)
 	{
 		*pid = fork();
@@ -48,9 +50,9 @@ static int	built_in(t_proc *proc, t_data *data, bool pipe_present)
 	else if (!ft_strncmp(proc->argv[0], "env", 4) && proc->argv[1] == NULL)
 		return (bi_env(data), 0);
 	else if (!ft_strncmp(proc->argv[0], "exit", 5))
-		return (bi_exit(proc->argv, data, pipe_present), 0);
+		return (bi_exit(proc->argv, data, pipe_present));
 	else if (!ft_strncmp(proc->argv[0], "export", 7))
-		return (bi_export(proc->argv, data), 0);
+		return (bi_export(proc->argv, data));
 	else if (!ft_strncmp(proc->argv[0], "pwd", 4))
 		return (bi_pwd(data));
 	else if (!ft_strncmp(proc->argv[0], "unset", 6))
@@ -107,18 +109,18 @@ int	executor(t_data *data)
 	if (exit_code != 0)
 		return (exit_code);
 	last_proc = exec_pipes(data);
-	if (&last_proc == &(data->procs))
+	if (last_proc != data->procs)
 	{
 		pid = fork();
 		if (pid == -1)
-			return (perror("fork"), errno);
+			return (perror("fork"), 1);
 		if (pid == 0)
 			execute_section(last_proc, data, &pid, true);
 	}
 	else if (last_proc != NULL)
 		exit_code = execute_section(last_proc, data, &pid, false);
 	else
-		exit_code = errno;
+		exit_code = 1;
 	wait_exit(pid, &exit_code, S_CHILD);
 	while (waitpid (-1, NULL, 0) != -1)
 		;

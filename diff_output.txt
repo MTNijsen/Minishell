@@ -1,0 +1,185 @@
+diff --git a/minishell b/minishell
+new file mode 100755
+index 0000000..2938c53
+Binary files /dev/null and b/minishell differ
+diff --git a/src/expansion/expansion.c b/src/expansion/expansion.c
+index 8dc534f..e433950 100644
+--- a/src/expansion/expansion.c
++++ b/src/expansion/expansion.c
+@@ -6,7 +6,7 @@
+ /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
+ /*                                                   +#+                      */
+ /*   Created: 2024/10/03 12:31:08 by mnijsen       #+#    #+#                 */
+-/*   Updated: 2024/10/16 13:38:17 by lade-kon      ########   odam.nl         */
++/*   Updated: 2024/10/16 14:01:46 by lade-kon      ########   odam.nl         */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+diff --git a/src/expansion/handle_quotes.c b/src/expansion/handle_quotes.c
+index dd13eff..df118e5 100644
+--- a/src/expansion/handle_quotes.c
++++ b/src/expansion/handle_quotes.c
+@@ -6,7 +6,7 @@
+ /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
+ /*                                                   +#+                      */
+ /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
+-/*   Updated: 2024/10/13 16:46:33 by lade-kon      ########   odam.nl         */
++/*   Updated: 2024/10/16 13:43:12 by lade-kon      ########   odam.nl         */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -22,7 +22,7 @@ int	handle_str(t_data *data, t_token *token)
+ 	free(token->value);
+ 	token->value = NULL;
+ 	token->value = remove_quotes(str);
+-	if (check_spaces(str) || token->value == NULL)
++	if (token->value == NULL)
+ 	{
+ 		free(str);
+ 		return (SYNTAX_ERROR);
+diff --git a/src/lexer/text_tokens.c b/src/lexer/text_tokens.c
+index cadbec5..aea8a43 100644
+--- a/src/lexer/text_tokens.c
++++ b/src/lexer/text_tokens.c
+@@ -6,7 +6,7 @@
+ /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
+ /*                                                   +#+                      */
+ /*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
+-/*   Updated: 2024/10/16 13:25:55 by lade-kon      ########   odam.nl         */
++/*   Updated: 2024/10/16 13:57:08 by lade-kon      ########   odam.nl         */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -54,16 +54,66 @@ int	find_end_quote(char *input, int i)
+ // 	return (i);
+ // }
+ 
++// int	text_no_quotes_token(t_data *data, char *input, int i)
++// {
++// 	t_token	*token;
++// 	int		start;
++// 	char	*value;
++
++// 	start = i;
++// 	value = NULL;
++// 	while (input[i] && !is_special(input[i], " |<>\"\'"))
++// 		i++;
++// 	value = ft_substr(input, start, (i - start));
++// 	token = create_token(TEXT, value);
++// 	if (token == NULL || value == NULL)
++// 		return (-1);
++// 	add_token(data, token);
++// 	free (value);
++// 	return (i);
++// }
++
++// int	text_with_quotes_token(t_data *data, char *input, int i)
++// {
++// 	t_token	*token;
++// 	int		x;
++// 	int		start;
++// 	char	*value;
++
++// 	start = i;
++// 	value = NULL;
++// 	x = find_end_quote(input, i);
++// 	value = ft_substr(input, (start), (x - start));
++// 	printf("VALUE = %s\n", value);
++// 	i = x;
++// 	token = create_token(STRING, value);
++// 	if (token == NULL || value == NULL)
++// 		return (-1);
++// 	add_token(data, token);
++// 	printf("token->value = %s\n", token->value);
++// 	free (value);
++// 	return (i);
++// }
++
+ int	text_no_quotes_token(t_data *data, char *input, int i)
+ {
+ 	t_token	*token;
+ 	int		start;
+ 	char	*value;
++	int		x;
+ 
+ 	start = i;
+ 	value = NULL;
+-	while (input[i] && !is_special(input[i], " |<>\"\'"))
++	while (input[i] && !is_special(input[i], " |<>"))
++	{
+ 		i++;
++		if (input[i] == '\"' || input[i] == '\'')
++		{
++			x = find_end_quote(input, i);
++			i = x;
++			break;
++		}
++	}
+ 	value = ft_substr(input, start, (i - start));
+ 	token = create_token(TEXT, value);
+ 	if (token == NULL || value == NULL)
+@@ -73,36 +123,16 @@ int	text_no_quotes_token(t_data *data, char *input, int i)
+ 	return (i);
+ }
+ 
+-int	text_with_quotes_token(t_data *data, char *input, int i)
+-{
+-	t_token	*token;
+-	int		x;
+-	int		start;
+-	char	*value;
+-
+-	start = i;
+-	value = NULL;
+-	x = find_end_quote(input, i);
+-	value = ft_substr(input, (start), (x - start));
+-	printf("VALUE = %s\n", value);
+-	i = x;
+-	token = create_token(STRING, value);
+-	if (token == NULL || value == NULL)
+-		return (-1);
+-	add_token(data, token);
+-	printf("token->value = %s\n", token->value);
+-	free (value);
+-	return (i);
+-}
+-
+ int	create_text_token(t_data *data, char *input, int i)
+ {
+ 	int	x;
+ 
+ 	x = 0;
+-	if (input[i] == '\"' || input[i] == '\'')
+-		x = text_with_quotes_token(data, input, i);
+-	else
+-		x = text_no_quotes_token(data, input, i);
++	x = text_no_quotes_token(data, input, i);
++	
++	// if (input[i] == '\"' || input[i] == '\'')
++	// 	x = text_with_quotes_token(data, input, i);
++	// else
++	// 	x = text_no_quotes_token(data, input, i);
+ 	return (x);
+ }
+diff --git a/src/main.c b/src/main.c
+index f75e65d..41fe319 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -6,7 +6,7 @@
+ /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
+ /*                                                   +#+                      */
+ /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
+-/*   Updated: 2024/10/16 13:33:10 by lade-kon      ########   odam.nl         */
++/*   Updated: 2024/10/16 14:03:30 by lade-kon      ########   odam.nl         */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -49,6 +49,8 @@ static int	parse(t_data *data)
+ 	printf("TOKEN CHECK AFTER ENV_EXPAND\n");
+ 	print_tokens(data->tokens);
+ 	x = handle_quotes(data);
++	printf("TOKEN CHECK AFTER HANDLE_QUOTES\n");
++	print_tokens(data->tokens);
+ 	if (x != 0)
+ 		return (ft_error(data, x));
+ 	x = get_procs(data);
