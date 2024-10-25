@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/24 13:47:50 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/10 18:23:04 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/25 11:57:43 by lade-kon      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_lexer(t_data *data, char *input)
 		else
 			x = create_text_token(data, input, i);
 		if (x < 0)
-			return (-1);
+			return (x);
 		i = x;
 	}
 	reclassify_text_token(data, 1);
