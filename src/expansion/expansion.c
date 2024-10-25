@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/03 12:31:08 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/16 18:00:50 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/25 17:57:30 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	env_expand(t_data *data)
 	current = data->tokens;
 	while (current != NULL)
 	{
-		if (!ft_strncmp(current->value, "~", 2))
+		if (current->value[0] == '~')
 		{
 			x = 0;
 			x = expand_home(data, current);

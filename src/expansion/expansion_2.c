@@ -6,7 +6,7 @@
 /*   By: mnijsen <mnijsen@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/13 14:23:27 by mnijsen       #+#    #+#                 */
-/*   Updated: 2024/10/16 15:48:59 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/25 17:57:07 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,11 @@ static int	get_front_and_back(char **front_string, \
 	*front_string = ft_substr(text, 0, i -1);
 	if (*front_string == NULL)
 		return (-1);
-	*end_string = ft_substr(text, i + len_till_quote(&text[i]), \
+	if (text[i] == '?')
+		*end_string = ft_substr(text, i + 2, \
+		ft_strlen(text + i + 2));
+	else
+		*end_string = ft_substr(text, i + len_till_quote(&text[i]), \
 		ft_strlen(text + i + len_till_quote(&text[i])));
 	if (*end_string == NULL)
 		return (free(*front_string), -1);
