@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/25 11:57:22 by lade-kon      ########   odam.nl         */
+/*   Updated: 2024/10/30 14:55:05 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	create_text_token(t_data *data, char *input, int i)
 	{
 		if (input[i] == '\"' || input[i] == '\'')
 		{
-			if ((x = find_end_quote(input, i)) == SYNTAX_ERROR)
+			x = find_end_quote(input, i);
+			if (x == SYNTAX_ERROR)
 				return (SYNTAX_ERROR);
 			i = x;
 			break ;
@@ -55,6 +56,5 @@ int	create_text_token(t_data *data, char *input, int i)
 	if (token == NULL || value == NULL)
 		return (-1);
 	add_token(data, token);
-	free (value);
-	return (i);
+	return (free (value), i);
 }
