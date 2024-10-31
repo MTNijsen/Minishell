@@ -6,7 +6,7 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/12 12:08:08 by lade-kon      #+#    #+#                 */
-/*   Updated: 2024/10/16 18:10:28 by mnijsen       ########   odam.nl         */
+/*   Updated: 2024/10/25 18:00:05 by mnijsen       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int	main(int argc, char **argv, char **envp)
 		x = parse(&data);
 		if (x == SUCCESS)
 			x = executor(&data);
-		data.exit_code = x;
+		if (x >= 0)
+			data.exit_code = x;
+		else
+			data.exit_code = 1;
 		clean_data(&data);
 	}
 	free_data(&data);

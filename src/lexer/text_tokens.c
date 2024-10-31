@@ -6,7 +6,11 @@
 /*   By: lade-kon <lade-kon@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 21:27:34 by lade-kon      #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2024/10/31 14:17:31 by lade-kon      ########   odam.nl         */
+=======
+/*   Updated: 2024/10/30 14:55:05 by mnijsen       ########   odam.nl         */
+>>>>>>> f4acba8c31ca244b583ca6beb453b437d40121fd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +59,9 @@ int	create_text_token(t_data *data, char *input, int i)
 	if (token == NULL || value == NULL)
 		return (-1);
 	add_token(data, token);
+<<<<<<< HEAD
 	return (free(value), i);
+=======
+	return (free (value), i);
+>>>>>>> f4acba8c31ca244b583ca6beb453b437d40121fd
 }
